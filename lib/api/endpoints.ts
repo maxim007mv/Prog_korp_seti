@@ -27,6 +27,8 @@ import type {
   User,
   LoginCredentials,
   LoginResponse,
+  RegisterCredentials,
+  RegisterResponse,
 } from '@/types';
 
 /**
@@ -194,6 +196,9 @@ export const aiApi = {
 export const authApi = {
   login: (credentials: LoginCredentials): Promise<LoginResponse> =>
     apiClient.post('/auth/login', credentials),
+
+  register: (credentials: RegisterCredentials): Promise<RegisterResponse> =>
+    apiClient.post('/auth/register', credentials),
 
   logout: (): Promise<void> =>
     apiClient.post('/auth/logout'),

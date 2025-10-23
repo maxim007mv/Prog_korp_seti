@@ -216,11 +216,11 @@ ${JSON.stringify(
 
     // Если есть основное блюдо, предложи салат
     const hasMainCourse = orderDishes.some(
-      (d) => d.category === 'Mains' || d.category === 'HotSnacks'
+      (d) => d.category === 'Горячие блюда' || d.category === 'Горячие закуски'
     );
     if (hasMainCourse) {
       const salad = allDishes.find(
-        (d) => d.category === 'Salads' && !orderDishIds.includes(d.id)
+        (d) => d.category === 'Салаты' && !orderDishIds.includes(d.id)
       );
       if (salad) {
         fallbackSuggestions.push({
@@ -238,10 +238,10 @@ ${JSON.stringify(
     }
 
     // Если нет десерта, предложи
-    const hasDessert = orderDishes.some((d) => d.category === 'Desserts');
+    const hasDessert = orderDishes.some((d) => d.category === 'Десерты');
     if (!hasDessert) {
       const dessert = allDishes.find(
-        (d) => d.category === 'Desserts' && !orderDishIds.includes(d.id)
+        (d) => d.category === 'Десерты' && !orderDishIds.includes(d.id)
       );
       if (dessert) {
         fallbackSuggestions.push({

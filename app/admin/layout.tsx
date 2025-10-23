@@ -9,11 +9,16 @@ import {
   Calendar, 
   FileText, 
   UserCog, 
-  BarChart3 
+  BarChart3,
+  Brain,
+  Bell
 } from 'lucide-react';
+import { NotificationBell } from '@/components/features/notifications';
+import { AiChatWidget } from '@/components/features/ai/AiChatWidget';
 
 const ADMIN_NAV_ITEMS = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/ai-insights', label: 'AI Инсайты', icon: Brain },
   { href: '/admin/menu', label: 'Меню', icon: ChefHat },
   { href: '/admin/tables', label: 'Столы', icon: Users },
   { href: '/admin/bookings', label: 'Бронирования', icon: Calendar },
@@ -60,6 +65,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Дополнительные ссылки */}
         <div className="border-t p-4">
           <Link
+            href="/notifications"
+            className="flex items-center gap-2 rounded-lg px-4 py-2 text-sm text-gray-600 hover:bg-gray-100"
+          >
+            <Bell className="h-4 w-4" />
+            Уведомления
+          </Link>
+          <Link
             href="/staff"
             className="block rounded-lg px-4 py-2 text-sm text-gray-600 hover:bg-gray-100"
           >
@@ -76,8 +88,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Main content */}
       <main className="flex-1">
+        <div className="border-b bg-white p-4 flex items-center justify-end gap-4">
+          <NotificationBell />
+        </div>
         {children}
       </main>
+
+      {/* AI Chat Widget */}
+      <AiChatWidget />
     </div>
   );
 }

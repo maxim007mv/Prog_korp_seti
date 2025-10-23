@@ -104,49 +104,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Быстрое бронирование — бруталистский стиль */}
-      <section className="pb-16 perspective-container">
-        <div className="container-custom mx-auto max-w-3xl card-brutal brutal-decoration card-3d depth-shadow">
-          <div className="relative">
-            {/* Декоративные элементы */}
-            <div className="absolute -top-3 -left-3 w-8 h-8 bg-yellow-400 border-2 border-black rotate-45 element-3d"></div>
-            <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 border-2 border-black -rotate-12 element-3d"></div>
-
-            <h2 className="text-brutal text-black mb-8 text-center text-3xl font-black uppercase tracking-wider brutal-stripe">
-              БЫСТРОЕ БРОНИРОВАНИЕ
-            </h2>
-
-            <div className="grid gap-6 sm:grid-cols-2">
-              <div className="relative">
-                <label className="label brutal-accent">ДАТА</label>
-                <input type="date" className="input brutal-decoration" />
-              </div>
-              <div className="relative">
-                <label className="label brutal-accent">ВРЕМЯ</label>
-                <input type="time" className="input brutal-decoration" />
-              </div>
-              <div className="relative">
-                <label className="label brutal-accent">КОЛИЧЕСТВО ГОСТЕЙ</label>
-                <input type="number" min={1} max={20} defaultValue={2} className="input brutal-decoration" />
-              </div>
-              <div className="flex items-end relative">
-                <Link href="/booking" className="w-full">
-                  <Button className="w-full btn-primary brutal-accent">
-                    <Search className="mr-2 h-5 w-5" />
-                    НАЙТИ СТОЛ
-                  </Button>
-                </Link>
-                {/* Декоративный элемент */}
-                <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-yellow-400 border-2 border-black rotate-45"></div>
-              </div>
-            </div>
-
-            {/* Дополнительный декоративный элемент */}
-            <div className="absolute -bottom-4 -left-4 w-10 h-10 bg-black border-2 border-red-500 rotate-12 element-3d"></div>
-          </div>
-        </div>
-      </section>
-
       {/* Поиск брони */}
       <section className="pb-24 perspective-container">
         <div className="container-custom card-brutal brutal-decoration text-center relative card-3d depth-shadow">

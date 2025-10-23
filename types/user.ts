@@ -59,9 +59,30 @@ export interface LoginCredentials {
 }
 
 /**
+ * Регистрация нового пользователя
+ */
+export interface RegisterCredentials {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  role: UserRole;
+  phone?: string; // Обязательно для официантов
+}
+
+/**
  * Ответ при успешном входе
  */
 export interface LoginResponse {
+  user: User;
+  accessToken: string;
+  refreshToken: string;
+}
+
+/**
+ * Ответ при успешной регистрации
+ */
+export interface RegisterResponse {
   user: User;
   accessToken: string;
   refreshToken: string;

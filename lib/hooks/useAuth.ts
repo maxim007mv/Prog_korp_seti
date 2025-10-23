@@ -46,3 +46,18 @@ export function useLogout() {
     },
   });
 }
+
+/**
+ * Хук для регистрации
+ */
+export function useRegister() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: authApi.register,
+    onSuccess: (data) => {
+      // Сохраняем пользователя в кеш
+      queryClient.setQueryData(['auth', 'currentUser'], data.user);
+    },
+  });
+}

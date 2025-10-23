@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { LogIn } from 'lucide-react';
 import { Button, Input, Card } from '@/components/ui';
 import { useLogin } from '@/lib/hooks';
@@ -98,6 +99,18 @@ export default function LoginPage() {
         </form>
 
         <div className="mt-6 text-center text-sm text-gray-600">
+          <p>
+            Нет аккаунта?{' '}
+            <Link
+              href="/register"
+              className="font-medium text-accent hover:underline"
+            >
+              Зарегистрироваться
+            </Link>
+          </p>
+        </div>
+
+        <div className="mt-4 text-center text-xs text-gray-500">
           <p>Тестовые аккаунты:</p>
           <p className="mt-1">
             <strong>Админ:</strong> admin@restaurant.com / admin123

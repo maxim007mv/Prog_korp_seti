@@ -164,3 +164,73 @@ export const orderItemsAddSchema = z.object({
 
 export type OrderItemInput = z.infer<typeof orderItemSchema>;
 export type OrderItemsAddInput = z.infer<typeof orderItemsAddSchema>;
+
+/**
+ * Схема валидации для входа
+ */
+export const loginSchema = z.object({
+  email: z
+    .string()
+    .email('Неверный формат email')
+    .min(1, 'Email обязателен'),
+  
+  password: z
+    .string()
+    .min(6, 'Пароль должен содержать минимум 6 символов')
+    .max(100, 'Пароль слишком длинный'),
+});
+
+export type LoginInput = z.infer<typeof loginSchema>;
+
+/**
+ * Базовая схема валидации для регистрации
+ */
+export const registerBaseSchema = z.object({
+  name: z
+    .string()
+    .min(2, 'Имя должно содержать минимум 2 символа')
+    .max(100, 'Имя слишком длинное'),
+  
+  email: z
+    .string()
+    .email('Неверный формат email')
+    .min(1, 'Email обязателен'),
+  
+  password: z
+    .string()
+    .min(6, 'Пароль должен содержать минимум 6 символов')
+    .max(100, 'Пароль слишком длинный')
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+      'Пароль должен содержать заглавные и строчные буквы, и цифры'
+    ),
+  
+  passwordConfirm: z
+    .string()
+    .min(1, 'Подтверждение пароля обязательно'),
+  
+  role: z.enum(['client', 'waiter', 'admin'], {
+    errorMap: () => ({ message: 'Выберите роль' }),
+  }),
+  
+  phone: z
+    .string()
+    .regex(VALIDATION.PHONE_REGEX, 'Неверный формат телефона')
+    .optional(),
+}).refine((data) => data.password === data.passwordConfirm, {
+  message: 'Пароли не совпадают',
+  path: ['passwordConfirm'],
+});
+
+/**
+ * Схема валидации для регистрации официанта (телефон обязателен)
+ */
+export const registerWaiterSchema = registerBaseSchema.refine(
+  (data) => data.role !== 'waiter' || (data.phone && data.phone.length > 0),
+  {
+    message: 'Телефон обязателен для официантов',
+    path: ['phone'],
+  }
+);
+
+export type RegisterInput = z.infer<typeof registerWaiterSchema>;

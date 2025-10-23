@@ -18,6 +18,7 @@ export default function MenuPage() {
     max: Infinity,
   });
   const [aiFilteredIds, setAiFilteredIds] = useState<number[] | null>(null);
+  const [sortBy, setSortBy] = useState<'default' | 'price_asc' | 'price_desc' | 'name_asc' | 'name_desc'>('default');
 
   // Обработка AI результатов
   const handleAiSearchResults = (dishIds: number[], explanation: string) => {
@@ -34,14 +35,11 @@ export default function MenuPage() {
   const filteredDishes = useMemo(() => {
     if (!menuData?.dishes) return [];
 
-    // Если есть AI фильтр, показываем только эти блюда
-    if (aiFilteredIds !== null) {
-      return menuData.dishes.filter((dish: Dish) =>
-        aiFilteredIds.includes(dish.id)
-      );
-    }
+    const source = aiFilteredIds !== null
+      ? menuData.dishes.filter((dish: Dish) => aiFilteredIds.includes(dish.id))
+      : menuData.dishes;
 
-    return menuData.dishes.filter((dish: Dish) => {
+    const filtered = source.filter((dish: Dish) => {
       // Фильтр по категории
       if (activeCategory && dish.category !== activeCategory) {
         return false;
@@ -74,16 +72,43 @@ export default function MenuPage() {
 
       return true;
     });
-  }, [menuData, activeCategory, searchQuery, selectedTags, priceRange, aiFilteredIds]);
+
+    // Сортировка
+    const sorted = [...filtered];
+    switch (sortBy) {
+      case 'price_asc':
+        sorted.sort((a, b) => a.price - b.price);
+        break;
+      case 'price_desc':
+        sorted.sort((a, b) => b.price - a.price);
+        break;
+      case 'name_asc':
+        sorted.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+        break;
+      case 'name_desc':
+        sorted.sort((a, b) => b.name.localeCompare(a.name, 'ru'));
+        break;
+      default:
+        // по умолчанию: как пришло с бэка (сейчас по имени ASC)
+        break;
+    }
+    return sorted;
+  }, [menuData, activeCategory, searchQuery, selectedTags, priceRange, aiFilteredIds, sortBy]);
 
   if (error) {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="container-custom">
           <div className="rounded-2xl bg-white p-8 text-center shadow-soft">
-            <p className="text-red-600">
-              Ошибка загрузки меню. Попробуйте позже.
+            <p className="text-red-600 mb-4">
+              Ошибка загрузки меню. Проверьте подключение к серверу.
             </p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="btn-primary px-6 py-2 rounded-lg"
+            >
+              Обновить страницу
+            </button>
           </div>
         </div>
       </div>
@@ -113,6 +138,7 @@ export default function MenuPage() {
           onSearchChange={setSearchQuery}
           onTagsChange={setSelectedTags}
           onPriceChange={(min, max) => setPriceRange({ min, max })}
+          onSortChange={setSortBy}
         />
 
         {isLoading ? (
