@@ -118,6 +118,46 @@ class ApiClient {
   async delete<T>(endpoint: string): Promise<T> {
     return this.request<T>(endpoint, { method: 'DELETE' });
   }
+
+  /**
+   * GET запрос для получения Blob (файлов)
+   */
+  async getBlob(endpoint: string, params?: Record<string, any>): Promise<Blob> {
+    const queryString = params
+      ? '?' + new URLSearchParams(params).toString()
+      : '';
+    const url = `${this.baseUrl}${endpoint}${queryString}`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new ApiError(
+          response.status,
+          errorData.code || 'UNKNOWN_ERROR',
+          errorData.message || `HTTP ${response.status}: ${response.statusText}`,
+          errorData.errors
+        );
+      }
+
+      return response.blob();
+    } catch (error) {
+      if (error instanceof ApiError) {
+        throw error;
+      }
+
+      console.error('Network error:', error);
+      throw new ApiError(
+        0,
+        'NETWORK_ERROR',
+        'Не удалось подключиться к серверу'
+      );
+    }
+  }
 }
 
 // Экспортируем единственный экземпляр клиента
