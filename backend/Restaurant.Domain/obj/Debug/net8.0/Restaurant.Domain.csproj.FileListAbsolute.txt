@@ -31,3 +31,4 @@ C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backe
 /Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Domain/obj/Debug/net8.0/refint/Restaurant.Domain.dll
 /Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Domain/obj/Debug/net8.0/Restaurant.Domain.pdb
 /Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Domain/obj/Debug/net8.0/ref/Restaurant.Domain.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Domain/obj/Debug/net8.0/Restaurant.Domain.sourcelink.json

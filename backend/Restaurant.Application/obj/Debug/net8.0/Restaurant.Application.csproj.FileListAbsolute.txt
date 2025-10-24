@@ -43,3 +43,4 @@ C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backe
 /Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/refint/Restaurant.Application.dll
 /Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.pdb
 /Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/ref/Restaurant.Application.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.sourcelink.json

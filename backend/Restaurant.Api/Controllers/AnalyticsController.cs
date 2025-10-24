@@ -48,7 +48,7 @@ namespace Restaurant.Api.Controllers
         /// <summary>
         /// Получить отчет о выручке
         /// </summary>
-        [HttpGet("reports/revenue")]
+        [HttpGet("revenue")]
         public IActionResult GetRevenueReport([FromQuery] string? from, [FromQuery] string? to)
         {
             try
@@ -90,24 +90,29 @@ namespace Restaurant.Api.Controllers
         /// <summary>
         /// Получить отчет о популярных блюдах
         /// </summary>
-        [HttpGet("reports/popular")]
+        [HttpGet("popular-dishes")]
         public IActionResult GetPopularDishesReport([FromQuery] string? from, [FromQuery] string? to)
         {
             try
             {
-                var data = new[]
+                var rows = new[]
                 {
-                    new { dishName = "Стейк Рибай", orders = 145, revenue = 289000.0m },
-                    new { dishName = "Паста Карбонара", orders = 138, revenue = 165600.0m },
-                    new { dishName = "Салат Цезарь", orders = 132, revenue = 105600.0m },
-                    new { dishName = "Суп Том Ям", orders = 125, revenue = 112500.0m },
-                    new { dishName = "Пицца Маргарита", orders = 118, revenue = 94400.0m },
-                    new { dishName = "Бургер Классик", orders = 110, revenue = 93500.0m },
-                    new { dishName = "Лосось Гриль", orders = 95, revenue = 190000.0m },
-                    new { dishName = "Тирамису", orders = 87, revenue = 52200.0m }
+                    new { dishId = 1, name = "Стейк Рибай", category = "Meat", qty = 145, share = 12.5m, revenue = 289000.0m },
+                    new { dishId = 2, name = "Паста Карбонара", category = "Pasta", qty = 138, share = 11.9m, revenue = 165600.0m },
+                    new { dishId = 3, name = "Салат Цезарь", category = "Salad", qty = 132, share = 11.4m, revenue = 105600.0m },
+                    new { dishId = 4, name = "Суп Том Ям", category = "Soup", qty = 125, share = 10.8m, revenue = 112500.0m },
+                    new { dishId = 5, name = "Пицца Маргарита", category = "Pizza", qty = 118, share = 10.2m, revenue = 94400.0m },
+                    new { dishId = 6, name = "Бургер Классик", category = "Burger", qty = 110, share = 9.5m, revenue = 93500.0m },
+                    new { dishId = 7, name = "Лосось Гриль", category = "Fish", qty = 95, share = 8.2m, revenue = 190000.0m },
+                    new { dishId = 8, name = "Тирамису", category = "Dessert", qty = 87, share = 7.5m, revenue = 52200.0m }
                 };
 
-                return Ok(data);
+                var response = new
+                {
+                    rows = rows
+                };
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -119,21 +124,26 @@ namespace Restaurant.Api.Controllers
         /// <summary>
         /// Получить отчет об официантах
         /// </summary>
-        [HttpGet("reports/waiters")]
+        [HttpGet("waiters")]
         public IActionResult GetWaitersReport([FromQuery] string? from, [FromQuery] string? to)
         {
             try
             {
-                var data = new[]
+                var rows = new[]
                 {
-                    new { name = "Иван Петров", orders = 45, revenue = 225000.0m, averageRating = 4.8m },
-                    new { name = "Мария Смирнова", orders = 42, revenue = 210000.0m, averageRating = 4.7m },
-                    new { name = "Алексей Козлов", orders = 38, revenue = 190000.0m, averageRating = 4.6m },
-                    new { name = "Елена Волкова", orders = 35, revenue = 175000.0m, averageRating = 4.5m },
-                    new { name = "Дмитрий Соколов", orders = 32, revenue = 160000.0m, averageRating = 4.4m }
+                    new { waiterId = 1, name = "Иван Петров", closedOrders = 45, revenue = 225000.0m, avgCheck = 5000.0m },
+                    new { waiterId = 2, name = "Мария Смирнова", closedOrders = 42, revenue = 210000.0m, avgCheck = 5000.0m },
+                    new { waiterId = 3, name = "Алексей Козлов", closedOrders = 38, revenue = 190000.0m, avgCheck = 5000.0m },
+                    new { waiterId = 4, name = "Елена Волкова", closedOrders = 35, revenue = 175000.0m, avgCheck = 5000.0m },
+                    new { waiterId = 5, name = "Дмитрий Соколов", closedOrders = 32, revenue = 160000.0m, avgCheck = 5000.0m }
                 };
 
-                return Ok(data);
+                var response = new
+                {
+                    rows = rows
+                };
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
