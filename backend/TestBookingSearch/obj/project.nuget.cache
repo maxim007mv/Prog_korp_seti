@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "dgSpecHash": "VB/JsgLzMXE=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Damir\\OneDrive\\Рабочий стол\\Предметы\\КР РП\\backend\\TestBookingSearch\\TestBookingSearch.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Damir\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\Damir\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\Damir\\.nuget\\packages\\npgsql\\8.0.1\\npgsql.8.0.1.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "У пакета \"Npgsql\" 8.0.1 есть известная уязвимость https://github.com/advisories/GHSA-x9vc-6hfv-hg8c (уровень серьезности: высокий)",
+      "projectPath": "C:\\Users\\Damir\\OneDrive\\Рабочий стол\\Предметы\\КР РП\\backend\\TestBookingSearch\\TestBookingSearch.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Damir\\OneDrive\\Рабочий стол\\Предметы\\КР РП\\backend\\TestBookingSearch\\TestBookingSearch.csproj",
+      "libraryId": "Npgsql",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
+}

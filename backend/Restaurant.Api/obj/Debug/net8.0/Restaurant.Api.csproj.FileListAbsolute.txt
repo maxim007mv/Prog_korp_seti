@@ -1,0 +1,462 @@
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/appsettings.Development.json
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/appsettings.json
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.staticwebassets.endpoints.json
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.exe
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.deps.json
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.runtimeconfig.json
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.pdb
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/AutoMapper.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/FluentValidation.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/FluentValidation.AspNetCore.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Hellang.Middleware.ProblemDetails.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.AspNetCore.OpenApi.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Caching.Memory.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Configuration.Binder.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Diagnostics.Abstractions.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.FileProviders.Abstractions.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Hosting.Abstractions.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Logging.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Primitives.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.OpenApi.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Npgsql.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.AspNetCore.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Exceptions.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Extensions.Hosting.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Extensions.Logging.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Formatting.Compact.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Settings.Configuration.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Sinks.Console.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Sinks.Debug.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Sinks.File.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/System.Diagnostics.DiagnosticSource.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/System.IO.Pipelines.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/System.Text.Encodings.Web.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/System.Text.Json.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Application.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Domain.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Infrastructure.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Application.pdb
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Infrastructure.pdb
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Domain.pdb
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.csproj.AssemblyReference.cache
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/rpswa.dswa.cache.json
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.GeneratedMSBuildEditorConfig.editorconfig
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.AssemblyInfoInputs.cache
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.AssemblyInfo.cs
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.csproj.CoreCompileInputs.cache
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.MvcApplicationPartsAssemblyInfo.cs
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.MvcApplicationPartsAssemblyInfo.cache
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/rjimswa.dswa.cache.json
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/rjsmrazor.dswa.cache.json
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/rjsmcshtml.dswa.cache.json
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/scopedcss/bundle/Restaurant.Api.styles.css
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/staticwebassets.build.json
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/staticwebassets.build.json.cache
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/staticwebassets.development.json
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/staticwebassets.build.endpoints.json
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/Restaura.DC4DCE66.Up2Date
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.dll
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/refint/Restaurant.Api.dll
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.pdb
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.genruntimeconfig.cache
+D:/korporative_system/backend/Restaurant.Api/obj/Debug/net8.0/ref/Restaurant.Api.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Humanizer.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.CodeAnalysis.Workspaces.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Design.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/Mono.TextTemplating.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/System.CodeDom.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.AttributedModel.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.Convention.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.Hosting.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.Runtime.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.TypedParts.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:/korporative_system/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/appsettings.Development.json
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/appsettings.json
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.staticwebassets.endpoints.json
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.exe
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.deps.json
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.runtimeconfig.json
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.pdb
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/AutoMapper.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/FluentValidation.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/FluentValidation.AspNetCore.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Hellang.Middleware.ProblemDetails.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Humanizer.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.AspNetCore.OpenApi.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.CodeAnalysis.Workspaces.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Design.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Caching.Memory.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Configuration.Binder.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.FileProviders.Abstractions.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Hosting.Abstractions.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Logging.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Primitives.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.OpenApi.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Mono.TextTemplating.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Npgsql.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.AspNetCore.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Exceptions.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Extensions.Hosting.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Extensions.Logging.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Formatting.Compact.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Settings.Configuration.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Sinks.Console.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Sinks.Debug.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Sinks.File.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/System.CodeDom.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.AttributedModel.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.Convention.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.Hosting.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.Runtime.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.TypedParts.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/System.Diagnostics.DiagnosticSource.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/System.IO.Pipelines.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/System.Text.Encodings.Web.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/System.Text.Json.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Application.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Domain.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Infrastructure.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Application.pdb
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Infrastructure.pdb
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Domain.pdb
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.csproj.AssemblyReference.cache
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/rpswa.dswa.cache.json
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.AssemblyInfoInputs.cache
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.AssemblyInfo.cs
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.csproj.CoreCompileInputs.cache
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.MvcApplicationPartsAssemblyInfo.cs
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.MvcApplicationPartsAssemblyInfo.cache
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/rjimswa.dswa.cache.json
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/rjsmrazor.dswa.cache.json
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/rjsmcshtml.dswa.cache.json
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/scopedcss/bundle/Restaurant.Api.styles.css
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/staticwebassets.build.json
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/staticwebassets.build.json.cache
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/staticwebassets.development.json
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/staticwebassets.build.endpoints.json
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/Restaura.DC4DCE66.Up2Date
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/refint/Restaurant.Api.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.pdb
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.genruntimeconfig.cache
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Api/obj/Debug/net8.0/ref/Restaurant.Api.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/appsettings.Development.json
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/appsettings.json
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.staticwebassets.endpoints.json
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.deps.json
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.runtimeconfig.json
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Api.pdb
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/AutoMapper.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/FluentValidation.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/FluentValidation.AspNetCore.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Hellang.Middleware.ProblemDetails.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Humanizer.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.AspNetCore.OpenApi.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Bcl.AsyncInterfaces.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.CodeAnalysis.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.CodeAnalysis.Workspaces.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Design.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.Relational.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Caching.Memory.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Configuration.Binder.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.DependencyModel.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Diagnostics.Abstractions.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.FileProviders.Abstractions.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Hosting.Abstractions.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Logging.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.Extensions.Primitives.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Microsoft.OpenApi.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Mono.TextTemplating.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Npgsql.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.AspNetCore.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Exceptions.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Extensions.Hosting.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Extensions.Logging.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Formatting.Compact.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Settings.Configuration.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Sinks.Console.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Sinks.Debug.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Serilog.Sinks.File.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/System.CodeDom.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.AttributedModel.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.Convention.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.Hosting.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.Runtime.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/System.Composition.TypedParts.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/System.Diagnostics.DiagnosticSource.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/System.IO.Pipelines.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/System.Text.Encodings.Web.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/System.Text.Json.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/es/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/fr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/it/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/ja/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/ko/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/pl/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/ru/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Application.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Domain.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Infrastructure.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Application.pdb
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Infrastructure.pdb
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/bin/Debug/net8.0/Restaurant.Domain.pdb
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.csproj.AssemblyReference.cache
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/rpswa.dswa.cache.json
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.GeneratedMSBuildEditorConfig.editorconfig
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.AssemblyInfoInputs.cache
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.AssemblyInfo.cs
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.csproj.CoreCompileInputs.cache
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.MvcApplicationPartsAssemblyInfo.cs
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.MvcApplicationPartsAssemblyInfo.cache
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/rjimswa.dswa.cache.json
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/rjsmrazor.dswa.cache.json
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/rjsmcshtml.dswa.cache.json
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/scopedcss/bundle/Restaurant.Api.styles.css
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/staticwebassets.build.json
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/staticwebassets.build.json.cache
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/staticwebassets.development.json
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/staticwebassets.build.endpoints.json
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/Restaura.DC4DCE66.Up2Date
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/refint/Restaurant.Api.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.pdb
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/Restaurant.Api.genruntimeconfig.cache
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Api/obj/Debug/net8.0/ref/Restaurant.Api.dll
