@@ -2,14 +2,43 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Users, X } from 'lucide-react';
 
 export default function BookingPage() {
   const [selectedTable, setSelectedTable] = useState<number | null>(null);
+  const [showBookingModal, setShowBookingModal] = useState(false);
+  const [bookingData, setBookingData] = useState({
+    startDateTime: '',
+    endDateTime: '',
+    guestCount: 2,
+  });
 
   const handleTableClick = (tableNumber: number) => {
     setSelectedTable(tableNumber);
     console.log(`Выбран стол ${tableNumber}`);
+  };
+
+  const handleBookingClick = () => {
+    if (selectedTable) {
+      setShowBookingModal(true);
+    }
+  };
+
+  const handleBookingSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Бронирование столика:', {
+      tableNumber: selectedTable,
+      ...bookingData
+    });
+    // Здесь будет логика отправки данных на сервер
+    setShowBookingModal(false);
+  };
+
+  const handleInputChange = (field: string, value: string | number) => {
+    setBookingData(prev => ({
+      ...prev,
+      [field]: value
+    }));
   };
 
   return (
@@ -373,9 +402,102 @@ export default function BookingPage() {
         {selectedTable && (
           <div className="mt-8 p-6 bg-[#333] rounded-lg border-2 border-yellow-400 text-center max-w-2xl mx-auto">
             <h2 className="text-2xl font-bold mb-4">Выбран стол #{selectedTable}</h2>
-            <button className="px-8 py-3 bg-yellow-400 text-black font-bold rounded-lg hover:bg-yellow-500 transition-colors">
+            <button 
+              onClick={handleBookingClick}
+              className="px-8 py-3 bg-yellow-400 text-black font-bold rounded-lg hover:bg-yellow-500 transition-colors"
+            >
               Забронировать стол
             </button>
+          </div>
+        )}
+
+        {/* Модальное окно бронирования */}
+        {showBookingModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-lg shadow-soft max-w-md w-full mx-4 relative">
+              {/* Кнопка закрытия */}
+              <button
+                onClick={() => setShowBookingModal(false)}
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              {/* Заголовок */}
+              <div className="p-6 pb-4">
+                <h2 className="text-2xl font-bold text-gray-900 text-center">
+                  Параметры бронирования
+                </h2>
+                <p className="text-gray-600 text-center mt-2">
+                  Стол #{selectedTable}
+                </p>
+              </div>
+
+              {/* Форма */}
+              <form onSubmit={handleBookingSubmit} className="p-6 pt-0">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  {/* Дата и время начала */}
+                  <div className="space-y-2">
+                    <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                      <Calendar className="w-4 h-4" />
+                      Дата и время начала
+                    </label>
+                    <input
+                      type="datetime-local"
+                      value={bookingData.startDateTime}
+                      onChange={(e) => handleInputChange('startDateTime', e.target.value)}
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-colors"
+                    />
+                  </div>
+
+                  {/* Дата и время окончания */}
+                  <div className="space-y-2">
+                    <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                      <Clock className="w-4 h-4" />
+                      Дата и время окончания
+                    </label>
+                    <input
+                      type="datetime-local"
+                      value={bookingData.endDateTime}
+                      onChange={(e) => handleInputChange('endDateTime', e.target.value)}
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-colors"
+                    />
+                  </div>
+
+                  {/* Количество гостей */}
+                  <div className="space-y-2">
+                    <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                      <Users className="w-4 h-4" />
+                      Количество гостей
+                    </label>
+                    <input
+                      type="number"
+                      min="1"
+                      max="20"
+                      value={bookingData.guestCount}
+                      onChange={(e) => handleInputChange('guestCount', parseInt(e.target.value))}
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-colors"
+                    />
+                  </div>
+
+                  {/* Кнопка поиска */}
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700 invisible">
+                      Поиск
+                    </label>
+                    <button
+                      type="submit"
+                      className="w-full px-4 py-2 bg-black text-white font-medium rounded-lg hover:bg-gray-800 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors"
+                    >
+                      Готово
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         )}
       </div>
