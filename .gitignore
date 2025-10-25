@@ -36,3 +36,21 @@ next-env.d.ts
 # IDE
 .vscode
 .idea
+
+# .NET
+**/bin/
+**/obj/
+*.user
+*.suo
+*.cache
+*.log
+*.tmp
+*.temp
+packages/
+TestResults/
+*.nupkg
+*.snupkg
+artifacts/
+*.db
+*.db-shm
+*.db-wal

@@ -6,12 +6,13 @@ import { Calendar, Clock, Users, Phone, User } from 'lucide-react';
 import { Button, Input, Card } from '@/components/ui';
 import { TableCard } from './TableCard';
 import { useAvailableTables, useCreateBooking } from '@/lib/hooks';
-import { bookingCreateSchema } from '@/lib/validations';
 import type { BookingCreate } from '@/types';
 
 export function BookingForm() {
   const router = useRouter();
-  const [formData, setFormData] = useState<Partial<BookingCreate>>({
+  
+  // Локальное состояние формы (camelCase для удобства)
+  const [localForm, setLocalForm] = useState({
     start: '',
     end: '',
     guests: 2,
@@ -21,39 +22,23 @@ export function BookingForm() {
   const [selectedTableId, setSelectedTableId] = useState<number | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const hasSearchParams = Boolean(formData.start && formData.end && formData.guests);
+  const hasSearchParams = Boolean(localForm.start && localForm.end && localForm.guests);
   const { data: tables, isLoading: isLoadingTables } = useAvailableTables({
-    start: formData.start || '',
-    end: formData.end || '',
-    seats: formData.guests || 2,
+    start: localForm.start || '',
+    end: localForm.end || '',
+    seats: localForm.guests || 2,
   });
 
   const createBookingMutation = useCreateBooking();
 
-  const handleInputChange = (field: keyof BookingCreate, value: string | number) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+  const handleInputChange = (field: string, value: string | number) => {
+    setLocalForm((prev) => ({ ...prev, [field]: value }));
     setErrors((prev) => ({ ...prev, [field]: '' }));
   };
 
   const handleSearchTables = () => {
     // Сбросить выбор стола при новом поиске
     setSelectedTableId(null);
-
-    // Валидация параметров поиска
-    const result = bookingCreateSchema.safeParse({
-      ...formData,
-      tableId: 1, // Временно для валидации
-    });
-
-    if (!result.success) {
-      const newErrors: Record<string, string> = {};
-      result.error.errors.forEach((err: any) => {
-        if (err.path[0]) {
-          newErrors[err.path[0] as string] = err.message;
-        }
-      });
-      setErrors(newErrors);
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -64,20 +49,36 @@ export function BookingForm() {
       return;
     }
 
+    // Конвертация в PascalCase для .NET backend
     const bookingData: BookingCreate = {
-      ...formData,
-      tableId: selectedTableId,
-    } as BookingCreate;
+      TableId: selectedTableId,
+      ClientName: localForm.clientName.trim(),
+      ClientPhone: localForm.phone.trim(),
+      StartTime: localForm.start,
+      EndTime: localForm.end,
+      Comment: '',
+    };
 
-    const validation = bookingCreateSchema.safeParse(bookingData);
+    // Простая валидация
+    const newErrors: Record<string, string> = {};
+    
+    if (!bookingData.ClientName || bookingData.ClientName.length < 2) {
+      newErrors.clientName = 'Имя должно содержать минимум 2 символа';
+    }
+    
+    if (!bookingData.ClientPhone || bookingData.ClientPhone.length < 10) {
+      newErrors.phone = 'Введите корректный номер телефона';
+    }
+    
+    if (!bookingData.StartTime) {
+      newErrors.start = 'Укажите время начала';
+    }
+    
+    if (!bookingData.EndTime) {
+      newErrors.end = 'Укажите время окончания';
+    }
 
-    if (!validation.success) {
-      const newErrors: Record<string, string> = {};
-      validation.error.errors.forEach((err: any) => {
-        if (err.path[0]) {
-          newErrors[err.path[0] as string] = err.message;
-        }
-      });
+    if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
@@ -87,7 +88,9 @@ export function BookingForm() {
       alert(`Бронирование создано! Номер: ${booking.id}`);
       router.push('/booking/search');
     } catch (err: any) {
-      alert(`Ошибка: ${err.message}`);
+      const errorMsg = err?.error || err?.message || 'Ошибка создания бронирования';
+      alert(`Ошибка: ${errorMsg}`);
+      console.error('Booking error:', err);
     }
   };
 
@@ -104,7 +107,7 @@ export function BookingForm() {
             </label>
             <Input
               type="datetime-local"
-              value={formData.start}
+              value={localForm.start}
               onChange={(e) => handleInputChange('start', e.target.value)}
               error={errors.start}
             />
@@ -116,7 +119,7 @@ export function BookingForm() {
             </label>
             <Input
               type="datetime-local"
-              value={formData.end}
+              value={localForm.end}
               onChange={(e) => handleInputChange('end', e.target.value)}
               error={errors.end}
             />
@@ -130,7 +133,7 @@ export function BookingForm() {
               type="number"
               min="1"
               max="20"
-              value={formData.guests}
+              value={localForm.guests}
               onChange={(e) => handleInputChange('guests', parseInt(e.target.value))}
               error={errors.guests}
             />
@@ -186,7 +189,7 @@ export function BookingForm() {
               </label>
               <Input
                 type="text"
-                value={formData.clientName}
+                value={localForm.clientName}
                 onChange={(e) => handleInputChange('clientName', e.target.value)}
                 error={errors.clientName}
                 placeholder="Иван Иванов"
@@ -199,7 +202,7 @@ export function BookingForm() {
               </label>
               <Input
                 type="tel"
-                value={formData.phone}
+                value={localForm.phone}
                 onChange={(e) => handleInputChange('phone', e.target.value)}
                 error={errors.phone}
                 placeholder="+7 (999) 123-45-67"

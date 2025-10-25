@@ -63,6 +63,76 @@ namespace Restaurant.Api.Controllers
         }
 
         /// <summary>
+        /// Получить последние уведомления (для колокольчика)
+        /// </summary>
+        [HttpGet("latest")]
+        public IActionResult GetLatestNotifications([FromQuery] int limit = 5)
+        {
+            try
+            {
+                var notifications = new[]
+                {
+                    new 
+                    { 
+                        id = 1,
+                        title = "Новое бронирование",
+                        message = "Стол #5 забронирован на 19:00",
+                        type = "booking",
+                        createdAt = DateTime.UtcNow.AddMinutes(-15),
+                        isRead = false
+                    },
+                    new 
+                    { 
+                        id = 2,
+                        title = "Новый заказ",
+                        message = "Заказ #342 принят на обработку",
+                        type = "order",
+                        createdAt = DateTime.UtcNow.AddMinutes(-30),
+                        isRead = false
+                    },
+                    new 
+                    { 
+                        id = 3,
+                        title = "Заканчивается продукт",
+                        message = "Мало лосося на складе (осталось 2 кг)",
+                        type = "warning",
+                        createdAt = DateTime.UtcNow.AddHours(-1),
+                        isRead = false
+                    },
+                    new 
+                    { 
+                        id = 4,
+                        title = "Заказ готов",
+                        message = "Заказ #340 готов к подаче",
+                        type = "info",
+                        createdAt = DateTime.UtcNow.AddHours(-2),
+                        isRead = true
+                    },
+                    new 
+                    { 
+                        id = 5,
+                        title = "Отмена бронирования",
+                        message = "Бронирование #125 было отменено",
+                        type = "warning",
+                        createdAt = DateTime.UtcNow.AddHours(-3),
+                        isRead = true
+                    }
+                };
+
+                var result = notifications.Take(limit);
+                return Ok(new { 
+                    notifications = result,
+                    unreadCount = notifications.Count(n => !n.isRead)
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка при получении последних уведомлений");
+                return StatusCode(500, new { message = "Ошибка при получении уведомлений" });
+            }
+        }
+
+        /// <summary>
         /// Получить все уведомления
         /// </summary>
         [HttpGet]

@@ -22,7 +22,7 @@ class Program
         // 3. Создаем бронирования (прошлые и будущие)
         await CreateBookings(connection);
         
-        // 4. Создаем заказы с выручкой
+        // 4. Создаем заказы на 10 миллионов рублей (250 заказов)
         await CreateOrders(connection);
         
         Console.WriteLine("\n✅ Генерация тестовых данных завершена!");
@@ -175,7 +175,7 @@ class Program
     
     static async Task CreateOrders(NpgsqlConnection connection)
     {
-        Console.WriteLine("🧾 Создаем заказы с выручкой...");
+        Console.WriteLine("🧾 Создаем заказы на 10 миллионов рублей...");
         
         // Получаем ID официантов
         var waiterIds = new List<int>();
@@ -201,19 +201,23 @@ class Program
             }
         }
         
+        var totalOrders = 250;
+        var targetRevenue = 10_000_000m; // 10 миллионов рублей
+        var avgOrderAmount = targetRevenue / totalOrders; // ~40,000 рублей на заказ
+        
         var orderCount = 0;
         var totalRevenue = 0m;
         
-        // Создаем заказы за последние 30 дней
-        for (int i = 0; i < 2000; i++)
+        // Создаем заказы распределенные на последние 90 дней для аналитики
+        for (int i = 0; i < totalOrders; i++)
         {
-            var daysAgo = Random.Shared.Next(0, 30);
+            var daysAgo = Random.Shared.Next(0, 90);
             var orderTime = DateTime.Now.AddDays(-daysAgo).AddHours(Random.Shared.Next(10, 22));
-            var tableId = Random.Shared.Next(1, 7); // У нас только 6 столов (1-6)
+            var tableId = Random.Shared.Next(1, 7);
             var waiterId = waiterIds[Random.Shared.Next(waiterIds.Count)];
             
-            var statuses = new[] { "Completed", "Completed", "Completed", "Cancelled" }; // 75% завершенных
-            var status = statuses[Random.Shared.Next(statuses.Length)];
+            // 95% заказов завершены, 5% отменены
+            var status = Random.Shared.Next(100) < 95 ? "Completed" : "Cancelled";
             
             // Создаем заказ
             var orderSql = @"
@@ -228,20 +232,28 @@ class Program
                 cmd.Parameters.AddWithValue("waiterId", waiterId);
                 cmd.Parameters.AddWithValue("status", status);
                 cmd.Parameters.AddWithValue("startTime", orderTime);
-                cmd.Parameters.AddWithValue("endTime", orderTime.AddMinutes(60));
+                cmd.Parameters.AddWithValue("endTime", orderTime.AddMinutes(90));
                 cmd.Parameters.AddWithValue("createdAt", orderTime);
-                cmd.Parameters.AddWithValue("updatedAt", orderTime.AddMinutes(30));
+                cmd.Parameters.AddWithValue("updatedAt", orderTime.AddMinutes(60));
                 orderId = (int)(await cmd.ExecuteScalarAsync() ?? 0);
             }
             
-            // Добавляем позиции в заказ
-            var itemCount = Random.Shared.Next(2, 6);
+            // Рассчитываем целевую сумму заказа с небольшим разбросом (±20%)
+            var targetAmount = avgOrderAmount * (decimal)(0.8 + Random.Shared.NextDouble() * 0.4);
+            
+            // Добавляем позиции в заказ до достижения целевой суммы
             var orderTotal = 0m;
+            var itemCount = Random.Shared.Next(3, 10); // От 3 до 9 позиций
             
             for (int j = 0; j < itemCount; j++)
             {
                 var dish = dishIds[Random.Shared.Next(dishIds.Count)];
-                var quantity = Random.Shared.Next(1, 4);
+                
+                // Рассчитываем количество чтобы приблизиться к целевой сумме
+                var remainingAmount = targetAmount - orderTotal;
+                var maxQuantity = Math.Max(1, (int)(remainingAmount / dish.Price));
+                var quantity = Random.Shared.Next(1, Math.Min(maxQuantity, 20) + 1);
+                
                 var itemTotal = dish.Price * quantity;
                 
                 var itemSql = @"
@@ -256,6 +268,10 @@ class Program
                 await itemCmd.ExecuteNonQueryAsync();
                 
                 orderTotal += itemTotal;
+                
+                // Если приблизились к целевой сумме, останавливаемся
+                if (orderTotal >= targetAmount * 0.9m)
+                    break;
             }
             
             // Обновляем общую сумму заказа
@@ -273,10 +289,17 @@ class Program
             }
             
             orderCount++;
+            
+            // Прогресс
+            if (orderCount % 50 == 0)
+            {
+                Console.WriteLine($"   📊 Создано {orderCount}/{totalOrders} заказов, выручка: {totalRevenue:N0} ₽");
+            }
         }
         
-        Console.WriteLine($"   ✓ Создано {orderCount} заказов");
+        Console.WriteLine($"   ✅ Создано {orderCount} заказов");
         Console.WriteLine($"   💰 Общая выручка: {totalRevenue:N2} ₽");
+        Console.WriteLine($"   📈 Средний чек: {(totalRevenue / orderCount):N2} ₽");
     }
     
     static async Task PrintStatistics(NpgsqlConnection connection)
