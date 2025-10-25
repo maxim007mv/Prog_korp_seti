@@ -35,12 +35,180 @@
 - **Recharts** для графиков и аналитики
 - **Zod** для валидации
 
-### Backend (требуется реализация)
-- **.NET 8 Web API**
+### Backend
+- **.NET 8 Web API** с Clean Architecture
+- **Entity Framework Core** для ORM
 - **PostgreSQL 15+** с расширениями для AI
-- **OpenAI API** (GPT-4 Turbo)
-- **Redis** для кэширования
-- **Hangfire** для фоновых задач
+- **DeepSeek AI API** для AI-функций
+- **JWT** для аутентификации
+- **Swagger** для API документации
+
+## Структура проекта
+
+```
+├── app/                    # Next.js App Router страницы
+│   ├── (public)/          # Публичные маршруты (/, /menu, /booking)
+│   ├── staff/             # Маршруты для официантов
+│   ├── admin/             # Админ-панель с AI-аналитикой
+│   └── login/             # Аутентификация
+├── components/            # React компоненты
+│   ├── features/          # Feature-based компоненты
+│   └── ui/                # UI компоненты
+├── lib/                   # Утилиты и API
+│   ├── api/               # API клиент и endpoints
+│   ├── hooks/             # React Query хуки
+│   └── ai/                # AI интеграция
+├── types/                 # TypeScript типы
+└── backend/               # .NET 8 backend
+    ├── Restaurant.Api/         # Web API контроллеры
+    ├── Restaurant.Domain/      # Domain entities и бизнес-логика
+    └── Restaurant.Infrastructure/ # EF Core и persistence
+```
+
+## 🚀 Быстрый запуск
+
+### Предварительные требования
+- **Node.js 18+**
+- **.NET 8 SDK**
+- **PostgreSQL 15+**
+- **Git**
+
+### 1. Клонирование репозитория
+```bash
+git clone https://github.com/maxim007mv/Prog_korp_seti.git
+cd Prog_korp_seti
+```
+
+### 2. Настройка базы данных
+```bash
+# Создайте базу данных PostgreSQL
+createdb restaurant_db
+
+# Или через psql:
+# psql -U postgres -c "CREATE DATABASE restaurant_db;"
+```
+
+### 3. Backend (.NET)
+```bash
+cd backend/Restaurant.Api
+
+# Примените миграции EF Core
+dotnet ef database update --project ../Restaurant.Infrastructure --startup-project .
+
+# Запустите backend
+dotnet run
+```
+Backend будет доступен на `http://localhost:3001`
+
+### 4. Frontend (Next.js)
+```bash
+# В корне проекта
+npm install
+
+# Запустите frontend
+npm run dev
+```
+Frontend будет доступен на `http://localhost:3000`
+
+### 5. Генерация тестовых данных (опционально)
+```bash
+cd backend/GenerateTestData
+dotnet run
+```
+Создаст 250+ заказов с выручкой ~10M RUB для тестирования аналитики.
+
+## 🔧 Конфигурация
+
+### Environment Variables
+
+**Frontend (.env.local):**
+```bash
+NEXT_PUBLIC_API_BASE_URL=http://localhost:3001/api
+NEXT_PUBLIC_DEEPSEEK_API_KEY=your_deepseek_api_key
+```
+
+**Backend (appsettings.Development.json):**
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=restaurant_db;Username=postgres;Password=postgres"
+  }
+}
+```
+
+## 📋 API Endpoints
+
+### Бронирования
+- `GET /api/bookings` - все бронирования
+- `GET /api/bookings/search` - поиск по телефону/имени
+- `POST /api/bookings` - создать бронирование
+- `GET /api/bookings/{id}` - детали бронирования
+
+### Заказы
+- `GET /api/orders` - все заказы
+- `POST /api/orders` - создать заказ
+- `GET /api/orders/{id}` - детали заказа
+
+### Меню
+- `GET /api/menu` - все блюда
+- `POST /api/menu` - добавить блюдо
+
+### Аналитика
+- `GET /api/analytics/dashboard` - KPI дашборда
+- `GET /api/analytics/reports/revenue` - отчёт по выручке
+
+### Уведомления
+- `GET /api/notifications/latest` - последние уведомления
+- `GET /api/notifications/unread` - непрочитанные
+
+## 👥 Тестовые аккаунты
+
+- **Администратор:** `admin@restaurant.com` / `admin123`
+- **Официант:** `waiter1@restaurant.com` / `waiter123`
+
+## 🛠️ Разработка
+
+### Scripts
+```bash
+# Frontend
+npm run dev          # Development server
+npm run build        # Production build
+npm run start        # Production server
+npm run lint         # ESLint
+
+# Backend
+dotnet build         # Build project
+dotnet run           # Run API
+dotnet test          # Run tests
+```
+
+### Database Migrations
+```bash
+# Создать новую миграцию
+dotnet ef migrations add MigrationName --project Restaurant.Infrastructure --startup-project Restaurant.Api
+
+# Применить миграции
+dotnet ef database update --project Restaurant.Infrastructure --startup-project Restaurant.Api
+```
+
+## 📚 Документация
+
+- [AI Features](./docs/AI_FEATURES.md) - возможности ИИ
+- [API Integration](./docs/BACKEND_INTEGRATION.md) - интеграция с backend
+- [Deployment](./docs/DEPLOYMENT.md) - развёртывание
+- [AI Agent Instructions](./.github/copilot-instructions.md) - инструкции для AI
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Структура проекта
 
