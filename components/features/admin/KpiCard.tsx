@@ -1,6 +1,5 @@
 'use client';
 
-import { Card } from '@/components/ui';
 import { LucideIcon } from 'lucide-react';
 
 interface KpiCardProps {
@@ -14,33 +13,49 @@ interface KpiCardProps {
   subtitle?: string;
 }
 
+function LiquidGlass({
+  className = "",
+  contentClassName = "",
+  children,
+}: React.PropsWithChildren<{ className?: string; contentClassName?: string }>) {
+  return (
+    <div className={`liquidGlass-wrapper ${className}`}>
+      <div className="liquidGlass-effect" />
+      <div className="liquidGlass-tint" />
+      <div className="liquidGlass-shine" />
+      <div className={`liquidGlass-text ${contentClassName}`}>{children}</div>
+    </div>
+  );
+}
+
 export function KpiCard({ title, value, icon: Icon, trend, subtitle }: KpiCardProps) {
   return (
-    <Card>
+    <LiquidGlass className="p-6 rounded-[24px]">
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <p className="text-sm font-medium text-gray-600">{title}</p>
-          <p className="mt-2 text-3xl font-bold">{value}</p>
+          <p className="text-sm font-medium text-white/70 uppercase tracking-wider">{title}</p>
+          <p className="mt-3 text-3xl font-bold text-white">{value}</p>
           {subtitle && (
-            <p className="mt-1 text-sm text-gray-500">{subtitle}</p>
+            <p className="mt-2 text-sm text-white/60">{subtitle}</p>
           )}
           {trend && (
-            <div className="mt-2 flex items-center gap-1">
+            <div className="mt-3 flex items-center gap-1">
               <span
                 className={`text-sm font-medium ${
-                  trend.isPositive ? 'text-green-600' : 'text-red-600'
+                  trend.isPositive ? 'text-green-400' : 'text-red-400'
                 }`}
               >
                 {trend.isPositive ? '↑' : '↓'} {Math.abs(trend.value)}%
               </span>
-              <span className="text-xs text-gray-500">vs прошлый период</span>
+              <span className="text-xs text-white/50">vs прошлый период</span>
             </div>
           )}
         </div>
-        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent/10">
-          <Icon className="h-6 w-6 text-accent" />
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-400/20 shadow-lg shadow-amber-400/10">
+          <Icon className="h-7 w-7 text-amber-400" />
         </div>
       </div>
-    </Card>
+    </LiquidGlass>
   );
 }
+

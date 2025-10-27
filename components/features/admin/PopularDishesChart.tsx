@@ -1,6 +1,5 @@
 'use client';
 
-import { Card } from '@/components/ui';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { formatPrice } from '@/lib/utils';
 import { CATEGORY_LABELS } from '@/constants';
@@ -10,7 +9,22 @@ interface PopularDishesChartProps {
   data: PopularDishesReport;
 }
 
-const COLORS = ['#FFB84A', '#FF8042', '#00C49F', '#0088FE', '#FFBB28'];
+const COLORS = ['#FFB84A', '#FF8042', '#00C49F', '#60A5FA', '#FFBB28'];
+
+function LiquidGlass({
+  className = "",
+  contentClassName = "",
+  children,
+}: React.PropsWithChildren<{ className?: string; contentClassName?: string }>) {
+  return (
+    <div className={`liquidGlass-wrapper ${className}`}>
+      <div className="liquidGlass-effect" />
+      <div className="liquidGlass-tint" />
+      <div className="liquidGlass-shine" />
+      <div className={`liquidGlass-text ${contentClassName}`}>{children}</div>
+    </div>
+  );
+}
 
 export function PopularDishesChart({ data }: PopularDishesChartProps) {
   // Берём топ-5 блюд
@@ -26,43 +40,48 @@ export function PopularDishesChart({ data }: PopularDishesChartProps) {
   }));
 
   return (
-    <Card>
+    <LiquidGlass className="p-6 rounded-[24px]">
       <div className="mb-6">
-        <h2 className="text-xl font-bold">Топ-5 популярных блюд</h2>
-        <p className="mt-1 text-sm text-gray-600">
+        <h2 className="text-xl font-bold text-white uppercase tracking-wider">Топ-5 популярных блюд</h2>
+        <p className="mt-2 text-sm text-white/70">
           По количеству заказов за период
         </p>
       </div>
 
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={chartData} layout="vertical">
-          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-          <XAxis type="number" tick={{ fontSize: 12 }} stroke="#666" />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
+          <XAxis 
+            type="number" 
+            tick={{ fontSize: 12, fill: 'rgba(255,255,255,0.7)' }} 
+            stroke="rgba(255,255,255,0.3)" 
+          />
           <YAxis 
             type="category" 
             dataKey="name" 
             width={150}
-            tick={{ fontSize: 12 }}
-            stroke="#666"
+            tick={{ fontSize: 12, fill: 'rgba(255,255,255,0.7)' }}
+            stroke="rgba(255,255,255,0.3)"
           />
           <Tooltip
             contentStyle={{
-              backgroundColor: 'white',
-              border: '1px solid #e5e7eb',
-              borderRadius: '8px',
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              borderRadius: '12px',
               padding: '12px',
+              backdropFilter: 'blur(10px)',
             }}
             content={({ active, payload }) => {
               if (!active || !payload || !payload.length) return null;
               const data = payload[0].payload;
               return (
-                <div className="rounded-lg bg-white p-3 shadow-lg">
-                  <p className="font-semibold">{data.fullName}</p>
-                  <p className="text-sm text-gray-600">{data.category}</p>
-                  <div className="mt-2 space-y-1 text-sm">
-                    <p>Заказано: <span className="font-semibold">{data.qty} раз</span></p>
-                    <p>Выручка: <span className="font-semibold">{formatPrice(data.revenue)}</span></p>
-                    <p>Доля: <span className="font-semibold">{data.share.toFixed(1)}%</span></p>
+                <div className="rounded-lg bg-black/80 backdrop-blur-md p-3 shadow-lg border border-white/20">
+                  <p className="font-semibold text-white">{data.fullName}</p>
+                  <p className="text-sm text-white/60">{data.category}</p>
+                  <div className="mt-2 space-y-1 text-sm text-white/90">
+                    <p>Заказано: <span className="font-semibold text-amber-400">{data.qty} раз</span></p>
+                    <p>Выручка: <span className="font-semibold text-green-400">{formatPrice(data.revenue)}</span></p>
+                    <p>Доля: <span className="font-semibold text-blue-400">{data.share.toFixed(1)}%</span></p>
                   </div>
                 </div>
               );
@@ -76,28 +95,29 @@ export function PopularDishesChart({ data }: PopularDishesChartProps) {
         </BarChart>
       </ResponsiveContainer>
 
-      <div className="mt-6 border-t pt-4">
-        <div className="space-y-2">
+      <div className="mt-6 border-t border-white/10 pt-6">
+        <div className="space-y-3">
           {topDishes.map((dish, index) => (
             <div key={dish.dishId} className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div
-                  className="h-3 w-3 rounded-full"
+                  className="h-3 w-3 rounded-full shadow-lg"
                   style={{ backgroundColor: COLORS[index % COLORS.length] }}
                 />
                 <div>
-                  <p className="text-sm font-medium">{dish.name}</p>
-                  <p className="text-xs text-gray-500">{CATEGORY_LABELS[dish.category]}</p>
+                  <p className="text-sm font-medium text-white">{dish.name}</p>
+                  <p className="text-xs text-white/50">{CATEGORY_LABELS[dish.category]}</p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-sm font-semibold">{dish.qty} заказов</p>
-                <p className="text-xs text-gray-500">{dish.share.toFixed(1)}%</p>
+                <p className="text-sm font-semibold text-amber-400">{dish.qty} заказов</p>
+                <p className="text-xs text-white/50">{dish.share.toFixed(1)}%</p>
               </div>
             </div>
           ))}
         </div>
       </div>
-    </Card>
+    </LiquidGlass>
   );
 }
+

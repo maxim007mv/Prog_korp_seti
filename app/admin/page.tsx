@@ -7,6 +7,21 @@ import { Button } from '@/components/ui';
 import { useDashboardKpi, useRevenueReport, usePopularDishesReport, useWaitersReport } from '@/lib/hooks';
 import { formatPrice } from '@/lib/utils';
 
+function LiquidGlass({
+  className = "",
+  contentClassName = "",
+  children,
+}: React.PropsWithChildren<{ className?: string; contentClassName?: string }>) {
+  return (
+    <div className={`liquidGlass-wrapper ${className}`}>
+      <div className="liquidGlass-effect" />
+      <div className="liquidGlass-tint" />
+      <div className="liquidGlass-shine" />
+      <div className={`liquidGlass-text ${contentClassName}`}>{children}</div>
+    </div>
+  );
+}
+
 export default function AdminDashboard() {
   // Период по умолчанию - последние 7 дней
   const [period, setPeriod] = useState({
@@ -27,41 +42,57 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="space-y-6">
       {/* Заголовок */}
-      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Панель управления</h1>
-          <p className="mt-2 text-gray-600">Обзор ключевых показателей ресторана</p>
+      <LiquidGlass className="p-6 rounded-[24px]">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-3xl font-bold uppercase tracking-wider bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">
+              Панель управления
+            </h1>
+            <p className="mt-2 text-white/70">Обзор ключевых показателей ресторана</p>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => handlePeriodChange(7)}
+              className={`px-4 py-2 rounded-xl text-sm transition-colors ${
+                period.from === new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+                  ? 'bg-amber-400/30 border border-amber-400/50 text-amber-300 shadow-lg'
+                  : 'bg-white/10 border border-white/20 text-white/80 hover:bg-white/20'
+              }`}
+            >
+              7 дней
+            </button>
+            <button
+              onClick={() => handlePeriodChange(30)}
+              className={`px-4 py-2 rounded-xl text-sm transition-colors ${
+                period.from === new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+                  ? 'bg-amber-400/30 border border-amber-400/50 text-amber-300 shadow-lg'
+                  : 'bg-white/10 border border-white/20 text-white/80 hover:bg-white/20'
+              }`}
+            >
+              30 дней
+            </button>
+            <button
+              onClick={() => handlePeriodChange(90)}
+              className={`px-4 py-2 rounded-xl text-sm transition-colors ${
+                period.from === new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+                  ? 'bg-amber-400/30 border border-amber-400/50 text-amber-300 shadow-lg'
+                  : 'bg-white/10 border border-white/20 text-white/80 hover:bg-white/20'
+              }`}
+            >
+              90 дней
+            </button>
+          </div>
         </div>
-        <div className="flex gap-2">
-          <Button
-            variant={period.from === new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] ? 'primary' : 'outline'}
-            onClick={() => handlePeriodChange(7)}
-          >
-            7 дней
-          </Button>
-          <Button
-            variant={period.from === new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] ? 'primary' : 'outline'}
-            onClick={() => handlePeriodChange(30)}
-          >
-            30 дней
-          </Button>
-          <Button
-            variant={period.from === new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] ? 'primary' : 'outline'}
-            onClick={() => handlePeriodChange(90)}
-          >
-            90 дней
-          </Button>
-        </div>
-      </div>
+      </LiquidGlass>
 
       {/* KPI карточки */}
-      <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {isLoadingKpi ? (
           <>
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-32 animate-pulse rounded-lg bg-gray-200" />
+              <div key={i} className="h-32 animate-pulse rounded-[24px] bg-white/5 backdrop-blur" />
             ))}
           </>
         ) : kpiData ? (
@@ -89,8 +120,10 @@ export default function AdminDashboard() {
             />
           </>
         ) : (
-          <div className="col-span-4 rounded-lg bg-red-50 p-6 text-center">
-            <p className="text-red-600">Ошибка загрузки KPI</p>
+          <div className="col-span-4">
+            <LiquidGlass className="p-6 rounded-[24px]">
+              <p className="text-red-400 text-center">Ошибка загрузки KPI</p>
+            </LiquidGlass>
           </div>
         )}
       </div>
@@ -99,40 +132,41 @@ export default function AdminDashboard() {
       <div className="space-y-6">
         {/* График выручки */}
         {isLoadingRevenue ? (
-          <div className="h-96 animate-pulse rounded-lg bg-gray-200" />
+          <div className="h-96 animate-pulse rounded-[24px] bg-white/5 backdrop-blur" />
         ) : revenueData ? (
           <RevenueChart data={revenueData} />
         ) : (
-          <div className="rounded-lg bg-red-50 p-6 text-center">
-            <p className="text-red-600">Ошибка загрузки данных о выручке</p>
-          </div>
+          <LiquidGlass className="p-6 rounded-[24px]">
+            <p className="text-red-400 text-center">Ошибка загрузки данных о выручке</p>
+          </LiquidGlass>
         )}
 
         {/* Графики популярных блюд и официантов */}
         <div className="grid gap-6 lg:grid-cols-2">
           {/* Популярные блюда */}
           {isLoadingDishes ? (
-            <div className="h-96 animate-pulse rounded-lg bg-gray-200" />
+            <div className="h-96 animate-pulse rounded-[24px] bg-white/5 backdrop-blur" />
           ) : dishesData ? (
             <PopularDishesChart data={dishesData} />
           ) : (
-            <div className="rounded-lg bg-red-50 p-6 text-center">
-              <p className="text-red-600">Ошибка загрузки данных о блюдах</p>
-            </div>
+            <LiquidGlass className="p-6 rounded-[24px]">
+              <p className="text-red-400 text-center">Ошибка загрузки данных о блюдах</p>
+            </LiquidGlass>
           )}
 
           {/* Официанты */}
           {isLoadingWaiters ? (
-            <div className="h-96 animate-pulse rounded-lg bg-gray-200" />
+            <div className="h-96 animate-pulse rounded-[24px] bg-white/5 backdrop-blur" />
           ) : waitersData ? (
             <WaitersChart data={waitersData} />
           ) : (
-            <div className="rounded-lg bg-red-50 p-6 text-center">
-              <p className="text-red-600">Ошибка загрузки данных об официантах</p>
-            </div>
+            <LiquidGlass className="p-6 rounded-[24px]">
+              <p className="text-red-400 text-center">Ошибка загрузки данных об официантах</p>
+            </LiquidGlass>
           )}
         </div>
       </div>
     </div>
   );
 }
+

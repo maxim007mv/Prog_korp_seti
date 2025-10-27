@@ -5,3 +5,5 @@ export { Badge } from './Badge';
 export { Skeleton, SkeletonCard, SkeletonTable } from './Skeleton';
 export { Modal } from './Modal';
 export { ToastProvider, useToast } from './Toast';
+export { GlassCard } from './GlassCard';
+
