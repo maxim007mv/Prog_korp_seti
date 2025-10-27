@@ -11,7 +11,8 @@ import {
   UserCog, 
   BarChart3,
   Brain,
-  Bell
+  Bell,
+  TrendingUp
 } from 'lucide-react';
 import { NotificationBell } from '@/components/features/notifications';
 import { AiChatWidget } from '@/components/features/ai/AiChatWidget';
@@ -19,6 +20,7 @@ import { AiChatWidget } from '@/components/features/ai/AiChatWidget';
 const ADMIN_NAV_ITEMS = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/ai-insights', label: 'AI Инсайты', icon: Brain },
+  { href: '/admin/predictions', label: 'AI Предсказания', icon: TrendingUp },
   { href: '/admin/menu', label: 'Меню', icon: ChefHat },
   { href: '/admin/tables', label: 'Столы', icon: Users },
   { href: '/admin/bookings', label: 'Бронирования', icon: Calendar },

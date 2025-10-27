@@ -8,10 +8,10 @@ import { formatDate } from '@/lib/utils';
 import type { BookingStatus } from '@/types';
 
 export default function AdminBookingsPage() {
-  const [statusFilter, setStatusFilter] = useState<BookingStatus | ''>('');
+  const [statusFilter, setStatusFilter] = useState<BookingStatus | ''>('Active');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const { data: bookings, isLoading, error } = useBookings();
+  const { data: bookings, isLoading, error } = useBookings(statusFilter || undefined);
 
   if (isLoading) {
     return (

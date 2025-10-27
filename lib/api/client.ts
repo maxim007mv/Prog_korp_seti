@@ -32,6 +32,13 @@ class ApiClient {
   ): Promise<T> {
     const url = `${this.baseUrl}${endpoint}`;
 
+    // 🔍 ДЕТАЛЬНОЕ ЛОГИРОВАНИЕ
+    console.group(`🌐 API Request: ${options?.method || 'GET'} ${endpoint}`);
+    console.log('📍 Full URL:', url);
+    console.log('📦 Request body:', options?.body);
+    console.log('🔧 Headers:', options?.headers);
+    console.groupEnd();
+
     try {
       const response = await fetch(url, {
         ...options,
@@ -42,9 +49,16 @@ class ApiClient {
         credentials: 'include', // Для httpOnly cookies
       });
 
+      // 🔍 ЛОГИРОВАНИЕ ОТВЕТА
+      console.group(`📡 API Response: ${options?.method || 'GET'} ${endpoint}`);
+      console.log('✅ Status:', response.status, response.statusText);
+      console.log('📄 Response headers:', Object.fromEntries(response.headers.entries()));
+
       // Обработка ошибок
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
+        console.error('❌ Error response:', errorData);
+        console.groupEnd();
         throw new ApiError(
           response.status,
           errorData.code || 'UNKNOWN_ERROR',
@@ -55,17 +69,28 @@ class ApiClient {
 
       // Обработка пустого ответа (204 No Content)
       if (response.status === 204) {
+        console.log('✅ Empty response (204 No Content)');
+        console.groupEnd();
         return {} as T;
       }
 
-      return response.json();
+      const data = await response.json();
+      console.log('📦 Response data:', data);
+      console.groupEnd();
+      return data;
     } catch (error) {
       if (error instanceof ApiError) {
+        console.error('🚨 ApiError thrown:', error.message);
         throw error;
       }
 
       // Обработка сетевых ошибок
-      console.error('Network error:', error);
+      console.group('🔥 NETWORK ERROR');
+      console.error('Error details:', error);
+      console.error('Base URL:', this.baseUrl);
+      console.error('Endpoint:', endpoint);
+      console.groupEnd();
+      
       throw new ApiError(
         0,
         'NETWORK_ERROR',

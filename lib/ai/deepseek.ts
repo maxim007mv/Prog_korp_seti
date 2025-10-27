@@ -5,7 +5,7 @@ import type { AiMenuSearchResponse, AiUpsellResponse } from '@/types/ai';
 /**
  * DeepSeek API конфигурация
  */
-const DEEPSEEK_API_KEY = 'sk-27b9a09568a04c95b84b8d44f55bab8a';
+const DEEPSEEK_API_KEY = process.env.NEXT_PUBLIC_DEEPSEEK_API_KEY || '';
 const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
 
 /**
@@ -54,7 +54,26 @@ export async function searchMenuWithAI(
   query: string,
   allDishes: Dish[]
 ): Promise<AiMenuSearchResponse> {
-  const systemPrompt = `Ты — ассистент ресторана. Твоя задача — анализировать запросы клиентов на естественном языке и находить подходящие блюда из меню.
+  // Fallback: если нет API ключа, используем простой поиск
+  if (!DEEPSEEK_API_KEY || DEEPSEEK_API_KEY.includes('your-real-api-key')) {
+    console.warn('⚠️ DeepSeek API key not configured, using fallback search');
+    const fallbackDishes = allDishes
+      .filter((d) =>
+        d.name.toLowerCase().includes(query.toLowerCase()) ||
+        d.composition?.toLowerCase().includes(query.toLowerCase()) ||
+        d.tags?.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
+      )
+      .map((d) => d.id)
+      .slice(0, 8);
+
+    return {
+      dishes: fallbackDishes,
+      explanation: `Найдено ${fallbackDishes.length} блюд по запросу "${query}" (базовый поиск)`,
+    };
+  }
+
+  try {
+    const systemPrompt = `Ты — ассистент ресторана. Твоя задача — анализировать запросы клиентов на естественном языке и находить подходящие блюда из меню.
 
 Меню ресторана (JSON):
 ${JSON.stringify(
@@ -77,7 +96,7 @@ ${JSON.stringify(
   "explanation": "Нашёл 3 блюда: Салат Цезарь (без глютена), Стейк рибай (мясо), Тирамису (десерт)"
 }`;
 
-  const userPrompt = `Запрос клиента: "${query}"
+    const userPrompt = `Запрос клиента: "${query}"
 
 Найди все блюда, которые соответствуют этому запросу. Учитывай:
 - Категорию блюда
@@ -88,9 +107,8 @@ ${JSON.stringify(
 
 Верни JSON с массивом ID и объяснением.`;
 
-  const aiResponse = await callDeepSeek(systemPrompt, userPrompt);
+    const aiResponse = await callDeepSeek(systemPrompt, userPrompt);
 
-  try {
     // Извлекаем JSON из ответа (AI может добавить текст вокруг)
     const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
@@ -103,18 +121,20 @@ ${JSON.stringify(
       explanation: parsed.explanation || 'Результаты поиска',
     };
   } catch (error) {
-    console.error('Failed to parse AI response:', error);
-    // Fallback: простой поиск по имени
+    console.error('AI search failed, using fallback:', error);
+    // Fallback: расширенный поиск
     const fallbackDishes = allDishes
       .filter((d) =>
-        d.name.toLowerCase().includes(query.toLowerCase())
+        d.name.toLowerCase().includes(query.toLowerCase()) ||
+        d.composition?.toLowerCase().includes(query.toLowerCase()) ||
+        d.tags?.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
       )
       .map((d) => d.id)
-      .slice(0, 5);
+      .slice(0, 8);
 
     return {
       dishes: fallbackDishes,
-      explanation: `Найдено по имени: ${fallbackDishes.length} блюд`,
+      explanation: `Найдено ${fallbackDishes.length} блюд (базовый поиск из-за ошибки AI)`,
     };
   }
 }

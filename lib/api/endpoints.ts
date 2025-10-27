@@ -81,8 +81,9 @@ export const tablesApi = {
  * API функции для работы с бронированиями
  */
 export const bookingsApi = {
-  // Получить все бронирования
-  getBookings: () => apiClient.get<Booking[]>('/bookings'),
+  // Получить все бронирования (по умолчанию только активные для производительности)
+  getBookings: (status: string = 'Active') => 
+    apiClient.get<Booking[]>('/bookings', { status }),
 
   // Поиск бронирований (имя + 4 цифры телефона)
   searchBookings: (params: BookingSearchParams) =>

@@ -109,7 +109,7 @@ public class BookingController : ControllerBase
                 StartTime = b.StartTime,
                 EndTime = b.EndTime,
                 Comment = b.Comment,
-                Status = b.Status,
+                Status = MapStatusToEnglish(b.Status),
                 Table = b.Table != null ? new TableInfoDto
                 {
                     Id = b.Table.Id,
@@ -168,7 +168,7 @@ public class BookingController : ControllerBase
             StartTime = booking.StartTime,
             EndTime = booking.EndTime,
             Comment = booking.Comment,
-            Status = booking.Status,
+            Status = MapStatusToEnglish(booking.Status),
             Table = booking.Table != null ? new TableInfoDto
             {
                 Id = booking.Table.Id,
@@ -197,7 +197,9 @@ public class BookingController : ControllerBase
 
         if (!string.IsNullOrWhiteSpace(status))
         {
-            query = query.Where(b => b.Status.ToLower() == status.ToLower());
+            // Конвертируем английский статус в русский для поиска в БД
+            var russianStatus = MapStatusToRussian(status);
+            query = query.Where(b => b.Status.ToLower() == russianStatus.ToLower());
         }
 
         var bookings = await query.ToListAsync();
@@ -211,7 +213,7 @@ public class BookingController : ControllerBase
             StartTime = b.StartTime,
             EndTime = b.EndTime,
             Comment = b.Comment,
-            Status = b.Status,
+            Status = MapStatusToEnglish(b.Status),
             Table = b.Table != null ? new TableInfoDto
             {
                 Id = b.Table.Id,
@@ -241,11 +243,31 @@ public class BookingController : ControllerBase
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)]
     public async Task<IActionResult> CreateBooking([FromBody] CreateBookingDto dto)
     {
+        _logger.LogInformation(
+            "Начало создания бронирования. Входные данные: TableId={TableId}, ClientName={ClientName}, ClientPhone={ClientPhone}, StartTime={StartTime}, EndTime={EndTime}",
+            dto?.TableId, dto?.ClientName, dto?.ClientPhone, dto?.StartTime, dto?.EndTime);
+
         try
         {
+            // Проверка входных данных
+            if (dto == null)
+            {
+                _logger.LogWarning("CreateBooking: DTO is null");
+                return BadRequest(new
+                {
+                    error = "Данные бронирования не переданы",
+                    message = "Booking data is required"
+                });
+            }
+
+            _logger.LogDebug("CreateBooking: Начинаем валидацию времени бронирования");
+
             // 1. Валидация времени бронирования
             if (dto.EndTime <= dto.StartTime)
             {
+                _logger.LogWarning(
+                    "CreateBooking: Некорректное время бронирования. StartTime={StartTime}, EndTime={EndTime}",
+                    dto.StartTime, dto.EndTime);
                 return BadRequest(new
                 {
                     error = "Время окончания должно быть позже времени начала",
@@ -256,6 +278,9 @@ public class BookingController : ControllerBase
             // Бронирование должно быть в будущем
             if (dto.StartTime < DateTime.UtcNow.AddMinutes(-5)) // 5 минут допуска
             {
+                _logger.LogWarning(
+                    "CreateBooking: Время начала в прошлом. StartTime={StartTime}, CurrentTime={CurrentTime}",
+                    dto.StartTime, DateTime.UtcNow);
                 return BadRequest(new
                 {
                     error = "Время начала бронирования должно быть в будущем",
@@ -267,6 +292,9 @@ public class BookingController : ControllerBase
             var duration = (dto.EndTime - dto.StartTime).TotalMinutes;
             if (duration % 30 != 0 || duration < 30)
             {
+                _logger.LogWarning(
+                    "CreateBooking: Некорректная длительность. Duration={Duration} минут",
+                    duration);
                 return BadRequest(new
                 {
                     error = "Длительность бронирования должна быть кратна 30 минутам (минимум 30 минут)",
@@ -275,10 +303,15 @@ public class BookingController : ControllerBase
                 });
             }
 
+            _logger.LogDebug("CreateBooking: Валидация времени пройдена. Начинаем валидацию телефона");
+
             // 2. Нормализация и валидация телефона
             var normalizedPhone = PhoneNormalizer.NormalizeWithCountryCode(dto.ClientPhone);
             if (!PhoneNormalizer.IsValid(dto.ClientPhone))
             {
+                _logger.LogWarning(
+                    "CreateBooking: Неверный формат телефона. ClientPhone={ClientPhone}",
+                    dto.ClientPhone);
                 return BadRequest(new
                 {
                     error = "Неверный формат российского номера телефона",
@@ -287,21 +320,49 @@ public class BookingController : ControllerBase
                 });
             }
 
+            _logger.LogDebug(
+                "CreateBooking: Телефон нормализован. Original={Original}, Normalized={Normalized}",
+                dto.ClientPhone, normalizedPhone);
+
             // 3. Проверка существования стола
+            _logger.LogDebug("CreateBooking: Проверяем существование стола с ID={TableId}", dto.TableId);
+
             var table = await _context.Tables
                 .AsNoTracking()
                 .FirstOrDefaultAsync(t => t.Id == dto.TableId && t.IsActive);
 
             if (table == null)
             {
+                _logger.LogWarning(
+                    "CreateBooking: Стол не найден или неактивен. TableId={TableId}. Проверяем все активные столы в БД",
+                    dto.TableId);
+
+                // Дополнительная диагностика - проверим все активные столы
+                var activeTables = await _context.Tables
+                    .Where(t => t.IsActive)
+                    .Select(t => new { t.Id, t.Location, t.Seats })
+                    .ToListAsync();
+
+                _logger.LogInformation(
+                    "CreateBooking: Найдено {Count} активных столов: {Tables}",
+                    activeTables.Count,
+                    string.Join(", ", activeTables.Select(t => $"ID:{t.Id}({t.Location}-{t.Seats}мест)")));
+
                 return NotFound(new
                 {
                     error = "Стол не найден или неактивен",
-                    tableId = dto.TableId
+                    tableId = dto.TableId,
+                    availableTables = activeTables.Select(t => new { t.Id, t.Location, t.Seats })
                 });
             }
 
+            _logger.LogDebug(
+                "CreateBooking: Стол найден. TableId={TableId}, Location={Location}, Seats={Seats}",
+                table.Id, table.Location, table.Seats);
+
             // 4. Проверка конфликтов бронирований
+            _logger.LogDebug("CreateBooking: Проверяем конфликты бронирований для стола {TableId}", dto.TableId);
+
             var hasConflict = await _context.Bookings
                 .AnyAsync(b =>
                     b.TableId == dto.TableId &&
@@ -315,22 +376,57 @@ public class BookingController : ControllerBase
 
             if (hasConflict)
             {
+                _logger.LogWarning(
+                    "CreateBooking: Конфликт времени бронирования. TableId={TableId}, StartTime={StartTime}, EndTime={EndTime}",
+                    dto.TableId, dto.StartTime, dto.EndTime);
+
+                // Получим детали конфликтующих бронирований для диагностики
+                var conflictingBookings = await _context.Bookings
+                    .Where(b =>
+                        b.TableId == dto.TableId &&
+                        b.Status == "активно" &&
+                        (
+                            (dto.StartTime >= b.StartTime && dto.StartTime < b.EndTime) ||
+                            (dto.EndTime > b.StartTime && dto.EndTime <= b.EndTime) ||
+                            (dto.StartTime <= b.StartTime && dto.EndTime >= b.EndTime)
+                        )
+                    )
+                    .Select(b => new { b.Id, b.ClientName, b.StartTime, b.EndTime })
+                    .ToListAsync();
+
+                _logger.LogInformation(
+                    "CreateBooking: Найдено {Count} конфликтующих бронирований: {Bookings}",
+                    conflictingBookings.Count,
+                    string.Join(", ", conflictingBookings.Select(b => $"ID:{b.Id}({b.ClientName}:{b.StartTime}-{b.EndTime})")));
+
                 return Conflict(new
                 {
                     error = "Стол уже забронирован на указанное время",
                     tableId = dto.TableId,
-                    requestedTime = new { start = dto.StartTime, end = dto.EndTime }
+                    requestedTime = new { start = dto.StartTime, end = dto.EndTime },
+                    conflictingBookings = conflictingBookings
                 });
             }
 
+            _logger.LogDebug("CreateBooking: Конфликтов не найдено. Создаем бронирование");
+
             // 5. Создание бронирования
+            // Конвертируем DateTime в UTC, если они пришли без Kind
+            var startTimeUtc = dto.StartTime.Kind == DateTimeKind.Unspecified 
+                ? DateTime.SpecifyKind(dto.StartTime, DateTimeKind.Utc) 
+                : dto.StartTime.ToUniversalTime();
+                
+            var endTimeUtc = dto.EndTime.Kind == DateTimeKind.Unspecified 
+                ? DateTime.SpecifyKind(dto.EndTime, DateTimeKind.Utc) 
+                : dto.EndTime.ToUniversalTime();
+
             var booking = new Restaurant.Domain.Entities.Booking
             {
                 TableId = dto.TableId,
                 ClientName = dto.ClientName.Trim(),
                 ClientPhone = normalizedPhone,
-                StartTime = dto.StartTime,
-                EndTime = dto.EndTime,
+                StartTime = startTimeUtc,
+                EndTime = endTimeUtc,
                 Comment = dto.Comment?.Trim(),
                 Status = "активно",
                 CreatedAt = DateTime.UtcNow,
@@ -341,13 +437,8 @@ public class BookingController : ControllerBase
             await _context.SaveChangesAsync();
 
             _logger.LogInformation(
-                "Создано бронирование #{BookingId} для {ClientName}, стол {TableId}, время {StartTime}-{EndTime}",
-                booking.Id,
-                booking.ClientName,
-                booking.TableId,
-                booking.StartTime,
-                booking.EndTime
-            );
+                "CreateBooking: Бронирование успешно создано. ID={BookingId}, ClientName={ClientName}, TableId={TableId}, Time={StartTime}-{EndTime}",
+                booking.Id, booking.ClientName, booking.TableId, booking.StartTime, booking.EndTime);
 
             // 6. Загружаем связанные данные для ответа
             var createdBooking = await _context.Bookings
@@ -355,9 +446,29 @@ public class BookingController : ControllerBase
                 .Include(b => b.Table)
                 .FirstOrDefaultAsync(b => b.Id == booking.Id);
 
+            if (createdBooking == null)
+            {
+                _logger.LogError("CreateBooking: Не удалось загрузить созданное бронирование с ID={BookingId}", booking.Id);
+                return StatusCode(500, new
+                {
+                    error = "Бронирование создано, но не удалось получить данные",
+                    bookingId = booking.Id
+                });
+            }
+
+            if (createdBooking.Table == null)
+            {
+                _logger.LogError("CreateBooking: Созданное бронирование ID={BookingId} не содержит данных стола", booking.Id);
+                return StatusCode(500, new
+                {
+                    error = "Бронирование создано, но данные стола недоступны",
+                    bookingId = booking.Id
+                });
+            }
+
             var response = new BookingResponseDto
             {
-                Id = createdBooking!.Id,
+                Id = createdBooking.Id,
                 ClientName = createdBooking.ClientName,
                 ClientPhone = createdBooking.ClientPhone,
                 PhoneLastFour = PhoneNormalizer.GetLastDigits(createdBooking.ClientPhone, 4),
@@ -374,11 +485,14 @@ public class BookingController : ControllerBase
                 CreatedAt = createdBooking.CreatedAt
             };
 
+            _logger.LogInformation("CreateBooking: Возвращаем успешный ответ для бронирования ID={BookingId}", response.Id);
             return CreatedAtAction(nameof(GetBooking), new { id = response.Id }, response);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Ошибка при создании бронирования");
+            _logger.LogError(ex,
+                "CreateBooking: Исключение при создании бронирования. TableId={TableId}, ClientName={ClientName}, Error={ErrorMessage}",
+                dto?.TableId, dto?.ClientName, ex.Message);
             return StatusCode(500, new
             {
                 error = "Внутренняя ошибка сервера",
@@ -453,7 +567,7 @@ public class BookingController : ControllerBase
                 Status = booking.Status,
                 Table = new TableInfoDto
                 {
-                    Id = booking.Table.Id,
+                    Id = booking.Table!.Id,
                     Location = booking.Table.Location,
                     Seats = booking.Table.Seats
                 },
@@ -495,5 +609,36 @@ public class BookingController : ControllerBase
         _logger.LogInformation("Отменено бронирование #{BookingId}", id);
 
         return NoContent();
+    }
+
+    /// <summary>
+    /// Маппинг русских статусов в английские для фронтенда
+    /// </summary>
+    private static string MapStatusToEnglish(string russianStatus)
+    {
+        return russianStatus?.ToLower() switch
+        {
+            "активно" => "Active",
+            "завершено" => "Completed",
+            "отменено" => "Cancelled",
+            _ => "Active" // по умолчанию
+        };
+    }
+
+    /// <summary>
+    /// Маппинг английских статусов в русские для поиска в БД
+    /// </summary>
+    private static string MapStatusToRussian(string? englishStatus)
+    {
+        if (string.IsNullOrWhiteSpace(englishStatus))
+            return "активно";
+
+        return englishStatus.ToLower() switch
+        {
+            "active" => "активно",
+            "completed" => "завершено",
+            "cancelled" => "отменено",
+            _ => englishStatus // если не распознан, оставляем как есть
+        };
     }
 }

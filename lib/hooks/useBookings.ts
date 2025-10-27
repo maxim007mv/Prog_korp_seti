@@ -7,10 +7,10 @@ import type { BookingCreate, BookingSearchParams, TableAvailabilityQuery } from 
 /**
  * Хук для получения всех бронирований
  */
-export function useBookings() {
+export function useBookings(status?: string) {
   return useQuery({
-    queryKey: ['bookings'],
-    queryFn: bookingsApi.getBookings,
+    queryKey: ['bookings', status],
+    queryFn: () => bookingsApi.getBookings(status),
   });
 }
 

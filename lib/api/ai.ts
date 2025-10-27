@@ -172,6 +172,40 @@ export const aiApi = {
    */
   generateReport: (type: string, params: any): Promise<{ report: string; data: any }> =>
     apiClient.post(`/ai/generate-report/${type}`, params),
+
+  // ============================================
+  // ПРЕДСКАЗАНИЯ
+  // ============================================
+
+  /**
+   * Получить AI предсказания загрузки столиков на неделю
+   */
+  getTablePredictions: (): Promise<{
+    predictions: Array<{
+      date: string;
+      dayOfWeek: string;
+      avgOccupancyRate: number;
+      hourlyPredictions: Array<{
+        hour: number;
+        occupancyRate: number;
+        expectedOrders: number;
+        confidence: number;
+      }>;
+      expectedRevenue: number;
+      topTables: Array<{ tableId: number; expectedOrders: number }>;
+    }>;
+    topTables: Array<{
+      tableId: number;
+      totalOrders: number;
+      totalRevenue: number;
+      avgRevenue: number;
+      peakHours: number[];
+      peakDays: string[];
+    }>;
+    mostPopularDish: string;
+    generatedAt: string;
+  }> =>
+    apiClient.get('/ai/predictions/tables'),
 };
 
 /**

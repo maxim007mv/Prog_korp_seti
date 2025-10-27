@@ -79,12 +79,43 @@ export interface AiInsight {
  * Рекомендация от ИИ
  */
 export interface AiRecommendation {
-  type: 'menu_optimization' | 'pricing' | 'staffing' | 'inventory';
   title: string;
   description: string;
-  actionItems?: string[];
-  priority: 1 | 2 | 3;
-  confidence?: number;
+  priority: 'high' | 'medium' | 'low' | number;
+  estimatedImpact?: number;
+  category?: string;
+}
+
+export interface TablePrediction {
+  date: string;
+  dayOfWeek: string;
+  avgOccupancyRate: number;
+  hourlyPredictions: HourlyPrediction[];
+  expectedRevenue: number;
+  topTables: { tableId: number; expectedOrders: number }[];
+}
+
+export interface HourlyPrediction {
+  hour: number;
+  occupancyRate: number;
+  expectedOrders: number;
+  confidence: number;
+}
+
+export interface TableStats {
+  tableId: number;
+  totalOrders: number;
+  totalRevenue: number;
+  avgRevenue: number;
+  peakHours: number[];
+  peakDays: string[];
+}
+
+export interface TablePredictionsResponse {
+  predictions: TablePrediction[];
+  topTables: TableStats[];
+  mostPopularDish: string;
+  generatedAt: string;
 }
 
 /**

@@ -14,7 +14,20 @@ import type {
 export function useDashboard(period: AnalyticsPeriod = 'today') {
   return useQuery({
     queryKey: ['analytics', 'dashboard', period],
-    queryFn: () => analyticsApi.getDashboard(period),
+    queryFn: async () => {
+      console.group('📊 Analytics: Загрузка дашборда');
+      console.log('Period:', period);
+      try {
+        const data = await analyticsApi.getDashboard(period);
+        console.log('✅ Данные получены:', data);
+        console.groupEnd();
+        return data;
+      } catch (error) {
+        console.error('❌ Ошибка загрузки дашборда:', error);
+        console.groupEnd();
+        throw error;
+      }
+    },
     staleTime: 2 * 60 * 1000, // 2 минуты
     refetchInterval: 2 * 60 * 1000, // обновление каждые 2 минуты
   });

@@ -56,10 +56,10 @@ public class TablesController : ControllerBase
         var tables = await query
             .Select(t => new
             {
-                t.Id,
-                Number = t.Location,
-                Capacity = t.Seats,
-                IsAvailable = t.IsActive
+                id = t.Id,
+                location = t.Location,
+                seats = t.Seats,
+                isAvailable = t.IsActive
             })
             .ToListAsync();
 

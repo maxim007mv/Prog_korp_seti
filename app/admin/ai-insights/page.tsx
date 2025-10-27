@@ -53,10 +53,10 @@ export default function AiInsightsPage() {
       </div>
 
       {/* KPI карточки */}
-      {digest && (
+      {digest && digest.metrics && (
         <div className="grid gap-4 md:grid-cols-4">
           <MetricCard
-            title="Выручка сегодня"
+            title="Выручка (15 дней)"
             value={`${digest.metrics.revenue.toLocaleString('ru-RU')} ₽`}
             change={digest.metrics.growth.revenue}
             icon={TrendingUp}
@@ -71,15 +71,15 @@ export default function AiInsightsPage() {
           />
           <MetricCard
             title="Средний чек"
-            value={`${digest.metrics.avgCheck.toLocaleString('ru-RU')} ₽`}
+            value={`${Math.round(digest.metrics.avgCheck).toLocaleString('ru-RU')} ₽`}
             change={0}
             icon={TrendingUp}
             trend="stable"
           />
-          {digest.forecast && (
+          {digest.forecast && digest.forecast.tomorrow && (
             <MetricCard
               title="Прогноз завтра"
-              value={`${digest.forecast.tomorrow.expectedRevenue.toLocaleString('ru-RU')} ₽`}
+              value={`${Math.round(digest.forecast.tomorrow.expectedRevenue).toLocaleString('ru-RU')} ₽`}
               confidence={digest.forecast.tomorrow.confidence}
               icon={Brain}
               trend="stable"
@@ -232,21 +232,24 @@ interface RecommendationCardProps {
     id: number;
     type: string;
     title: string;
-    content: string;
+    description?: string;
     actionItems?: string[];
     confidence?: number;
-    priority: 1 | 2 | 3;
+    priority: number | string;
   };
 }
 
 function RecommendationCard({ recommendation }: RecommendationCardProps) {
-  const priorityConfig = {
+  const priorityConfig: Record<number | string, { color: string; badge: string; label: string }> = {
     1: { color: 'border-red-500 bg-red-50', badge: 'destructive', label: 'Срочно' },
     2: { color: 'border-yellow-500 bg-yellow-50', badge: 'secondary', label: 'Важно' },
     3: { color: 'border-blue-500 bg-blue-50', badge: 'secondary', label: 'Рекомендация' },
+    'high': { color: 'border-red-500 bg-red-50', badge: 'destructive', label: 'Срочно' },
+    'medium': { color: 'border-yellow-500 bg-yellow-50', badge: 'secondary', label: 'Важно' },
+    'low': { color: 'border-blue-500 bg-blue-50', badge: 'secondary', label: 'Рекомендация' },
   };
 
-  const config = priorityConfig[recommendation.priority];
+  const config = priorityConfig[recommendation.priority] || priorityConfig[3];
 
   return (
     <Card className={`border-l-4 ${config.color} hover:shadow-lg transition`}>
@@ -258,7 +261,7 @@ function RecommendationCard({ recommendation }: RecommendationCardProps) {
           </Badge>
         </div>
         
-        <p className="text-gray-700 mb-4">{recommendation.content}</p>
+        <p className="text-gray-700 mb-4">{recommendation.description || ''}</p>
         
         {recommendation.actionItems && recommendation.actionItems.length > 0 && (
           <div className="space-y-2 mb-4">
@@ -275,7 +278,7 @@ function RecommendationCard({ recommendation }: RecommendationCardProps) {
         )}
         
         <div className="flex items-center justify-between pt-4 border-t">
-          {recommendation.confidence && (
+          {recommendation.confidence !== undefined && (
             <span className="text-xs text-gray-500">
               Уверенность: {(recommendation.confidence * 100).toFixed(0)}%
             </span>

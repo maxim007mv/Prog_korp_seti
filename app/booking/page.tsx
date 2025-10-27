@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Calendar, Clock, Users, X } from 'lucide-react';
-import { useCreateBooking } from '@/lib/hooks';
-import { BookingCreate } from '@/types';
+import { useCreateBooking, useTables, useBookings } from '@/lib/hooks';
+import { BookingCreate, Booking } from '@/types';
 
 export default function BookingPage() {
   const [selectedTable, setSelectedTable] = useState<number | null>(null);
@@ -21,10 +21,32 @@ export default function BookingPage() {
   });
   
   const createBooking = useCreateBooking();
+  const { data: tables, isLoading: tablesLoading, error: tablesError } = useTables();
+  const { data: bookings, isLoading: bookingsLoading } = useBookings();
 
   const handleTableClick = (tableNumber: number) => {
     setSelectedTable(tableNumber);
     console.log(`Выбран стол ${tableNumber}`);
+  };
+
+  // Функция для получения активных бронирований стола
+  const getTableBookings = (tableId: number): Booking[] => {
+    if (!bookings) return [];
+    return bookings.filter(
+      (booking) => booking.tableId === tableId && booking.status === 'Active'
+    );
+  };
+
+  // Функция для форматирования времени
+  const formatDateTime = (dateStr: string) => {
+    const date = new Date(dateStr);
+    return date.toLocaleString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
   };
 
   const handleBookingClick = () => {
@@ -453,6 +475,77 @@ export default function BookingPage() {
               />
             </TableGroup>
           </div>
+        </div>
+
+        {/* Список реальных столов из БД */}
+        <div className="mt-8 bg-[#333] rounded-lg border-2 border-yellow-400 p-6">
+          <h2 className="text-2xl font-bold mb-4 text-center">Доступные столы</h2>
+          
+          {tablesLoading && (
+            <div className="text-center text-gray-400">Загрузка столов...</div>
+          )}
+          
+          {tablesError && (
+            <div className="text-center text-red-400">
+              Ошибка загрузки столов: {tablesError instanceof Error ? tablesError.message : 'Неизвестная ошибка'}
+            </div>
+          )}
+          
+          {tables && tables.length > 0 && (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {tables.map((table) => {
+                const tableBookings = getTableBookings(table.id);
+                const hasBookings = tableBookings.length > 0;
+                
+                return (
+                  <div
+                    key={table.id}
+                    className={`
+                      p-4 rounded-lg border-2 transition-all cursor-pointer
+                      ${selectedTable === table.id 
+                        ? 'bg-yellow-400 border-yellow-600 text-black' 
+                        : hasBookings
+                          ? 'bg-red-900/30 border-red-500/50 text-white'
+                          : 'bg-[#222] border-[#444] text-white hover:border-yellow-400'
+                      }
+                    `}
+                    onClick={() => handleTableClick(table.id)}
+                  >
+                    <div className="text-lg font-bold flex items-center justify-between">
+                      <span>Стол #{table.id}</span>
+                      {hasBookings && (
+                        <span className="text-xs bg-red-500 text-white px-2 py-1 rounded">
+                          Занят
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-sm mt-2">{table.location}</div>
+                    <div className="text-xs mt-1">{table.seats} мест</div>
+                    
+                    {/* Информация о бронированиях */}
+                    {hasBookings && (
+                      <div className="mt-3 pt-3 border-t border-gray-600 space-y-2">
+                        <div className="text-xs font-semibold text-yellow-400">
+                          📅 Бронирования:
+                        </div>
+                        {tableBookings.map((booking) => (
+                          <div key={booking.id} className="text-xs bg-black/30 p-2 rounded">
+                            <div className="font-medium">{booking.clientName}</div>
+                            <div className="text-gray-400 mt-1">
+                              🕐 {formatDateTime(booking.start)}
+                            </div>
+                            <div className="text-gray-400">
+                              🕑 {formatDateTime(booking.end)}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* Информация о выбранном столе */}

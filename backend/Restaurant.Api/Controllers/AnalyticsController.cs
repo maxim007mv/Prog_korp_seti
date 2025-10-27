@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Restaurant.Infrastructure.Persistence;
 
 namespace Restaurant.Api.Controllers
 {
@@ -8,61 +10,134 @@ namespace Restaurant.Api.Controllers
     public class AnalyticsController : ControllerBase
     {
         private readonly ILogger<AnalyticsController> _logger;
+        private readonly AppDbContext _db;
 
-        public AnalyticsController(ILogger<AnalyticsController> logger)
+        public AnalyticsController(ILogger<AnalyticsController> logger, AppDbContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
         /// <summary>
         /// Получить KPI панели управления
         /// </summary>
         [HttpGet("dashboard")]
-        public IActionResult GetDashboardKpi()
+        public async Task<IActionResult> GetDashboardKpi()
         {
+            _logger.LogInformation("📊 GetDashboardKpi: Запрос KPI панели управления");
+            
             try
             {
+                var today = DateTime.UtcNow.Date;
+                var tomorrow = today.AddDays(1);
+                var last30Days = DateTime.SpecifyKind(today.AddDays(-30), DateTimeKind.Utc);
+
+                // Выручка и заказы за сегодня (только закрытые: closed, Completed, закрыт)
+                var todayOrders = await _db.Orders
+                    .Where(o => o.CreatedAt >= today && o.CreatedAt < tomorrow 
+                        && (o.Status == "closed" || o.Status == "Completed" || o.Status == "закрыт"))
+                    .ToListAsync();
+
+                var todayRevenue = todayOrders.Sum(o => o.TotalPrice);
+                var todayOrdersCount = todayOrders.Count;
+
+                // Всего за последние 30 дней (для консистентности с AI Insights)
+                var monthOrders = await _db.Orders
+                    .Where(o => o.CreatedAt >= last30Days 
+                        && (o.Status == "closed" || o.Status == "Completed" || o.Status == "закрыт"))
+                    .ToListAsync();
+
+                var totalRevenue = monthOrders.Sum(o => o.TotalPrice);
+                var totalOrders = monthOrders.Count;
+                var averageOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0;
+
+                // Занятость столиков (активные заказы / всего столиков)
+                var activeOrders = await _db.Orders
+                    .Where(o => o.Status == "open" || o.Status == "pending")
+                    .CountAsync();
+                
+                var totalTables = await _db.Tables.CountAsync();
+                var tableOccupancy = totalTables > 0 ? (decimal)activeOrders / totalTables * 100 : 0;
+
+                // Популярные блюда за последние 30 дней
+                var popularDishes = await _db.OrderItems
+                    .Include(oi => oi.Dish)
+                    .Where(oi => oi.Order != null && oi.Order.CreatedAt >= last30Days 
+                        && (oi.Order.Status == "closed" || oi.Order.Status == "Completed" || oi.Order.Status == "закрыт"))
+                    .GroupBy(oi => new { oi.DishId, oi.Dish!.Name })
+                    .Select(g => new { 
+                        name = g.Key.Name, 
+                        orders = g.Sum(oi => oi.Quantity) 
+                    })
+                    .OrderByDescending(x => x.orders)
+                    .Take(3)
+                    .ToListAsync();
+
                 var kpi = new
                 {
-                    totalRevenue = 1250000.50m,
-                    totalOrders = 342,
-                    averageOrderValue = 3654.97m,
-                    tableOccupancy = 78.5m,
-                    popularDishes = new[]
-                    {
-                        new { name = "Стейк Рибай", orders = 45 },
-                        new { name = "Паста Карбонара", orders = 38 },
-                        new { name = "Салат Цезарь", orders = 32 }
-                    }
+                    totalRevenue = totalRevenue,
+                    totalOrders = totalOrders,
+                    todayRevenue = todayRevenue,
+                    todayOrders = todayOrdersCount,
+                    averageOrderValue = Math.Round(averageOrderValue, 2),
+                    tableOccupancy = Math.Round(tableOccupancy, 1),
+                    popularDishes = popularDishes
                 };
 
+                _logger.LogInformation("✅ GetDashboardKpi: Успешно возвращены данные KPI. TotalRevenue={Revenue}, TotalOrders={Orders}", 
+                    kpi.totalRevenue, kpi.totalOrders);
+                    
                 return Ok(kpi);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ошибка при получении KPI");
+                _logger.LogError(ex, "❌ GetDashboardKpi: Ошибка при получении KPI");
                 return StatusCode(500, new { message = "Ошибка при получении данных" });
             }
         }
 
         /// <summary>
-        /// Получить отчет о выручке
+        /// Получить отчет о выручке (для фронтенда /analytics/reports/revenue)
         /// </summary>
         [HttpGet("revenue")]
-        public IActionResult GetRevenueReport([FromQuery] string? from, [FromQuery] string? to)
+        [HttpGet("reports/revenue")]
+        public async Task<IActionResult> GetRevenueReport([FromQuery] string? from, [FromQuery] string? to)
         {
+            _logger.LogInformation("💰 GetRevenueReport: Запрос отчета о выручке. From={From}, To={To}", from ?? "не указано", to ?? "не указано");
+            
             try
             {
-                var points = new[]
-                {
-                    new { date = "2025-10-17", revenue = 45000.0m, orders = 23, avgCheck = 45000.0m / 23 },
-                    new { date = "2025-10-18", revenue = 52000.0m, orders = 28, avgCheck = 52000.0m / 28 },
-                    new { date = "2025-10-19", revenue = 48000.0m, orders = 25, avgCheck = 48000.0m / 25 },
-                    new { date = "2025-10-20", revenue = 55000.0m, orders = 30, avgCheck = 55000.0m / 30 },
-                    new { date = "2025-10-21", revenue = 62000.0m, orders = 35, avgCheck = 62000.0m / 35 },
-                    new { date = "2025-10-22", revenue = 58000.0m, orders = 32, avgCheck = 58000.0m / 32 },
-                    new { date = "2025-10-23", revenue = 51000.0m, orders = 27, avgCheck = 51000.0m / 27 }
-                };
+                // Парсим даты или используем дефолтные (последние 7 дней)
+                var endDate = string.IsNullOrEmpty(to) 
+                    ? DateTime.SpecifyKind(DateTime.UtcNow.Date.AddDays(1), DateTimeKind.Utc)
+                    : DateTime.SpecifyKind(DateTime.Parse(to).Date.AddDays(1), DateTimeKind.Utc);
+                
+                var startDate = string.IsNullOrEmpty(from) 
+                    ? DateTime.SpecifyKind(endDate.AddDays(-7), DateTimeKind.Utc)
+                    : DateTime.SpecifyKind(DateTime.Parse(from).Date, DateTimeKind.Utc);
+
+                _logger.LogInformation("📅 Период: {Start} - {End}", startDate, endDate);
+
+                // Получаем заказы за период (только закрытые: closed, Completed, закрыт)
+                var orders = await _db.Orders
+                    .Where(o => o.CreatedAt >= startDate && o.CreatedAt < endDate 
+                        && (o.Status == "closed" || o.Status == "Completed" || o.Status == "закрыт"))
+                    .GroupBy(o => o.CreatedAt.Date)
+                    .Select(g => new {
+                        date = g.Key,
+                        revenue = g.Sum(o => o.TotalPrice),
+                        orders = g.Count()
+                    })
+                    .OrderBy(x => x.date)
+                    .ToListAsync();
+
+                // Формируем точки для графика
+                var points = orders.Select(o => new {
+                    date = o.date.ToString("yyyy-MM-dd"),
+                    revenue = o.revenue,
+                    orders = o.orders,
+                    avgCheck = o.orders > 0 ? o.revenue / o.orders : 0
+                }).ToList();
 
                 var totalRevenue = points.Sum(p => p.revenue);
                 var totalOrders = points.Sum(p => p.orders);
@@ -78,21 +153,28 @@ namespace Restaurant.Api.Controllers
                     }
                 };
 
+                _logger.LogInformation("✅ GetRevenueReport: Успешно. TotalRevenue={Revenue}, TotalOrders={Orders}, Points={PointsCount}", 
+                    totalRevenue, totalOrders, points.Count);
+                    
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ошибка при получении отчета о выручке");
+                _logger.LogError(ex, "❌ GetRevenueReport: Ошибка при получении отчета о выручке");
                 return StatusCode(500, new { message = "Ошибка при получении данных" });
             }
         }
 
         /// <summary>
-        /// Получить отчет о популярных блюдах
+        /// Получить отчет о популярных блюдах (для фронтенда /analytics/reports/popular)
         /// </summary>
         [HttpGet("popular-dishes")]
+        [HttpGet("reports/popular")]
         public IActionResult GetPopularDishesReport([FromQuery] string? from, [FromQuery] string? to)
         {
+            _logger.LogInformation("🍽️ GetPopularDishesReport: Запрос отчета о популярных блюдах. From={From}, To={To}", 
+                from ?? "не указано", to ?? "не указано");
+                
             try
             {
                 var rows = new[]
@@ -112,21 +194,27 @@ namespace Restaurant.Api.Controllers
                     rows = rows
                 };
 
+                _logger.LogInformation("✅ GetPopularDishesReport: Успешно. Dishes={Count}", rows.Length);
+                
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ошибка при получении отчета о популярных блюдах");
+                _logger.LogError(ex, "❌ GetPopularDishesReport: Ошибка при получении отчета о популярных блюдах");
                 return StatusCode(500, new { message = "Ошибка при получении данных" });
             }
         }
 
         /// <summary>
-        /// Получить отчет об официантах
+        /// Получить отчет об официантах (для фронтенда /analytics/reports/waiters)
         /// </summary>
         [HttpGet("waiters")]
+        [HttpGet("reports/waiters")]
         public IActionResult GetWaitersReport([FromQuery] string? from, [FromQuery] string? to)
         {
+            _logger.LogInformation("👨‍💼 GetWaitersReport: Запрос отчета об официантах. From={From}, To={To}", 
+                from ?? "не указано", to ?? "не указано");
+                
             try
             {
                 var rows = new[]
@@ -143,11 +231,13 @@ namespace Restaurant.Api.Controllers
                     rows = rows
                 };
 
+                _logger.LogInformation("✅ GetWaitersReport: Успешно. Waiters={Count}", rows.Length);
+                
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ошибка при получении отчета об официантах");
+                _logger.LogError(ex, "❌ GetWaitersReport: Ошибка при получении отчета об официантах");
                 return StatusCode(500, new { message = "Ошибка при получении данных" });
             }
         }
