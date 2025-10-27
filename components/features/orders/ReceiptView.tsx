@@ -55,7 +55,7 @@ export function ReceiptView({ receipt }: ReceiptViewProps) {
           <span className="text-gray-600">Период обслуживания:</span>
           <span className="font-semibold">
             {formatDate(order.startTime, 'time')}
-            {order.endTime && ` - ${formatDate(order.endTime, 'time')}`}
+            {order.endTime && ' - ' + formatDate(order.endTime, 'time')}
           </span>
         </div>
         <div className="flex justify-between">

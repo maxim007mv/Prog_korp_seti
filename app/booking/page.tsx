@@ -26,7 +26,7 @@ export default function BookingPage() {
 
   const handleTableClick = (tableNumber: number) => {
     setSelectedTable(tableNumber);
-    console.log(`Выбран стол ${tableNumber}`);
+    console.log('Выбран стол ' + tableNumber);
   };
 
   // Функция для получения активных бронирований стола
@@ -107,7 +107,7 @@ export default function BookingPage() {
       
     } catch (error: any) {
       console.error('Ошибка бронирования:', error);
-      alert(`Ошибка при бронировании: ${error.message || 'Неизвестная ошибка'}`);
+      alert('Ошибка при бронировании: ' + (error.message || 'Неизвестная ошибка'));
     } finally {
       setIsSubmitting(false);
     }

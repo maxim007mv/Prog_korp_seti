@@ -168,16 +168,21 @@ export default function AiInsightsPage() {
               };
               const priorityColor = priorityColors[rec.priority] || priorityColors['3'];
               
+              const getPriorityLabel = (priority: 'high' | 'medium' | 'low' | number): string => {
+                if (priority === 'high' || priority === 1) return 'Срочно';
+                if (priority === 'medium' || priority === 2) return 'Важно';
+                return 'Рекомендация';
+              };
+              
               return (
                 <GlassCard key={rec.id} className={`p-6 rounded-[24px] border-l-4 ${priorityColor}`}>
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="font-bold flex-1 text-white">{rec.title}</h3>
                     <span className={`px-2 py-1 rounded-lg text-xs ${priorityColor}`}>
-                      {rec.priority === 1 || rec.priority === 'high' ? 'Срочно' : 
-                       rec.priority === 2 || rec.priority === 'medium' ? 'Важно' : 'Рекомендация'}
+                      {getPriorityLabel(rec.priority)}
                     </span>
                   </div>
-                  <p className="text-white/70 mb-4">{rec.description || ''}</p>
+                  <p className="text-white/70 mb-4">{rec.content || ''}</p>
                   {rec.actionItems && rec.actionItems.length > 0 && (
                     <div className="space-y-2 mb-4">
                       <p className="text-sm font-semibold text-white/60 uppercase tracking-wider">Действия:</p>

@@ -18,7 +18,7 @@ export default function AdminReportsPage() {
   const { data: waitersData, isLoading: isLoadingWaiters } = useWaitersReport(period);
 
   const handleExport = (reportType: string) => {
-    alert(\`Экспорт отчёта: \${reportType}\`);
+    alert('Экспорт отчёта: ' + reportType);
   };
 
   return (

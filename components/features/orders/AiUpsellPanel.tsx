@@ -119,7 +119,7 @@ export function AiUpsellPanel({ order, allDishes, onAddDish }: AiUpsellPanelProp
                 <div className="flex-1">
                   <div className="mb-1 flex items-start justify-between">
                     <h4 className="font-medium text-gray-900">
-                      {suggestion.dish?.name || `Блюдо #${suggestion.dishId}`}
+                      {suggestion.dish?.name || 'Блюдо #' + suggestion.dishId}
                     </h4>
                     {suggestion.dish?.price && (
                       <span className="text-sm font-semibold text-accent">

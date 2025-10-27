@@ -34,7 +34,7 @@ export default function AdminWaitersPage() {
               <div className="mb-3 flex items-center justify-between">
                 <h3 className="text-lg font-bold text-white">{waiter.name}</h3>
                 <div
-                  className={\`h-3 w-3 rounded-full \${waiter.isActive ? 'bg-green-400 shadow-[0_0_10px_rgba(74,222,128,0.5)]' : 'bg-gray-500'}\`}
+                  className={'h-3 w-3 rounded-full ' + (waiter.isActive ? 'bg-green-400 shadow-[0_0_10px_rgba(74,222,128,0.5)]' : 'bg-gray-500')}
                   title={waiter.isActive ? 'Активен' : 'Неактивен'}
                 />
               </div>

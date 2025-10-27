@@ -55,20 +55,11 @@ export default function AdminTablesPage() {
                   <MapPin className="h-5 w-5 text-amber-400" />
                   {table.location}
                 </h3>
-                <div
-                  className={\`h-3 w-3 rounded-full \${table.isActive ? 'bg-green-400 shadow-[0_0_10px_rgba(74,222,128,0.5)]' : 'bg-gray-500'}\`}
-                  title={table.isActive ? 'Доступен' : 'Недоступен'}
-                />
               </div>
               <div className="space-y-2">
                 <div className="flex items-center gap-2 text-white/70">
                   <UsersIcon className="h-4 w-4" />
                   <span>Вместимость: <span className="text-white font-semibold">{table.seats} мест</span></span>
-                </div>
-                <div className="flex gap-2">
-                  <Badge variant={table.isActive ? 'success' : 'default'}>
-                    {table.isActive ? 'Активный' : 'Неактивный'}
-                  </Badge>
                 </div>
               </div>
             </div>

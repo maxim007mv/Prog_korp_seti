@@ -85,11 +85,11 @@ export function BookingForm() {
 
     try {
       const booking = await createBookingMutation.mutateAsync(bookingData);
-      alert(`Бронирование создано! Номер: ${booking.id}`);
+      alert('Бронирование создано! Номер: ' + booking.id);
       router.push('/booking/search');
     } catch (err: any) {
       const errorMsg = err?.error || err?.message || 'Ошибка создания бронирования';
-      alert(`Ошибка: ${errorMsg}`);
+      alert('Ошибка: ' + errorMsg);
       console.error('Booking error:', err);
     }
   };

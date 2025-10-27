@@ -110,8 +110,8 @@ export default function AdminBookingsPage() {
                   <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
                     <p className="text-white/60">Столик: <span className="text-white font-medium">{booking.table?.location || 'N/A'}</span></p>
                     <p className="text-white/60">Телефон: <span className="text-white font-medium">***{booking.phoneLastFour}</span></p>
-                    <p className="text-white/60">Начало: <span className="text-white font-medium">{formatDate(booking.startTime)}</span></p>
-                    <p className="text-white/60">Окончание: <span className="text-white font-medium">{formatDate(booking.endTime)}</span></p>
+                    <p className="text-white/60">Начало: <span className="text-white font-medium">{formatDate(booking.start)}</span></p>
+                    <p className="text-white/60">Окончание: <span className="text-white font-medium">{formatDate(booking.end)}</span></p>
                   </div>
                 </div>
                 <div className="flex gap-2">

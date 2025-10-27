@@ -109,7 +109,7 @@ export default function AdminOrdersPage() {
                 </div>
                 <button 
                   className="px-4 py-2 rounded-xl text-sm bg-white/10 border border-white/20 text-white/80 hover:bg-white/20 transition-colors flex items-center gap-2"
-                  onClick={() => router.push(\`/staff/orders/\${order.id}\`)}
+                  onClick={() => router.push('/staff/orders/' + order.id)}
                 >
                   <Eye className="h-4 w-4" />
                   Детали

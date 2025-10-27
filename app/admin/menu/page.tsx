@@ -22,7 +22,7 @@ export default function AdminMenuPage() {
       await deleteDishMutation.mutateAsync(dishId);
       alert('Блюдо удалено!');
     } catch (err: any) {
-      alert(\`Ошибка: \${err.message}\`);
+      alert('Ошибка: ' + err.message);
     }
   };
 
