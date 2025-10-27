@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Calendar, Download } from 'lucide-react';
-import { Button, Input, Card } from '@/components/ui';
+import { GlassCard, Button, Input } from '@/components/ui';
 import { RevenueChart, PopularDishesChart, WaitersChart } from '@/components/features/admin';
 import { useRevenueReport, usePopularDishesReport, useWaitersReport } from '@/lib/hooks';
 import { formatPrice } from '@/lib/utils';
@@ -18,27 +18,23 @@ export default function AdminReportsPage() {
   const { data: waitersData, isLoading: isLoadingWaiters } = useWaitersReport(period);
 
   const handleExport = (reportType: string) => {
-    alert(`Экспорт отчёта: ${reportType}`);
+    alert(\`Экспорт отчёта: \${reportType}\`);
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="space-y-6">
       {/* Заголовок */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Отчёты</h1>
-        <p className="mt-2 text-gray-600">
-          Детальная аналитика по закрытым заказам (ПЗ-4)
-        </p>
-      </div>
+      <GlassCard className="p-6 rounded-[24px]">
+        <h1 className="text-3xl font-bold uppercase tracking-wider bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">Отчёты</h1>
+        <p className="mt-2 text-white/70">Детальная аналитика по закрытым заказам (ПЗ-4)</p>
+      </GlassCard>
 
       {/* Выбор периода */}
-      <Card className="mb-8">
-        <div className="mb-4">
-          <h2 className="text-lg font-bold">Период отчётов</h2>
-        </div>
+      <GlassCard className="p-6 rounded-[24px]">
+        <h2 className="text-lg font-bold mb-4 text-white uppercase tracking-wider">Период отчётов</h2>
         <div className="grid gap-4 sm:grid-cols-3">
           <div>
-            <label className="mb-2 block text-sm font-medium">
+            <label className="mb-2 block text-sm font-medium text-white/80">
               <Calendar className="mr-2 inline h-4 w-4" />
               Дата начала
             </label>
@@ -49,7 +45,7 @@ export default function AdminReportsPage() {
             />
           </div>
           <div>
-            <label className="mb-2 block text-sm font-medium">
+            <label className="mb-2 block text-sm font-medium text-white/80">
               <Calendar className="mr-2 inline h-4 w-4" />
               Дата окончания
             </label>
@@ -60,158 +56,79 @@ export default function AdminReportsPage() {
             />
           </div>
           <div className="flex items-end gap-2">
-            <Button variant="outline" onClick={() => setPeriod({
-              from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-              to: new Date().toISOString().split('T')[0],
-            })}>
-              7 дней
-            </Button>
-            <Button variant="outline" onClick={() => setPeriod({
-              from: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-              to: new Date().toISOString().split('T')[0],
-            })}>
-              30 дней
-            </Button>
+            <button 
+              className="px-4 py-2 rounded-xl text-sm bg-white/10 border border-white/20 text-white/80 hover:bg-white/20 transition-colors"
+              onClick={() => setPeriod({
+                from: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                to: new Date().toISOString().split('T')[0],
+              })}
+            >7 дней</button>
+            <button 
+              className="px-4 py-2 rounded-xl text-sm bg-white/10 border border-white/20 text-white/80 hover:bg-white/20 transition-colors"
+              onClick={() => setPeriod({
+                from: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                to: new Date().toISOString().split('T')[0],
+              })}
+            >30 дней</button>
           </div>
         </div>
-      </Card>
+      </GlassCard>
 
       {/* Отчёт по выручке */}
-      <div className="mb-8">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-2xl font-bold">Отчёт по выручке</h2>
-          <Button variant="outline" onClick={() => handleExport('revenue')}>
-            <Download className="mr-2 h-4 w-4" />
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-white uppercase tracking-wider">Отчёт по выручке</h2>
+          <button 
+            className="px-4 py-2 rounded-xl text-sm bg-amber-400/30 border border-amber-400/50 text-amber-300 hover:bg-amber-400/40 transition-colors flex items-center gap-2"
+            onClick={() => handleExport('revenue')}
+          >
+            <Download className="h-4 w-4" />
             Экспорт CSV
-          </Button>
+          </button>
         </div>
         {isLoadingRevenue ? (
-          <div className="h-96 animate-pulse rounded-lg bg-gray-200" />
+          <div className="h-96 animate-pulse rounded-[24px] bg-white/5 backdrop-blur" />
         ) : revenueData ? (
-          <>
-            <RevenueChart data={revenueData} />
-            
-            {/* Таблица данных */}
-            <Card className="mt-6">
-              <h3 className="mb-4 font-bold">Детальные данные</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b text-left">
-                      <th className="pb-2 font-medium text-gray-600">Дата</th>
-                      <th className="pb-2 text-right font-medium text-gray-600">Выручка</th>
-                      <th className="pb-2 text-right font-medium text-gray-600">Заказов</th>
-                      <th className="pb-2 text-right font-medium text-gray-600">Средний чек</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {revenueData.points.map((point) => (
-                      <tr key={point.date} className="border-b last:border-0">
-                        <td className="py-2">
-                          {new Date(point.date).toLocaleDateString('ru-RU')}
-                        </td>
-                        <td className="py-2 text-right font-semibold">
-                          {formatPrice(point.revenue)}
-                        </td>
-                        <td className="py-2 text-right">{point.orders}</td>
-                        <td className="py-2 text-right">
-                          {formatPrice(point.avgCheck)}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </Card>
-          </>
-        ) : (
-          <Card>
-            <p className="text-center text-red-600">Ошибка загрузки данных о выручке</p>
-          </Card>
-        )}
+          <RevenueChart data={revenueData} />
+        ) : null}
+      </div>
+
+      {/* Отчёт по популярным блюдам */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-white uppercase tracking-wider">Популярные блюда</h2>
+          <button 
+            className="px-4 py-2 rounded-xl text-sm bg-amber-400/30 border border-amber-400/50 text-amber-300 hover:bg-amber-400/40 transition-colors flex items-center gap-2"
+            onClick={() => handleExport('dishes')}
+          >
+            <Download className="h-4 w-4" />
+            Экспорт CSV
+          </button>
+        </div>
+        {isLoadingDishes ? (
+          <div className="h-96 animate-pulse rounded-[24px] bg-white/5 backdrop-blur" />
+        ) : dishesData ? (
+          <PopularDishesChart data={dishesData} />
+        ) : null}
       </div>
 
       {/* Отчёт по официантам */}
-      <div className="mb-8">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-2xl font-bold">Отчёт по официантам</h2>
-          <Button variant="outline" onClick={() => handleExport('waiters')}>
-            <Download className="mr-2 h-4 w-4" />
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold text-white uppercase tracking-wider">Эффективность официантов</h2>
+          <button 
+            className="px-4 py-2 rounded-xl text-sm bg-amber-400/30 border border-amber-400/50 text-amber-300 hover:bg-amber-400/40 transition-colors flex items-center gap-2"
+            onClick={() => handleExport('waiters')}
+          >
+            <Download className="h-4 w-4" />
             Экспорт CSV
-          </Button>
+          </button>
         </div>
         {isLoadingWaiters ? (
-          <div className="h-96 animate-pulse rounded-lg bg-gray-200" />
+          <div className="h-96 animate-pulse rounded-[24px] bg-white/5 backdrop-blur" />
         ) : waitersData ? (
           <WaitersChart data={waitersData} />
-        ) : (
-          <Card>
-            <p className="text-center text-red-600">Ошибка загрузки данных об официантах</p>
-          </Card>
-        )}
-      </div>
-
-      {/* Отчёт популярности блюд */}
-      <div className="mb-8">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-2xl font-bold">Отчёт популярности блюд</h2>
-          <Button variant="outline" onClick={() => handleExport('dishes')}>
-            <Download className="mr-2 h-4 w-4" />
-            Экспорт CSV
-          </Button>
-        </div>
-        {isLoadingDishes ? (
-          <div className="h-96 animate-pulse rounded-lg bg-gray-200" />
-        ) : dishesData ? (
-          <>
-            <PopularDishesChart data={dishesData} />
-            
-            {/* Полная таблица */}
-            <Card className="mt-6">
-              <h3 className="mb-4 font-bold">Все блюда</h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b text-left">
-                      <th className="pb-2 font-medium text-gray-600">Блюдо</th>
-                      <th className="pb-2 text-right font-medium text-gray-600">Заказано</th>
-                      <th className="pb-2 text-right font-medium text-gray-600">Доля</th>
-                      <th className="pb-2 text-right font-medium text-gray-600">Выручка</th>
-                      <th className="pb-2 text-center font-medium text-gray-600">Тренд</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {dishesData.rows.map((dish) => (
-                      <tr key={dish.dishId} className="border-b last:border-0">
-                        <td className="py-2">{dish.name}</td>
-                        <td className="py-2 text-right font-semibold">{dish.qty}</td>
-                        <td className="py-2 text-right">{dish.share.toFixed(1)}%</td>
-                        <td className="py-2 text-right font-semibold">
-                          {formatPrice(dish.revenue)}
-                        </td>
-                        <td className="py-2 text-center">
-                          {dish.trend === 'up' && (
-                            <span className="text-green-600">↑</span>
-                          )}
-                          {dish.trend === 'down' && (
-                            <span className="text-red-600">↓</span>
-                          )}
-                          {dish.trend === 'stable' && (
-                            <span className="text-gray-400">→</span>
-                          )}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </Card>
-          </>
-        ) : (
-          <Card>
-            <p className="text-center text-red-600">Ошибка загрузки данных о блюдах</p>
-          </Card>
-        )}
+        ) : null}
       </div>
     </div>
   );

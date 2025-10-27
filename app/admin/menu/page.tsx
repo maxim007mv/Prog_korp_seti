@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Plus, Edit, Trash2, Search } from 'lucide-react';
-import { Button, Card, Input, Badge } from '@/components/ui';
+import { GlassCard, Input, Badge } from '@/components/ui';
 import { useMenu, useDeleteDish } from '@/lib/hooks';
 import { formatPrice, formatCookingTime } from '@/lib/utils';
 import { CATEGORY_LABELS, DISH_CATEGORIES } from '@/constants';
@@ -17,41 +17,31 @@ export default function AdminMenuPage() {
   const deleteDishMutation = useDeleteDish();
 
   const handleDelete = async (dishId: number) => {
-    if (!confirm('Удалить это блюдо? Это действие нельзя отменить.')) {
-      return;
-    }
-
+    if (!confirm('Удалить это блюдо? Это действие нельзя отменить.')) return;
     try {
       await deleteDishMutation.mutateAsync(dishId);
       alert('Блюдо удалено!');
     } catch (err: any) {
-      alert(`Ошибка: ${err.message}`);
+      alert(\`Ошибка: \${err.message}\`);
     }
   };
 
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">Управление меню</h1>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="h-64 animate-pulse rounded-lg bg-gray-200" />
-          ))}
-        </div>
+      <div className="space-y-6">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="h-64 animate-pulse rounded-[24px] bg-white/5 backdrop-blur" />
+        ))}
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="rounded-lg bg-red-50 p-6 text-center">
-          <p className="text-red-600">Ошибка загрузки меню</p>
-          <p className="mt-2 text-sm text-red-500">{error.message}</p>
-        </div>
-      </div>
+      <GlassCard className="p-8 text-center rounded-[24px]">
+        <p className="text-red-400 font-bold">Ошибка загрузки меню</p>
+        <p className="mt-2 text-sm text-red-300">{error.message}</p>
+      </GlassCard>
     );
   }
 
@@ -63,26 +53,24 @@ export default function AdminMenuPage() {
   }) || [];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Заголовок */}
-      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold">Управление меню</h1>
-          <p className="mt-2 text-gray-600">
-            Всего блюд: {menuData?.dishes.length || 0}
-          </p>
+    <div className="space-y-6">
+      <GlassCard className="p-6 rounded-[24px]">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-3xl font-bold uppercase tracking-wider bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">Управление меню</h1>
+            <p className="mt-2 text-white/70">Всего блюд: {menuData?.dishes.length || 0}</p>
+          </div>
+          <button className="px-4 py-2 rounded-xl text-sm bg-amber-400/30 border border-amber-400/50 text-amber-300 hover:bg-amber-400/40 transition-colors flex items-center gap-2">
+            <Plus className="h-5 w-5" />
+            Добавить блюдо
+          </button>
         </div>
-        <Button variant="primary">
-          <Plus className="mr-2 h-5 w-5" />
-          Добавить блюдо
-        </Button>
-      </div>
+      </GlassCard>
 
-      {/* Фильтры */}
-      <Card className="mb-6">
+      <GlassCard className="p-6 rounded-[24px]">
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block text-sm font-medium">
+            <label className="mb-2 block text-sm font-medium text-white/80">
               <Search className="mr-2 inline h-4 w-4" />
               Поиск
             </label>
@@ -94,97 +82,66 @@ export default function AdminMenuPage() {
             />
           </div>
           <div>
-            <label className="mb-2 block text-sm font-medium">Категория</label>
+            <label className="mb-2 block text-sm font-medium text-white/80">Категория</label>
             <select
-              className="w-full rounded-xl border border-gray-300 px-4 py-2 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+              className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-white/90 focus:border-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-400/20"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value as DishCategory | '')}
             >
-              <option value="">Все категории</option>
+              <option value="" className="bg-gray-800">Все категории</option>
               {DISH_CATEGORIES.map((cat) => (
-                <option key={cat} value={cat}>
+                <option key={cat} value={cat} className="bg-gray-800">
                   {CATEGORY_LABELS[cat]}
                 </option>
               ))}
             </select>
           </div>
         </div>
-      </Card>
+      </GlassCard>
 
-      {/* Список блюд */}
-      {filteredDishes.length === 0 ? (
-        <Card>
-          <p className="text-center text-gray-600">
-            {searchQuery || selectedCategory
-              ? 'Нет блюд по заданным фильтрам'
-              : 'Нет блюд в меню'}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {filteredDishes.map((dish) => (
+          <GlassCard key={dish.id} className="p-6 rounded-[24px]">
+            <div className="mb-4">
+              <div className="mb-2 flex items-start justify-between gap-2">
+                <h3 className="text-lg font-bold text-white">{dish.name}</h3>
+                <Badge variant="info">{CATEGORY_LABELS[dish.category]}</Badge>
+              </div>
+              <p className="text-sm text-white/60 mb-3">{dish.composition}</p>
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                <div>
+                  <span className="text-white/60">Цена:</span>
+                  <p className="font-bold text-amber-400">{formatPrice(dish.price)}</p>
+                </div>
+                <div>
+                  <span className="text-white/60">Время:</span>
+                  <p className="font-bold text-white">{formatCookingTime(dish.cookingTime)}</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <button className="flex-1 px-3 py-2 rounded-xl text-sm bg-white/10 border border-white/20 text-white/80 hover:bg-white/20 transition-colors flex items-center justify-center gap-2">
+                <Edit className="h-4 w-4" />
+                Изменить
+              </button>
+              <button 
+                className="flex-1 px-3 py-2 rounded-xl text-sm bg-red-400/20 border border-red-400/50 text-red-300 hover:bg-red-400/30 transition-colors flex items-center justify-center gap-2"
+                onClick={() => handleDelete(dish.id)}
+              >
+                <Trash2 className="h-4 w-4" />
+                Удалить
+              </button>
+            </div>
+          </GlassCard>
+        ))}
+      </div>
+
+      {filteredDishes.length === 0 && (
+        <GlassCard className="p-8 text-center rounded-[24px]">
+          <p className="text-white/70">
+            {searchQuery || selectedCategory ? 'Нет блюд по заданным фильтрам' : 'Нет блюд в меню'}
           </p>
-        </Card>
-      ) : (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {filteredDishes.map((dish) => (
-            <Card key={dish.id} className="relative">
-              {dish.imageUrl && (
-                <img
-                  src={dish.imageUrl}
-                  alt={dish.name}
-                  className="mb-4 h-48 w-full rounded-lg object-cover"
-                  onError={(e) => {
-                    // Fallback на placeholder при ошибке загрузки
-                    (e.target as HTMLImageElement).src = '/images/dishes/dish_1.jpg';
-                  }}
-                />
-              )}
-              
-              <div className="mb-3">
-                <div className="mb-2 flex items-start justify-between">
-                  <h3 className="text-lg font-bold">{dish.name}</h3>
-                  <Badge>{CATEGORY_LABELS[dish.category]}</Badge>
-                </div>
-                <p className="text-sm text-gray-600">{dish.composition}</p>
-              </div>
-
-              <div className="mb-4 flex items-center justify-between text-sm text-gray-600">
-                <span>{dish.weight}</span>
-                <span>{formatCookingTime(dish.cookingTime)}</span>
-              </div>
-
-              <div className="mb-4">
-                <p className="text-2xl font-bold text-accent">
-                  {formatPrice(dish.price)}
-                </p>
-              </div>
-
-              {dish.tags && dish.tags.length > 0 && (
-                <div className="mb-4 flex flex-wrap gap-2">
-                  {dish.tags.map((tag) => (
-                    <Badge key={tag}>
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              )}
-
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  className="flex-1"
-                  onClick={() => setEditingDish(dish)}
-                >
-                  <Edit className="mr-2 h-4 w-4" />
-                  Изменить
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => handleDelete(dish.id)}
-                  disabled={deleteDishMutation.isPending}
-                >
-                  <Trash2 className="h-4 w-4 text-red-600" />
-                </Button>
-              </div>
-            </Card>
-          ))}
-        </div>
+        </GlassCard>
       )}
     </div>
   );

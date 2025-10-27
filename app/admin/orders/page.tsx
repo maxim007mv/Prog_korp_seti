@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Search, Filter, Eye } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { Button, Input, Card, Badge } from '@/components/ui';
+import { GlassCard, Input, Badge } from '@/components/ui';
 import { useOrders } from '@/lib/hooks';
 import { formatDate, formatPrice } from '@/lib/utils';
 import type { OrderStatus } from '@/types';
@@ -17,23 +17,20 @@ export default function AdminOrdersPage() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">Журнал заказов</h1>
-        </div>
-        <div className="h-96 animate-pulse rounded-lg bg-gray-200" />
+      <div className="space-y-4">
+        {[...Array(5)].map((_, i) => (
+          <div key={i} className="h-32 animate-pulse rounded-[24px] bg-white/5 backdrop-blur" />
+        ))}
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="rounded-lg bg-red-50 p-6 text-center">
-          <p className="text-red-600">Ошибка загрузки заказов</p>
-          <p className="mt-2 text-sm text-red-500">{error.message}</p>
-        </div>
-      </div>
+      <GlassCard className="p-8 text-center rounded-[24px]">
+        <p className="text-red-400 font-bold">Ошибка загрузки заказов</p>
+        <p className="mt-2 text-sm text-red-300">{error.message}</p>
+      </GlassCard>
     );
   }
 
@@ -47,20 +44,16 @@ export default function AdminOrdersPage() {
   }) || [];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Заголовок */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Журнал заказов</h1>
-        <p className="mt-2 text-gray-600">
-          Всего заказов: {orders?.length || 0}
-        </p>
-      </div>
+    <div className="space-y-6">
+      <GlassCard className="p-6 rounded-[24px]">
+        <h1 className="text-3xl font-bold uppercase tracking-wider bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">Журнал заказов</h1>
+        <p className="mt-2 text-white/70">Всего заказов: {orders?.length || 0}</p>
+      </GlassCard>
 
-      {/* Фильтры */}
-      <Card className="mb-6">
+      <GlassCard className="p-6 rounded-[24px]">
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block text-sm font-medium">
+            <label className="mb-2 block text-sm font-medium text-white/80">
               <Search className="mr-2 inline h-4 w-4" />
               Поиск
             </label>
@@ -72,101 +65,59 @@ export default function AdminOrdersPage() {
             />
           </div>
           <div>
-            <label className="mb-2 block text-sm font-medium">
+            <label className="mb-2 block text-sm font-medium text-white/80">
               <Filter className="mr-2 inline h-4 w-4" />
               Статус
             </label>
             <select
-              className="w-full rounded-xl border border-gray-300 px-4 py-2 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+              className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-white/90 focus:border-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-400/20"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as OrderStatus | '')}
             >
-              <option value="">Все статусы</option>
-              <option value="Active">Активные</option>
-              <option value="Closed">Закрытые</option>
+              <option value="" className="bg-gray-800">Все статусы</option>
+              <option value="Active" className="bg-gray-800">Активные</option>
+              <option value="Closed" className="bg-gray-800">Закрытые</option>
             </select>
           </div>
         </div>
-      </Card>
+      </GlassCard>
 
-      {/* Таблица заказов */}
       {filteredOrders.length === 0 ? (
-        <Card>
-          <p className="text-center text-gray-600">
-            {searchQuery || statusFilter
-              ? 'Нет заказов по заданным фильтрам'
-              : 'Нет заказов'}
+        <GlassCard className="p-8 text-center rounded-[24px]">
+          <p className="text-white/70">
+            {searchQuery || statusFilter ? 'Нет заказов по заданным фильтрам' : 'Нет заказов'}
           </p>
-        </Card>
+        </GlassCard>
       ) : (
-        <Card>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b text-left">
-                  <th className="pb-3 font-medium text-gray-600">ID</th>
-                  <th className="pb-3 font-medium text-gray-600">Столик</th>
-                  <th className="pb-3 font-medium text-gray-600">Официант</th>
-                  <th className="pb-3 font-medium text-gray-600">Открыт</th>
-                  <th className="pb-3 font-medium text-gray-600">Закрыт</th>
-                  <th className="pb-3 font-medium text-gray-600">Сумма</th>
-                  <th className="pb-3 font-medium text-gray-600">Статус</th>
-                  <th className="pb-3 font-medium text-gray-600">Действия</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredOrders.map((order) => (
-                  <tr key={order.id} className="border-b last:border-0">
-                    <td className="py-3">#{order.id}</td>
-                    <td className="py-3">
-                      Стол #{order.table?.id}
-                      <div className="text-xs text-gray-500">
-                        {order.table?.location}
-                      </div>
-                    </td>
-                    <td className="py-3">{order.waiter?.name}</td>
-                    <td className="py-3 text-sm">
-                      {formatDate(order.startTime, 'short')}
-                      <div className="text-xs text-gray-500">
-                        {formatDate(order.startTime, 'time')}
-                      </div>
-                    </td>
-                    <td className="py-3 text-sm">
-                      {order.endTime ? (
-                        <>
-                          {formatDate(order.endTime, 'short')}
-                          <div className="text-xs text-gray-500">
-                            {formatDate(order.endTime, 'time')}
-                          </div>
-                        </>
-                      ) : (
-                        <span className="text-gray-400">—</span>
-                      )}
-                    </td>
-                    <td className="py-3 font-semibold text-accent">
-                      {formatPrice(order.totalPrice)}
-                    </td>
-                    <td className="py-3">
-                      <Badge variant={order.status === 'Active' ? 'info' : 'success'}>
-                        {order.status === 'Active' ? 'Активный' : 'Закрыт'}
-                      </Badge>
-                    </td>
-                    <td className="py-3">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => router.push(`/staff/orders/${order.id}`)}
-                      >
-                        <Eye className="mr-2 h-4 w-4" />
-                        Просмотр
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Card>
+        <div className="space-y-3">
+          {filteredOrders.map((order) => (
+            <GlassCard key={order.id} className="p-4 rounded-[24px]">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-xl font-bold text-white">#{order.id}</span>
+                    <Badge variant={order.status === 'Active' ? 'info' : 'success'}>
+                      {order.status === 'Active' ? 'Активный' : 'Закрыт'}
+                    </Badge>
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                    <p className="text-white/60">Столик: <span className="text-white font-medium">{order.table?.location || 'N/A'}</span></p>
+                    <p className="text-white/60">Официант: <span className="text-white font-medium">{order.waiter?.name || 'N/A'}</span></p>
+                    <p className="text-white/60">Создан: <span className="text-white font-medium">{formatDate(order.createdAt)}</span></p>
+                    <p className="text-white/60">Сумма: <span className="text-amber-400 font-bold">{formatPrice(order.totalPrice)}</span></p>
+                  </div>
+                </div>
+                <button 
+                  className="px-4 py-2 rounded-xl text-sm bg-white/10 border border-white/20 text-white/80 hover:bg-white/20 transition-colors flex items-center gap-2"
+                  onClick={() => router.push(\`/staff/orders/\${order.id}\`)}
+                >
+                  <Eye className="h-4 w-4" />
+                  Детали
+                </button>
+              </div>
+            </GlassCard>
+          ))}
+        </div>
       )}
     </div>
   );

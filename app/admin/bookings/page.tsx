@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Calendar, Search, Filter } from 'lucide-react';
-import { Button, Input, Card, Badge } from '@/components/ui';
+import { GlassCard, Input, Badge } from '@/components/ui';
 import { useBookings } from '@/lib/hooks';
 import { formatDate } from '@/lib/utils';
 import type { BookingStatus } from '@/types';
@@ -15,23 +15,20 @@ export default function AdminBookingsPage() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">Управление бронированиями</h1>
-        </div>
-        <div className="h-96 animate-pulse rounded-lg bg-gray-200" />
+      <div className="space-y-4">
+        {[...Array(5)].map((_, i) => (
+          <div key={i} className="h-32 animate-pulse rounded-[24px] bg-white/5 backdrop-blur" />
+        ))}
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="rounded-lg bg-red-50 p-6 text-center">
-          <p className="text-red-600">Ошибка загрузки бронирований</p>
-          <p className="mt-2 text-sm text-red-500">{error.message}</p>
-        </div>
-      </div>
+      <GlassCard className="p-8 text-center rounded-[24px]">
+        <p className="text-red-400 font-bold">Ошибка загрузки бронирований</p>
+        <p className="mt-2 text-sm text-red-300">{error.message}</p>
+      </GlassCard>
     );
   }
 
@@ -51,126 +48,86 @@ export default function AdminBookingsPage() {
     }
   };
 
-  const getStatusLabel = (status: BookingStatus) => {
-    switch (status) {
-      case 'Active': return 'Активно';
-      case 'Cancelled': return 'Отменено';
-      case 'Completed': return 'Завершено';
-      default: return status;
-    }
-  };
-
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Заголовок */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold">Управление бронированиями</h1>
-        <p className="mt-2 text-gray-600">
-          Всего бронирований: {bookings?.length || 0}
-        </p>
-      </div>
+    <div className="space-y-6">
+      <GlassCard className="p-6 rounded-[24px]">
+        <h1 className="text-3xl font-bold uppercase tracking-wider bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent">Управление бронированиями</h1>
+        <p className="mt-2 text-white/70">Всего бронирований: {bookings?.length || 0}</p>
+      </GlassCard>
 
-      {/* Фильтры */}
-      <Card className="mb-6">
+      <GlassCard className="p-6 rounded-[24px]">
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label className="mb-2 block text-sm font-medium">
+            <label className="mb-2 block text-sm font-medium text-white/80">
               <Search className="mr-2 inline h-4 w-4" />
               Поиск
             </label>
             <Input
               type="text"
-              placeholder="Имя или телефон..."
+              placeholder="Имя клиента или телефон..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
           <div>
-            <label className="mb-2 block text-sm font-medium">
+            <label className="mb-2 block text-sm font-medium text-white/80">
               <Filter className="mr-2 inline h-4 w-4" />
               Статус
             </label>
             <select
-              className="w-full rounded-xl border border-gray-300 px-4 py-2 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+              className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-white/90 focus:border-amber-400/50 focus:outline-none focus:ring-2 focus:ring-amber-400/20"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as BookingStatus | '')}
             >
-              <option value="">Все статусы</option>
-              <option value="Active">Активные</option>
-              <option value="Completed">Завершённые</option>
-              <option value="Cancelled">Отменённые</option>
+              <option value="" className="bg-gray-800">Все статусы</option>
+              <option value="Active" className="bg-gray-800">Активные</option>
+              <option value="Completed" className="bg-gray-800">Завершённые</option>
+              <option value="Cancelled" className="bg-gray-800">Отменённые</option>
             </select>
           </div>
         </div>
-      </Card>
+      </GlassCard>
 
-      {/* Таблица бронирований */}
       {filteredBookings.length === 0 ? (
-        <Card>
-          <p className="text-center text-gray-600">
-            {searchQuery || statusFilter
-              ? 'Нет бронирований по заданным фильтрам'
-              : 'Нет бронирований'}
+        <GlassCard className="p-8 text-center rounded-[24px]">
+          <p className="text-white/70">
+            {searchQuery || statusFilter ? 'Нет бронирований по заданным фильтрам' : 'Нет бронирований'}
           </p>
-        </Card>
+        </GlassCard>
       ) : (
-        <Card>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b text-left">
-                  <th className="pb-3 font-medium text-gray-600">ID</th>
-                  <th className="pb-3 font-medium text-gray-600">Клиент</th>
-                  <th className="pb-3 font-medium text-gray-600">Телефон</th>
-                  <th className="pb-3 font-medium text-gray-600">Столик</th>
-                  <th className="pb-3 font-medium text-gray-600">Период</th>
-                  <th className="pb-3 font-medium text-gray-600">Статус</th>
-                  <th className="pb-3 font-medium text-gray-600">Действия</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredBookings.map((booking) => (
-                  <tr key={booking.id} className="border-b last:border-0">
-                    <td className="py-3">#{booking.id}</td>
-                    <td className="py-3 font-medium">{booking.clientName}</td>
-                    <td className="py-3 text-gray-600">
-                      {booking.phoneMasked}
-                    </td>
-                    <td className="py-3">
-                      Стол #{booking.table?.id}
-                      <div className="text-xs text-gray-500">
-                        {booking.table?.location}
-                      </div>
-                    </td>
-                    <td className="py-3 text-sm">
-                      <div>{formatDate(booking.start, 'short')}</div>
-                      <div className="text-gray-500">
-                        {formatDate(booking.start, 'time')} - {formatDate(booking.end, 'time')}
-                      </div>
-                    </td>
-                    <td className="py-3">
-                      <Badge variant={getStatusBadgeVariant(booking.status)}>
-                        {getStatusLabel(booking.status)}
-                      </Badge>
-                    </td>
-                    <td className="py-3">
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm">
-                          Просмотр
-                        </Button>
-                        {booking.status === 'Active' && (
-                          <Button variant="outline" size="sm">
-                            Отменить
-                          </Button>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Card>
+        <div className="space-y-3">
+          {filteredBookings.map((booking) => (
+            <GlassCard key={booking.id} className="p-4 rounded-[24px]">
+              <div className="flex items-center justify-between flex-wrap gap-3">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Calendar className="h-5 w-5 text-amber-400" />
+                    <span className="text-lg font-bold text-white">{booking.clientName}</span>
+                    <Badge variant={getStatusBadgeVariant(booking.status)}>
+                      {booking.status === 'Active' ? 'Активно' : booking.status === 'Completed' ? 'Завершено' : 'Отменено'}
+                    </Badge>
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                    <p className="text-white/60">Столик: <span className="text-white font-medium">{booking.table?.location || 'N/A'}</span></p>
+                    <p className="text-white/60">Телефон: <span className="text-white font-medium">***{booking.phoneLastFour}</span></p>
+                    <p className="text-white/60">Начало: <span className="text-white font-medium">{formatDate(booking.startTime)}</span></p>
+                    <p className="text-white/60">Окончание: <span className="text-white font-medium">{formatDate(booking.endTime)}</span></p>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <button className="px-3 py-2 rounded-xl text-sm bg-white/10 border border-white/20 text-white/80 hover:bg-white/20 transition-colors">
+                    Детали
+                  </button>
+                  {booking.status === 'Active' && (
+                    <button className="px-3 py-2 rounded-xl text-sm bg-red-400/20 border border-red-400/50 text-red-300 hover:bg-red-400/30 transition-colors">
+                      Отменить
+                    </button>
+                  )}
+                </div>
+              </div>
+            </GlassCard>
+          ))}
+        </div>
       )}
     </div>
   );
