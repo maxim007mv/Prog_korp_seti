@@ -1,0 +1,46 @@
+D:/korporative_system/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Application.deps.json
+D:/korporative_system/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Application.dll
+D:/korporative_system/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Application.pdb
+D:/korporative_system/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Domain.dll
+D:/korporative_system/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Domain.pdb
+D:/korporative_system/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.csproj.AssemblyReference.cache
+D:/korporative_system/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:/korporative_system/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.AssemblyInfoInputs.cache
+D:/korporative_system/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.AssemblyInfo.cs
+D:/korporative_system/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.csproj.CoreCompileInputs.cache
+D:/korporative_system/backend/Restaurant.Application/obj/Debug/net8.0/Restaura.8ED4ADA1.Up2Date
+D:/korporative_system/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.dll
+D:/korporative_system/backend/Restaurant.Application/obj/Debug/net8.0/refint/Restaurant.Application.dll
+D:/korporative_system/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.pdb
+D:/korporative_system/backend/Restaurant.Application/obj/Debug/net8.0/ref/Restaurant.Application.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Application.deps.json
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Application.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Application.pdb
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Domain.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Domain.pdb
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.csproj.AssemblyReference.cache
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.AssemblyInfoInputs.cache
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.AssemblyInfo.cs
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.csproj.CoreCompileInputs.cache
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/obj/Debug/net8.0/Restaura.8ED4ADA1.Up2Date
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/obj/Debug/net8.0/refint/Restaurant.Application.dll
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.pdb
+C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backend/Restaurant.Application/obj/Debug/net8.0/ref/Restaurant.Application.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Application.deps.json
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Application.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Application.pdb
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Domain.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/bin/Debug/net8.0/Restaurant.Domain.pdb
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.csproj.AssemblyReference.cache
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.AssemblyInfoInputs.cache
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.AssemblyInfo.cs
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.csproj.CoreCompileInputs.cache
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/Restaura.8ED4ADA1.Up2Date
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/refint/Restaurant.Application.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.pdb
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/ref/Restaurant.Application.dll
+/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/obj/Debug/net8.0/Restaurant.Application.sourcelink.json
