@@ -63,9 +63,11 @@ public class BookingController : ControllerBase
             var normalizedName = name?.Trim().ToLower() ?? string.Empty;
 
             _logger.LogInformation(
-                "Поиск бронирований: phone={Phone}, name={Name}",
+                "Поиск бронирований: phone={Phone} (original: {OriginalPhone}), name={Name} (original: {OriginalName})",
                 normalizedPhone,
-                normalizedName
+                phone,
+                normalizedName,
+                name
             );
 
             // Построение запроса
@@ -77,6 +79,7 @@ public class BookingController : ControllerBase
             // Фильтр по телефону (поиск по частичному совпадению)
             if (!string.IsNullOrWhiteSpace(normalizedPhone))
             {
+                _logger.LogInformation("Применяем фильтр по телефону: %{Phone}%", normalizedPhone);
                 // Используем ILIKE для case-insensitive поиска в PostgreSQL
                 // Ищем по последним цифрам или полному совпадению
                 query = query.Where(b => 
@@ -88,6 +91,7 @@ public class BookingController : ControllerBase
             // Фильтр по имени (частичное совпадение, case-insensitive)
             if (!string.IsNullOrWhiteSpace(normalizedName))
             {
+                _logger.LogInformation("Применяем фильтр по имени: %{Name}%", normalizedName);
                 query = query.Where(b => 
                     EF.Functions.ILike(b.ClientName, $"%{normalizedName}%")
                 );
@@ -98,6 +102,8 @@ public class BookingController : ControllerBase
                 .OrderBy(b => b.StartTime)
                 .Take(50) // Ограничиваем результаты для производительности
                 .ToListAsync();
+
+            _logger.LogInformation("Найдено бронирований: {Count}", bookings.Count);
 
             // Маппинг в DTO
             var result = bookings.Select(b => new BookingResponseDto

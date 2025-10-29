@@ -1,10 +1,12 @@
 'use client';
 
-import { useState, useMemo, memo } from 'react';
+import { useState, useMemo, memo, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { Loader2 } from 'lucide-react';
 import { useMenu } from '@/lib/hooks';
 import { SkeletonCard } from '@/components/ui';
+import { useOrderCart } from '@/lib/contexts/OrderCartContext';
 import type { DishCategory, Dish } from '@/types';
 
 // Динамические импорты для оптимизации
@@ -26,7 +28,23 @@ const AiSearchBar = dynamic(() => import('@/components/features/menu/AiSearchBar
   ssr: false
 });
 
+const OrderCart = dynamic(() => import('@/components/features/menu').then(mod => ({ default: mod.OrderCart })), {
+  ssr: false
+});
+
 export default function MenuPage() {
+  const searchParams = useSearchParams();
+  const bookingId = searchParams.get('bookingId');
+  const tableId = searchParams.get('tableId');
+  const { setBookingInfo } = useOrderCart();
+
+  // Инициализация контекста корзины при монтировании
+  useEffect(() => {
+    if (bookingId && tableId) {
+      setBookingInfo(Number(bookingId), Number(tableId));
+    }
+  }, [bookingId, tableId, setBookingInfo]);
+
   const { data: menuData, isLoading, error } = useMenu();
   const [activeCategory, setActiveCategory] = useState<DishCategory | undefined>();
   const [searchQuery, setSearchQuery] = useState('');
@@ -181,6 +199,9 @@ export default function MenuPage() {
           </div>
         )}
       </div>
+
+      {/* Корзина заказа */}
+      <OrderCart />
     </div>
   );
 }

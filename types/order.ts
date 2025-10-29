@@ -51,7 +51,13 @@ export interface Order {
 export interface OrderCreate {
   tableId: number;
   waiterId: number;
+  bookingId?: number;
   comment?: string;
+  items: {
+    dishId: number;
+    quantity: number;
+    comment?: string;
+  }[];
 }
 
 /**

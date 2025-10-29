@@ -1,8 +1,9 @@
 'use client';
 
-import { Clock } from 'lucide-react';
+import { Clock, ShoppingCart } from 'lucide-react';
 import { Badge, Card } from '@/components/ui';
 import { formatPrice, formatCookingTime } from '@/lib/utils';
+import { useOrderCart } from '@/lib/contexts/OrderCartContext';
 import type { Dish } from '@/types';
 
 interface DishCardProps {
@@ -11,6 +12,13 @@ interface DishCardProps {
 }
 
 export function DishCard({ dish, onSelect }: DishCardProps) {
+  const { addItem, bookingId } = useOrderCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addItem(dish);
+  };
+
   return (
     <Card
       hoverable={!!onSelect}
@@ -52,13 +60,24 @@ export function DishCard({ dish, onSelect }: DishCardProps) {
         </div>
 
         {dish.tags && dish.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2">
+          <div className="mb-3 flex flex-wrap gap-2">
             {dish.tags.map((tag) => (
               <Badge key={tag} variant="default">
                 {tag}
               </Badge>
             ))}
           </div>
+        )}
+
+        {/* Кнопка добавления в заказ */}
+        {bookingId && (
+          <button
+            onClick={handleAddToCart}
+            className="w-full mt-2 flex items-center justify-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors"
+          >
+            <ShoppingCart className="h-4 w-4" />
+            Добавить в заказ
+          </button>
         )}
       </div>
     </Card>

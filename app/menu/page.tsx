@@ -1,14 +1,28 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import { useMenu } from '@/lib/hooks';
-import { DishCard, MenuCategoryTabs, MenuFilters } from '@/components/features/menu';
+import { DishCard, MenuCategoryTabs, MenuFilters, OrderCart } from '@/components/features/menu';
 import { AiSearchBar } from '@/components/features/menu/AiSearchBar';
 import { SkeletonCard } from '@/components/ui';
+import { useOrderCart } from '@/lib/contexts/OrderCartContext';
 import type { DishCategory, Dish } from '@/types';
 
 export default function MenuPage() {
+  const searchParams = useSearchParams();
+  const bookingId = searchParams.get('bookingId');
+  const tableId = searchParams.get('tableId');
+  const { setBookingInfo } = useOrderCart();
+
+  // Инициализация контекста корзины при монтировании
+  useEffect(() => {
+    if (bookingId && tableId) {
+      setBookingInfo(Number(bookingId), Number(tableId));
+    }
+  }, [bookingId, tableId, setBookingInfo]);
+
   const { data: menuData, isLoading, error } = useMenu();
   const [activeCategory, setActiveCategory] = useState<DishCategory | undefined>();
   const [searchQuery, setSearchQuery] = useState('');
@@ -161,6 +175,9 @@ export default function MenuPage() {
           </div>
         )}
       </div>
+
+      {/* Корзина заказа */}
+      <OrderCart />
     </div>
   );
 }

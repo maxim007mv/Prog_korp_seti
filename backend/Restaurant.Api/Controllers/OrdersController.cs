@@ -104,6 +104,8 @@ public class OrdersController : ControllerBase
         {
             TableId = dto.TableId,
             WaiterId = dto.WaiterId,
+            BookingId = dto.BookingId,
+            Comment = dto.Comment,
             Status = "pending",
             TotalPrice = 0,
             StartTime = DateTime.UtcNow,
@@ -126,7 +128,8 @@ public class OrdersController : ControllerBase
             {
                 DishId = item.DishId,
                 Quantity = item.Quantity,
-                Price = dish.Price
+                Price = dish.Price,
+                Comment = item.Comment
             };
 
             total += orderItem.Price * orderItem.Quantity;
@@ -163,6 +166,8 @@ public class CreateOrderDto
 {
     public int TableId { get; set; }
     public int WaiterId { get; set; }
+    public int? BookingId { get; set; }
+    public string? Comment { get; set; }
     public List<OrderItemDto> Items { get; set; } = new();
 }
 
@@ -170,6 +175,7 @@ public class OrderItemDto
 {
     public int DishId { get; set; }
     public int Quantity { get; set; }
+    public string? Comment { get; set; }
 }
 
 public class UpdateOrderStatusDto

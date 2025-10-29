@@ -11,10 +11,13 @@ interface MenuModalProps {
     clientName: string;
     clientPhone: string;
   };
+  bookingId?: number;
   onClose: () => void;
 }
 
-export default function MenuModal({ selectedTable, bookingData, onClose }: MenuModalProps) {
+export default function MenuModal({ selectedTable, bookingData, bookingId, onClose }: MenuModalProps) {
+  const menuUrl = bookingId ? `/menu?bookingId=${bookingId}&tableId=${selectedTable}` : '/menu';
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg shadow-soft max-w-2xl w-full mx-4 relative max-h-[90vh] overflow-y-auto">
@@ -50,11 +53,11 @@ export default function MenuModal({ selectedTable, bookingData, onClose }: MenuM
 
           <div className="space-y-4">
             <Link
-              href="/menu"
+              href={menuUrl}
               className="block w-full px-6 py-4 bg-yellow-400 text-black text-lg font-bold rounded-lg hover:bg-yellow-500 transition-all text-center"
               onClick={onClose}
             >
-              📋 Перейти в меню
+              📋 Перейти в меню и сделать заказ
             </Link>
 
             <button

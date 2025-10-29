@@ -2294,35 +2294,43 @@
     ]
   },
   "packageFolders": {
-    "/Users/maxim/.nuget/packages/": {}
+    "C:\\Users\\Damir\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Infrastructure/Restaurant.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\Damir\\OneDrive\\Рабочий стол\\Предметы\\КР РП\\mvp2\\backend\\Restaurant.Infrastructure\\Restaurant.Infrastructure.csproj",
       "projectName": "Restaurant.Infrastructure",
-      "projectPath": "/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Infrastructure/Restaurant.Infrastructure.csproj",
-      "packagesPath": "/Users/maxim/.nuget/packages/",
-      "outputPath": "/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Infrastructure/obj/",
+      "projectPath": "C:\\Users\\Damir\\OneDrive\\Рабочий стол\\Предметы\\КР РП\\mvp2\\backend\\Restaurant.Infrastructure\\Restaurant.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\Damir\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Damir\\OneDrive\\Рабочий стол\\Предметы\\КР РП\\mvp2\\backend\\Restaurant.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/maxim/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Damir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/Restaurant.Application.csproj": {
-              "projectPath": "/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/Restaurant.Application.csproj"
+            "C:\\Users\\Damir\\OneDrive\\Рабочий стол\\Предметы\\КР РП\\mvp2\\backend\\Restaurant.Application\\Restaurant.Application.csproj": {
+              "projectPath": "C:\\Users\\Damir\\OneDrive\\Рабочий стол\\Предметы\\КР РП\\mvp2\\backend\\Restaurant.Application\\Restaurant.Application.csproj"
             },
-            "/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Domain/Restaurant.Domain.csproj": {
-              "projectPath": "/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Domain/Restaurant.Domain.csproj"
+            "C:\\Users\\Damir\\OneDrive\\Рабочий стол\\Предметы\\КР РП\\mvp2\\backend\\Restaurant.Domain\\Restaurant.Domain.csproj": {
+              "projectPath": "C:\\Users\\Damir\\OneDrive\\Рабочий стол\\Предметы\\КР РП\\mvp2\\backend\\Restaurant.Domain\\Restaurant.Domain.csproj"
             }
           }
         }
@@ -2369,22 +2377,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.19, 8.0.19]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.19, 8.0.19]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.304/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

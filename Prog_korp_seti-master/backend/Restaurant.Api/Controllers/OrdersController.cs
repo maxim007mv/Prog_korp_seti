@@ -37,28 +37,29 @@ public class OrdersController : ControllerBase
             .Include(o => o.Items!)
                 .ThenInclude(i => i.Dish)
             .OrderByDescending(o => o.CreatedAt)
-            .Select(o => new
-            {
-                o.Id,
-                o.TableId,
-                o.WaiterId,
-                o.Status,
-                TotalAmount = o.TotalPrice,
-                o.CreatedAt,
-                o.UpdatedAt,
-                Items = (o.Items ?? new List<OrderItem>()).Select(i => new
-                {
-                    i.Id,
-                    i.DishId,
-                    DishName = i.Dish != null ? i.Dish.Name : "",
-                    i.Quantity,
-                    i.Price,
-                    Subtotal = i.Quantity * i.Price
-                }).ToList()
-            })
             .ToListAsync();
 
-        return Ok(orders);
+        var result = orders.Select(o => new
+        {
+            o.Id,
+            o.TableId,
+            o.WaiterId,
+            o.Status,
+            TotalAmount = o.TotalPrice,
+            o.CreatedAt,
+            o.UpdatedAt,
+            Items = (o.Items ?? new List<OrderItem>()).Select(i => new
+            {
+                i.Id,
+                i.DishId,
+                DishName = i.Dish?.Name ?? "Неизвестное блюдо",
+                i.Quantity,
+                i.Price,
+                Subtotal = i.Quantity * i.Price
+            }).ToList()
+        }).ToList();
+
+        return Ok(result);
     }
 
     [HttpGet("{id}")]
@@ -68,25 +69,6 @@ public class OrdersController : ControllerBase
             .Include(o => o.Items!)
                 .ThenInclude(i => i.Dish)
             .Where(o => o.Id == id)
-            .Select(o => new
-            {
-                o.Id,
-                o.TableId,
-                o.WaiterId,
-                o.Status,
-                TotalAmount = o.TotalPrice,
-                o.CreatedAt,
-                o.UpdatedAt,
-                Items = (o.Items ?? new List<OrderItem>()).Select(i => new
-                {
-                    i.Id,
-                    i.DishId,
-                    DishName = i.Dish != null ? i.Dish.Name : "",
-                    i.Quantity,
-                    i.Price,
-                    Subtotal = i.Quantity * i.Price
-                }).ToList()
-            })
             .FirstOrDefaultAsync();
 
         if (order == null)
@@ -94,16 +76,64 @@ public class OrdersController : ControllerBase
             return NotFound();
         }
 
-        return Ok(order);
+        var result = new
+        {
+            order.Id,
+            order.TableId,
+            order.WaiterId,
+            order.Status,
+            TotalAmount = order.TotalPrice,
+            order.CreatedAt,
+            order.UpdatedAt,
+            Items = (order.Items ?? new List<OrderItem>()).Select(i => new
+            {
+                i.Id,
+                i.DishId,
+                DishName = i.Dish?.Name ?? "Неизвестное блюдо",
+                i.Quantity,
+                i.Price,
+                Subtotal = i.Quantity * i.Price
+            }).ToList()
+        };
+
+        return Ok(result);
     }
 
-    [HttpPost]
+        [HttpPost]
     public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto dto)
     {
+        _logger.LogInformation($"CreateOrder called with WaiterId={dto.WaiterId}, TableId={dto.TableId}");
+
+        // Если WaiterId не указан или равен 0, берем первого доступного официанта
+        int? waiterId = dto.WaiterId;
+        if (waiterId == 0)
+        {
+            _logger.LogInformation("WaiterId is 0, searching for available waiter from waiters table...");
+            // Ищем waiter_id из таблицы waiters (не users!)
+            var waiterRecord = await _context.Set<Restaurant.Domain.Entities.Waiter>()
+                .Where(w => w.IsActive)
+                .FirstOrDefaultAsync();
+            
+            if (waiterRecord != null)
+            {
+                waiterId = waiterRecord.Id;
+                _logger.LogInformation($"Found waiter from waiters table: waiter_id={waiterId}");
+            }
+            else
+            {
+                _logger.LogWarning("No active waiters found in waiters table, setting waiter_id to null");
+                waiterId = null;
+            }
+        }
+
+        _logger.LogInformation($"Using waiterId={waiterId} for order creation");
+
         var order = new Order
         {
             TableId = dto.TableId,
-            WaiterId = dto.WaiterId,
+            WaiterId = waiterId, // Может быть null
+            BookingId = dto.BookingId,
+            Comment = dto.Comment,
             Status = "pending",
             TotalPrice = 0,
             StartTime = DateTime.UtcNow,
@@ -126,7 +156,8 @@ public class OrdersController : ControllerBase
             {
                 DishId = item.DishId,
                 Quantity = item.Quantity,
-                Price = dish.Price
+                Price = dish.Price,
+                Comment = item.Comment
             };
 
             total += orderItem.Price * orderItem.Quantity;
@@ -163,6 +194,8 @@ public class CreateOrderDto
 {
     public int TableId { get; set; }
     public int WaiterId { get; set; }
+    public int? BookingId { get; set; }
+    public string? Comment { get; set; }
     public List<OrderItemDto> Items { get; set; } = new();
 }
 
@@ -170,6 +203,7 @@ public class OrderItemDto
 {
     public int DishId { get; set; }
     public int Quantity { get; set; }
+    public string? Comment { get; set; }
 }
 
 public class UpdateOrderStatusDto

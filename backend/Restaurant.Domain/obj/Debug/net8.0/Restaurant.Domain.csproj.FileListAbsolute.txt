@@ -32,3 +32,15 @@ C:/Users/Damir/OneDrive/Рабочий стол/Предметы/КР РП/backe
 /Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Domain/obj/Debug/net8.0/Restaurant.Domain.pdb
 /Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Domain/obj/Debug/net8.0/ref/Restaurant.Domain.dll
 /Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Domain/obj/Debug/net8.0/Restaurant.Domain.sourcelink.json
+C:\Users\Damir\OneDrive\Рабочий стол\Предметы\КР РП\mvp2\backend\Restaurant.Domain\bin\Debug\net8.0\Restaurant.Domain.deps.json
+C:\Users\Damir\OneDrive\Рабочий стол\Предметы\КР РП\mvp2\backend\Restaurant.Domain\bin\Debug\net8.0\Restaurant.Domain.dll
+C:\Users\Damir\OneDrive\Рабочий стол\Предметы\КР РП\mvp2\backend\Restaurant.Domain\bin\Debug\net8.0\Restaurant.Domain.pdb
+C:\Users\Damir\OneDrive\Рабочий стол\Предметы\КР РП\mvp2\backend\Restaurant.Domain\obj\Debug\net8.0\Restaurant.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Damir\OneDrive\Рабочий стол\Предметы\КР РП\mvp2\backend\Restaurant.Domain\obj\Debug\net8.0\Restaurant.Domain.AssemblyInfoInputs.cache
+C:\Users\Damir\OneDrive\Рабочий стол\Предметы\КР РП\mvp2\backend\Restaurant.Domain\obj\Debug\net8.0\Restaurant.Domain.AssemblyInfo.cs
+C:\Users\Damir\OneDrive\Рабочий стол\Предметы\КР РП\mvp2\backend\Restaurant.Domain\obj\Debug\net8.0\Restaurant.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Damir\OneDrive\Рабочий стол\Предметы\КР РП\mvp2\backend\Restaurant.Domain\obj\Debug\net8.0\Restaurant.Domain.sourcelink.json
+C:\Users\Damir\OneDrive\Рабочий стол\Предметы\КР РП\mvp2\backend\Restaurant.Domain\obj\Debug\net8.0\Restaurant.Domain.dll
+C:\Users\Damir\OneDrive\Рабочий стол\Предметы\КР РП\mvp2\backend\Restaurant.Domain\obj\Debug\net8.0\refint\Restaurant.Domain.dll
+C:\Users\Damir\OneDrive\Рабочий стол\Предметы\КР РП\mvp2\backend\Restaurant.Domain\obj\Debug\net8.0\Restaurant.Domain.pdb
+C:\Users\Damir\OneDrive\Рабочий стол\Предметы\КР РП\mvp2\backend\Restaurant.Domain\obj\Debug\net8.0\ref\Restaurant.Domain.dll

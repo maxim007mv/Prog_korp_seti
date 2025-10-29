@@ -1,14 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "3L/mu3rCm38=",
+  "dgSpecHash": "/7OgJ3XiFNg=",
   "success": true,
-  "projectFilePath": "/Users/maxim/Downloads/Prog_korp_seti-master 2/backend/Restaurant.Application/Restaurant.Application.csproj",
+  "projectFilePath": "C:\\Users\\Damir\\OneDrive\\Рабочий стол\\Предметы\\КР РП\\mvp2\\backend\\Restaurant.Application\\Restaurant.Application.csproj",
   "expectedPackageFiles": [
-    "/Users/maxim/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
-    "/Users/maxim/.nuget/packages/fluentvalidation/11.11.0/fluentvalidation.11.11.0.nupkg.sha512",
-    "/Users/maxim/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
-    "/Users/maxim/.nuget/packages/microsoft.netcore.app.ref/8.0.19/microsoft.netcore.app.ref.8.0.19.nupkg.sha512",
-    "/Users/maxim/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.19/microsoft.aspnetcore.app.ref.8.0.19.nupkg.sha512"
+    "C:\\Users\\Damir\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\Damir\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512",
+    "C:\\Users\\Damir\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }

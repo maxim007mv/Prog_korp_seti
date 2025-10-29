@@ -23,6 +23,7 @@ export default function BookingPage() {
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [showMenuModal, setShowMenuModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [createdBookingId, setCreatedBookingId] = useState<number | null>(null);
   const [bookingData, setBookingData] = useState({
     date: '',
     time: '',
@@ -139,7 +140,12 @@ export default function BookingPage() {
       console.log('Отправка бронирования:', bookingCreateData);
       
       // Отправка данных на сервер
-      await createBooking.mutateAsync(bookingCreateData);
+      const response = await createBooking.mutateAsync(bookingCreateData);
+      
+      // Сохраняем ID созданного бронирования
+      if (response && response.id) {
+        setCreatedBookingId(response.id);
+      }
       
       // Закрываем модальное окно бронирования
       setShowBookingModal(false);
@@ -608,6 +614,7 @@ export default function BookingPage() {
           <MenuModal
             selectedTable={selectedTable}
             bookingData={bookingData}
+            bookingId={createdBookingId || undefined}
             onClose={() => setShowMenuModal(false)}
           />
         )}
