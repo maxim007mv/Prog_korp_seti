@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui";
 import {
@@ -15,31 +16,14 @@ import {
   Clock4,
 } from "lucide-react";
 
-/* ========== ВСПОМОГАТЕЛЬНОЕ ========== */
+// Динамический импорт тяжелого компонента Tilt для улучшения производительности
+const Tilt = dynamic(() => import('./components/Tilt').then(mod => mod.Tilt), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-white/5 rounded-[28px]" />
+});
+
 const chip = (active = false) =>
   `px-3.5 py-1.5 rounded-xl text-sm border ${active ? "bg-white/20 border-white/30 shadow-inner" : "bg-white/5 border-white/10 hover:bg-white/10"}`;
-
-function Tilt({ children, className = "" }: React.PropsWithChildren<{ className?: string }>) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
-  return (
-    <div
-      ref={ref}
-      onMouseMove={(e) => {
-        const r = ref.current?.getBoundingClientRect();
-        if (!r) return;
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        const y = (e.clientY - r.top) / r.height - 0.5;
-        setTilt({ rx: -y * 6, ry: x * 8 });
-      }}
-      onMouseLeave={() => setTilt({ rx: 0, ry: 0 })}
-      className={`[transform-style:preserve-3d] transition-transform duration-200 ${className}`}
-      style={{ transform: `perspective(1000px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)` }}
-    >
-      {children}
-    </div>
-  );
-}
 
 /* ========== LIQUID GLASS (1:1 как в эталоне) ========== */
 function LiquidGlass({
@@ -94,6 +78,8 @@ export default function HomePage() {
           alt="Фон ресторана"
           fill
           priority
+          quality={75}
+          sizes="100vw"
           className="object-cover"
           style={{
             transform: `translate3d(${par.x * 10}px, ${par.y * 10}px, 0) scale(1.02)`,

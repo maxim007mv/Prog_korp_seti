@@ -1,12 +1,30 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, memo } from 'react';
+import dynamic from 'next/dynamic';
 import { Loader2 } from 'lucide-react';
 import { useMenu } from '@/lib/hooks';
-import { DishCard, MenuCategoryTabs, MenuFilters } from '@/components/features/menu';
-import { AiSearchBar } from '@/components/features/menu/AiSearchBar';
 import { SkeletonCard } from '@/components/ui';
 import type { DishCategory, Dish } from '@/types';
+
+// Динамические импорты для оптимизации
+const DishCard = dynamic(() => import('@/components/features/menu').then(mod => ({ default: mod.DishCard })), {
+  loading: () => <SkeletonCard />,
+  ssr: true
+});
+
+const MenuCategoryTabs = dynamic(() => import('@/components/features/menu').then(mod => ({ default: mod.MenuCategoryTabs })), {
+  ssr: true
+});
+
+const MenuFilters = dynamic(() => import('@/components/features/menu').then(mod => ({ default: mod.MenuFilters })), {
+  ssr: true
+});
+
+const AiSearchBar = dynamic(() => import('@/components/features/menu/AiSearchBar').then(mod => ({ default: mod.AiSearchBar })), {
+  loading: () => <div className="h-16 bg-gray-100 animate-pulse rounded-lg" />,
+  ssr: false
+});
 
 export default function MenuPage() {
   const { data: menuData, isLoading, error } = useMenu();
@@ -23,13 +41,15 @@ export default function MenuPage() {
   // Обработка AI результатов
   const handleAiSearchResults = (dishIds: number[], explanation: string) => {
     setAiFilteredIds(dishIds.length > 0 ? dishIds : null);
-    // Сбросить другие фильтры при AI поиске
     if (dishIds.length > 0) {
       setActiveCategory(undefined);
       setSearchQuery('');
       setSelectedTags([]);
     }
   };
+
+  // Мемоизированный компонент списка блюд для оптимизации рендера
+  const MemoizedDishCard = memo(DishCard);
 
   // Фильтрация блюд
   const filteredDishes = useMemo(() => {
@@ -156,7 +176,7 @@ export default function MenuPage() {
         ) : (
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filteredDishes.map((dish: Dish) => (
-              <DishCard key={dish.id} dish={dish} />
+              <MemoizedDishCard key={dish.id} dish={dish} />
             ))}
           </div>
         )}

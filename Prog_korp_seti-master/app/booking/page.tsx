@@ -2,9 +2,21 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { ArrowLeft, Calendar, Clock, Users, X } from 'lucide-react';
 import { useCreateBooking, useTables, useBookings } from '@/lib/hooks';
 import { BookingCreate, Booking } from '@/types';
+
+// Динамические импорты для модальных окон (загружаются только при необходимости)
+const BookingModal = dynamic(() => import('./components/BookingModal'), {
+  loading: () => <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div></div>,
+  ssr: false
+});
+
+const MenuModal = dynamic(() => import('./components/MenuModal'), {
+  loading: () => null,
+  ssr: false
+});
 
 export default function BookingPage() {
   const [selectedTable, setSelectedTable] = useState<number | null>(null);
@@ -593,216 +605,24 @@ export default function BookingPage() {
 
         {/* Модальное окно выбора блюд */}
         {showMenuModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg shadow-soft max-w-2xl w-full mx-4 relative max-h-[90vh] overflow-y-auto">
-              <button
-                onClick={() => setShowMenuModal(false)}
-                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors z-10"
-              >
-                <X className="w-6 h-6" />
-              </button>
-
-              <div className="p-6">
-                <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">
-                  🎉 Стол забронирован!
-                </h2>
-                <p className="text-gray-600 text-center mb-6">
-                  Стол #{selectedTable} на {bookingData.date} в {bookingData.time}
-                </p>
-
-                <div className="bg-green-50 border-2 border-green-200 rounded-lg p-4 mb-6">
-                  <p className="text-green-800 font-semibold mb-2">✓ Данные вашей брони:</p>
-                  <p className="text-sm text-green-700">ФИО: {bookingData.clientName}</p>
-                  <p className="text-sm text-green-700">Телефон: {bookingData.clientPhone}</p>
-                  <p className="text-sm text-green-700 mt-2">
-                    💡 Для поиска брони используйте: <br/>
-                    - Ваше имя и фамилию<br/>
-                    - Последние 4 цифры: <strong>{bookingData.clientPhone.slice(-4)}</strong>
-                  </p>
-                </div>
-
-                <h3 className="text-xl font-bold text-gray-900 mb-4">
-                  Хотите заказать блюда к столу?
-                </h3>
-
-                <div className="space-y-4">
-                  <Link 
-                    href="/menu"
-                    className="block w-full px-6 py-4 bg-yellow-400 text-black text-lg font-bold rounded-lg hover:bg-yellow-500 transition-all text-center"
-                    onClick={() => setShowMenuModal(false)}
-                  >
-                    📋 Перейти в меню
-                  </Link>
-
-                  <button
-                    onClick={() => setShowMenuModal(false)}
-                    className="w-full px-6 py-3 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition-all"
-                  >
-                    Пропустить
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <MenuModal
+            selectedTable={selectedTable}
+            bookingData={bookingData}
+            onClose={() => setShowMenuModal(false)}
+          />
         )}
 
         {/* Модальное окно бронирования */}
         {showBookingModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg shadow-soft max-w-md w-full mx-4 relative">
-              {/* Кнопка закрытия */}
-              <button
-                onClick={() => setShowBookingModal(false)}
-                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors"
-              >
-                <X className="w-6 h-6" />
-              </button>
-
-              {/* Заголовок */}
-              <div className="p-6 pb-4">
-                <h2 className="text-2xl font-bold text-gray-900 text-center">
-                  Параметры бронирования
-                </h2>
-                <p className="text-gray-600 text-center mt-2">
-                  Стол #{selectedTable}
-                </p>
-              </div>
-
-              {/* Форма */}
-              <form onSubmit={handleBookingSubmit} className="p-6 pt-0 space-y-4">
-                {/* Дата бронирования */}
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-bold text-gray-900">
-                    <Calendar className="w-5 h-5 text-yellow-600" />
-                    Дата бронирования
-                  </label>
-                  <input
-                    type="date"
-                    value={bookingData.date}
-                    onChange={(e) => handleInputChange('date', e.target.value)}
-                    min={new Date().toISOString().split('T')[0]}
-                    required
-                    className="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all bg-white text-gray-900"
-                  />
-                </div>
-
-                {/* Время начала */}
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-bold text-gray-900">
-                    <Clock className="w-5 h-5 text-yellow-600" />
-                    Время начала
-                  </label>
-                  <select
-                    value={bookingData.time}
-                    onChange={(e) => handleInputChange('time', e.target.value)}
-                    required
-                    className="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all bg-white text-gray-900 cursor-pointer"
-                  >
-                    <option value="">Выберите время</option>
-                    {['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', 
-                      '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', 
-                      '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00'].map(time => {
-                      const available = isTimeSlotAvailable(time);
-                      return (
-                        <option 
-                          key={time} 
-                          value={time} 
-                          disabled={!available}
-                          style={{ color: available ? 'inherit' : '#999' }}
-                        >
-                          {time} {!available ? '(недоступно)' : ''}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-
-                {/* Длительность брони */}
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-bold text-gray-900">
-                    <Clock className="w-5 h-5 text-yellow-600" />
-                    На сколько часов
-                  </label>
-                  <select
-                    value={bookingData.duration}
-                    onChange={(e) => handleInputChange('duration', parseInt(e.target.value))}
-                    required
-                    className="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all bg-white text-gray-900 cursor-pointer"
-                  >
-                    <option value={1}>1 час</option>
-                    <option value={2}>2 часа</option>
-                    <option value={3}>3 часа</option>
-                    <option value={4}>4 часа</option>
-                  </select>
-                </div>
-
-                {/* ФИО клиента */}
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-bold text-gray-900">
-                    <Users className="w-5 h-5 text-yellow-600" />
-                    ФИО (Имя Фамилия)
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Иван Иванов"
-                    value={bookingData.clientName}
-                    onChange={(e) => handleInputChange('clientName', e.target.value)}
-                    required
-                    className="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all bg-white text-gray-900"
-                  />
-                </div>
-
-                {/* Номер телефона */}
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-bold text-gray-900">
-                    <svg className="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                    Номер телефона
-                  </label>
-                  <input
-                    type="tel"
-                    placeholder="+7 (999) 123-45-67"
-                    value={bookingData.clientPhone}
-                    onChange={(e) => {
-                      // Оставляем только цифры и +
-                      const value = e.target.value.replace(/[^\d+]/g, '');
-                      handleInputChange('clientPhone', value);
-                    }}
-                    required
-                    minLength={10}
-                    className="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all bg-white text-gray-900"
-                  />
-                </div>
-
-                {/* Количество гостей */}
-                <div className="space-y-2">
-                  <label className="flex items-center gap-2 text-sm font-bold text-gray-900">
-                    <Users className="w-5 h-5 text-yellow-600" />
-                    Количество гостей
-                  </label>
-                  <input
-                    type="number"
-                    min="1"
-                    max="20"
-                    value={bookingData.guestCount}
-                    onChange={(e) => handleInputChange('guestCount', parseInt(e.target.value))}
-                    required
-                    className="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all bg-white text-gray-900"
-                  />
-                </div>
-
-                {/* Кнопка подтверждения */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full px-6 py-4 bg-yellow-400 text-black text-lg font-bold rounded-lg hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? 'Бронирование...' : 'Забронировать'}
-                </button>
-              </form>
-            </div>
-          </div>
+          <BookingModal
+            selectedTable={selectedTable}
+            bookingData={bookingData}
+            isSubmitting={isSubmitting}
+            onClose={() => setShowBookingModal(false)}
+            onSubmit={handleBookingSubmit}
+            onInputChange={handleInputChange}
+            isTimeSlotAvailable={isTimeSlotAvailable}
+          />
         )}
       </div>
     </div>

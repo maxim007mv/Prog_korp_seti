@@ -10,9 +10,14 @@ export function Providers({ children }: { children: React.ReactNode }) {
         defaultOptions: {
           queries: {
             staleTime: 5 * 60 * 1000, // 5 минут
+            gcTime: 10 * 60 * 1000, // 10 минут (замена cacheTime)
             refetchOnWindowFocus: false,
-            retry: 3, // Повторить 3 раза при ошибке
+            refetchOnReconnect: true,
+            retry: 2, // Уменьшено с 3 до 2
             retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
+          },
+          mutations: {
+            retry: 1,
           },
         },
       })
