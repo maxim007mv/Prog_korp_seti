@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru" class="h-full scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Портфолио — Контакты</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              DEFAULT: '#2563eb',
+              foreground: '#f8fafc'
+            }
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="min-h-full bg-gray-50 text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100">
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:inset-x-0 focus:top-4 focus:z-50 focus:mx-auto focus:w-fit focus:rounded-lg focus:bg-blue-600 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950">
+    Перейти к основному содержимому
+  </a>
+
+  <header class="sticky top-0 z-40 border-b border-glass-border bg-bg-primary/70 backdrop-blur-12 pt-safe">
+    <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <a href="../index.html" tabindex="1" class="flex items-center gap-3 text-base font-semibold text-gray-900 transition hover:text-blue-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-gray-100 dark:hover:text-blue-400 dark:focus-visible:ring-offset-gray-900">
+        <span aria-hidden="true" class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 text-base font-semibold text-white shadow-md">LM</span>
+        <span>Ломакин Максим</span>
+      </a>
+      <nav aria-label="Основная навигация" class="hidden items-center gap-4 text-sm font-medium text-gray-700 dark:text-gray-300 sm:flex">
+        <a href="../index.html" tabindex="2" class="rounded-lg px-3 py-2 transition hover:bg-blue-50 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:hover:bg-blue-500/10 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900">
+          Главная
+        </a>
+        <a href="./projects.html" tabindex="3" class="rounded-lg px-3 py-2 transition hover:bg-blue-50 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:hover:bg-blue-500/10 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900">
+          Проекты
+        </a>
+        <a href="./diary.html" tabindex="4" class="rounded-lg px-3 py-2 transition hover:bg-blue-50 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:hover:bg-blue-500/10 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900">
+          Дневник
+        </a>
+        <a href="./contacts.html" tabindex="5" class="rounded-lg px-3 py-2 text-blue-700 transition hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-blue-300 dark:hover:bg-blue-500/10 dark:focus-visible:ring-offset-gray-900">
+          Контакты
+        </a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button type="button" id="theme-toggle" tabindex="6" class="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm transition hover:bg-blue-600 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-blue-500 dark:hover:text-white dark:focus-visible:ring-offset-gray-900" aria-pressed="false">
+          <span aria-hidden="true" id="theme-toggle-icon">🌞</span>
+          <span>Тема</span>
+        </button>
+        <button type="button" id="menu-toggle" tabindex="7" class="inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white p-2 text-gray-700 shadow-sm transition hover:bg-blue-600 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-blue-500 dark:hover:text-white dark:focus-visible:ring-offset-gray-900 sm:hidden" aria-expanded="false" aria-controls="mobile-nav">
+          <span class="sr-only">Открыть меню</span>
+          ☰
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-nav" class="hidden border-t border-gray-100 bg-white px-4 pb-4 pt-2 text-sm font-medium text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-200 sm:hidden" aria-label="Мобильное меню">
+      <a href="../index.html" class="block rounded-lg px-3 py-2 transition hover:bg-blue-50 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:hover:bg-blue-500/10 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900">Главная</a>
+      <a href="./projects.html" class="mt-1 block rounded-lg px-3 py-2 transition hover:bg-blue-50 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:hover:bg-blue-500/10 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900">Проекты</a>
+      <a href="./diary.html" class="mt-1 block rounded-lg px-3 py-2 transition hover:bg-blue-50 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:hover:bg-blue-500/10 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900">Дневник</a>
+      <a href="./contacts.html" class="mt-1 block rounded-lg px-3 py-2 text-blue-700 transition hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-blue-300 dark:hover:bg-blue-500/10 dark:focus-visible:ring-offset-gray-900">Контакты</a>
+    </nav>
+  </header>
+
+  <main id="main-content" class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <header class="flex flex-col gap-6 rounded-3xl border border-glass-border bg-glass p-8 shadow-custom">
+      <div class="inline-flex items-center gap-2 self-start rounded-full border border-blue-100 bg-blue-50 px-4 py-1 text-sm font-semibold text-blue-700 dark:border-blue-500/40 dark:bg-blue-500/10 dark:text-blue-300">
+        <span class="inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+        Сообщение
+      </div>
+      <div class="space-y-4">
+        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">Давайте познакомимся</p>
+        <h1 id="form-title" class="text-3xl font-bold leading-tight text-gray-900 dark:text-gray-50 sm:text-4xl">Свяжитесь со мной</h1>
+        <p class="max-w-2xl text-base text-gray-600 dark:text-gray-300">
+          Отвечу на любые вопросы о проектах, сотрудничестве или стажировке. Все поля помеченные <span class="text-pink-600">*</span> обязательные. Форма дружелюбна к клавиатуре и скринридерам.
+        </p>
+      </div>
+      <dl class="grid gap-6 sm:grid-cols-3">
+        <div class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-blue-200 hover:shadow-md focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-blue-500/60 dark:hover:shadow-blue-500/20">
+          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Email</dt>
+          <dd class="mt-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+            <a href="mailto:lomakin2006lomakin@yandex.ru" tabindex="8" class="inline-flex items-center gap-2 text-blue-600 transition hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-blue-400 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900">
+              lomakin2006lomakin@yandex.ru
+            </a>
+          </dd>
+        </div>
+        <div class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-blue-200 hover:shadow-md focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-blue-500/60 dark:hover:shadow-blue-500/20">
+          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">GitHub</dt>
+          <dd class="mt-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
+            <a href="https://github.com/lomakin2006lomakin_matenkbl" target="_blank" rel="noreferrer" tabindex="9" class="inline-flex items-center gap-2 text-blue-600 transition hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-blue-400 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900">
+              lomakin2006lomakin_matenkbl
+            </a>
+          </dd>
+        </div>
+        <div class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-blue-200 hover:shadow-md focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500 dark:border-gray-800 dark:bg-gray-900 dark:hover:border-blue-500/60 dark:hover:shadow-blue-500/20">
+          <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Локация</dt>
+          <dd class="mt-2 text-lg font-semibold text-gray-900 dark:text-gray-100">Москва, Россия</dd>
+        </div>
+      </dl>
+    </header>
+
+    <section class="mt-12 grid gap-8 lg:grid-cols-[2fr,1fr] lg:items-start">
+      <form id="contact-form" aria-labelledby="form-title" class="space-y-8 rounded-3xl border border-glass-border bg-glass p-8 shadow-custom" novalidate>
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-900 dark:text-gray-100">
+            Имя <span class="text-pink-600" aria-hidden="true">*</span>
+          </label>
+          <div class="mt-2 relative">
+            <input id="name" name="name" type="text" tabindex="10" required aria-required="true" aria-invalid="false" aria-describedby="name-help name-error" minlength="2" autocomplete="name" class="peer block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 shadow-sm transition placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-950/70 dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:border-blue-400 dark:focus:ring-blue-400" />
+            <div class="pointer-events-none absolute inset-y-0 right-4 hidden items-center text-blue-500 peer-focus:flex">
+              <span aria-hidden="true">✳️</span>
+            </div>
+          </div>
+          <p id="name-help" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Как к вам обращаться в ответном письме</p>
+          <div id="name-error" role="alert" aria-live="polite" class="mt-2 hidden text-sm text-red-600 dark:text-red-400"></div>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-900 dark:text-gray-100">
+            Email <span class="text-pink-600" aria-hidden="true">*</span>
+          </label>
+          <input id="email" name="email" type="email" tabindex="11" required aria-required="true" aria-invalid="false" aria-describedby="email-help email-error" autocomplete="email" class="mt-2 block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 shadow-sm transition placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-950/70 dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:border-blue-400 dark:focus:ring-blue-400" />
+          <p id="email-help" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Мы отправим ответ на этот адрес</p>
+          <div id="email-error" role="alert" aria-live="polite" class="mt-2 hidden text-sm text-red-600 dark:text-red-400"></div>
+        </div>
+
+        <div>
+          <label for="topic" class="block text-sm font-medium text-gray-900 dark:text-gray-100">
+            Тема обращения <span class="text-pink-600" aria-hidden="true">*</span>
+          </label>
+          <select id="topic" name="topic" tabindex="12" required aria-required="true" aria-invalid="false" aria-describedby="topic-help topic-error" class="mt-2 block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 shadow-sm transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-950/70 dark:text-gray-100 dark:focus:border-blue-400 dark:focus:ring-blue-400">
+            <option value="">Выберите вариант</option>
+            <option value="collaboration">Проект или сотрудничество</option>
+            <option value="internship">Стажировка или обучение</option>
+            <option value="feedback">Обратная связь</option>
+            <option value="other">Другое</option>
+          </select>
+          <p id="topic-help" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Помогает быстрее направить сообщение нужному человеку</p>
+          <div id="topic-error" role="alert" aria-live="polite" class="mt-2 hidden text-sm text-red-600 dark:text-red-400"></div>
+        </div>
+
+        <fieldset class="space-y-3">
+          <legend class="text-sm font-medium text-gray-900 dark:text-gray-100">
+            Предпочтительный канал связи <span class="text-pink-600" aria-hidden="true">*</span>
+          </legend>
+          <p id="contact-method-help" class="text-sm text-gray-500 dark:text-gray-400">Выберите один способ, как удобнее получить ответ</p>
+          <div class="grid gap-3 sm:grid-cols-3" role="radiogroup" aria-describedby="contact-method-help contact-method-error">
+            <label for="contact-email" class="flex cursor-pointer items-center gap-3 rounded-2xl border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm transition hover:border-blue-400 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500 dark:border-gray-700 dark:bg-gray-950/70 dark:text-gray-200 dark:hover:border-blue-400/70">
+              <input id="contact-email" type="radio" name="contact-method" value="email" tabindex="13" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500" required aria-required="true" />
+              Email
+            </label>
+            <label for="contact-telegram" class="flex cursor-pointer items-center gap-3 rounded-2xl border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm transition hover:border-blue-400 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500 dark:border-gray-700 dark:bg-gray-950/70 dark:text-gray-200 dark:hover:border-blue-400/70">
+              <input id="contact-telegram" type="radio" name="contact-method" value="telegram" tabindex="14" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500" aria-required="true" />
+              Telegram
+            </label>
+            <label for="contact-phone" class="flex cursor-pointer items-center gap-3 rounded-2xl border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm transition hover:border-blue-400 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500 dark:border-gray-700 dark:bg-gray-950/70 dark:text-gray-200 dark:hover:border-blue-400/70">
+              <input id="contact-phone" type="radio" name="contact-method" value="phone" tabindex="15" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500" aria-required="true" />
+              Телефон
+            </label>
+          </div>
+          <div id="contact-method-error" role="alert" aria-live="polite" class="mt-2 hidden text-sm text-red-600 dark:text-red-400"></div>
+        </fieldset>
+
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-900 dark:text-gray-100">
+            Сообщение <span class="text-pink-600" aria-hidden="true">*</span>
+          </label>
+          <textarea id="message" name="message" rows="5" tabindex="16" minlength="10" required aria-required="true" aria-invalid="false" aria-describedby="message-help message-error" class="mt-2 block w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 shadow-sm transition placeholder:text-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-950/70 dark:text-gray-100 dark:placeholder:text-gray-500 dark:focus:border-blue-400 dark:focus:ring-blue-400"></textarea>
+          <p id="message-help" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Расскажите, чем я могу помочь. Минимум 10 символов.</p>
+          <div id="message-error" role="alert" aria-live="polite" class="mt-2 hidden text-sm text-red-600 dark:text-red-400"></div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <p class="text-sm text-gray-500 dark:text-gray-400">Все данные остаются конфиденциальными. Это учебная форма — запрос не отправляется на сервер.</p>
+          <button type="submit" tabindex="17" class="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/40 transition hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:bg-blue-500 dark:hover:bg-blue-400 dark:focus-visible:ring-offset-gray-900">
+            <span aria-hidden="true">📨</span>
+            Отправить сообщение
+          </button>
+        </div>
+
+        <div id="form-status" role="status" aria-live="polite" class="mt-6 hidden rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm font-medium text-green-700 dark:border-green-700 dark:bg-green-900/40 dark:text-green-300"></div>
+      </form>
+
+      <aside aria-label="Дополнительная информация" class="space-y-6 rounded-3xl border border-glass-border bg-glass p-8 shadow-custom">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">График ответа</h2>
+          <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Обычно отвечаю в течение 24 часов в рабочие дни. Для срочных вопросов выбирайте Telegram.</p>
+        </div>
+        <div>
+          <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100">Частые темы</h3>
+          <ul class="mt-3 space-y-3 text-sm text-gray-600 dark:text-gray-300">
+            <li class="flex items-start gap-2">   
+              <span aria-hidden="true">🛠️</span>
+              Разработка фронтенд/бекенд функционала и аудит проектов.
+            </li>
+            <li class="flex items-start gap-2">
+              <span aria-hidden="true">🧪</span>
+              Настройка тестирования доступности, Lighthouse и CI.
+            </li>
+            <li class="flex items-start gap-2">
+              <span aria-hidden="true">🎓</span>
+              Менторство и помощь студентам в учебных проектах.
+            </li>
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-blue-100 bg-blue-50 px-4 py-5 text-sm text-blue-800 dark:border-blue-500/40 dark:bg-blue-500/10 dark:text-blue-200">
+          <p class="font-semibold">Совет по доступности</p>
+          <p class="mt-1">Нажмите клавишу Tab, чтобы перейти к следующим полям. Индикация фокуса выполнена с помощью Tailwind классов.</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="border-t border-glass-border bg-bg-primary/70 py-6 text-sm text-text-3">
+    <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+      <p>© 2025 Ломакин Максим. Контактная страница курса “Фронтенд и Бэкенд разработка”.</p>
+      <div class="flex items-center gap-4">
+        <a href="mailto:lomakin2006lomakin@yandex.ru" class="font-medium text-blue-600 transition hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-blue-400 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900">
+          Email
+        </a>
+        <a href="https://github.com/lomakin2006lomakin_matenkbl" target="_blank" rel="noreferrer" class="font-medium text-blue-600 transition hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:text-blue-400 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-900">
+          GitHub
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="dialog-overlay" class="pointer-events-none fixed inset-0 hidden items-center justify-center bg-black/50 p-4 transition" aria-hidden="true">
+    <div role="dialog" aria-modal="true" aria-labelledby="dialog-title" aria-describedby="dialog-description" tabindex="-1" class="relative w-full max-w-lg rounded-3xl border border-gray-200 bg-white p-8 shadow-2xl outline-none dark:border-gray-800 dark:bg-gray-900">
+      <button type="button" id="dialog-close" class="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-500 transition hover:bg-blue-600 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-blue-500 dark:hover:text-white dark:focus-visible:ring-offset-gray-900">
+        <span class="sr-only">Закрыть окно</span>
+        ✕
+      </button>
+      <div class="space-y-4 text-center">
+        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-3xl text-green-600 dark:bg-green-500/20 dark:text-green-300">✔</div>
+        <h2 id="dialog-title" class="text-2xl font-semibold text-gray-900 dark:text-gray-100">Сообщение отправлено</h2>
+        <p id="dialog-description" class="text-sm text-gray-600 dark:text-gray-300">Спасибо! Я свяжусь с вами в ближайшее время.</p>
+        <button type="button" id="dialog-ok" class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/40 transition hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:bg-blue-500 dark:hover:bg-blue-400 dark:focus-visible:ring-offset-gray-900">
+          Понятно
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="sr-toast" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="../scripts/main.js" defer></script>
+</body>
+</html>

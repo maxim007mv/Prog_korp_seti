@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Портфолио — Проекты</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'bg-primary': '#0f1222',
+            'bg-secondary': '#141937',
+            'surface': 'rgba(255,255,255,0.04)',
+            'glass': 'rgba(255,255,255,0.08)',
+            'glass-border': 'rgba(255,255,255,0.18)',
+            'accent': '#FFB84A',
+            'accent-2': '#FFC566',
+            'text-1': 'rgba(255,255,255,0.98)',
+            'text-2': 'rgba(255,255,255,0.82)',
+            'text-3': 'rgba(255,255,255,0.60)',
+          },
+          fontFamily: {
+            'orbitron': ['Orbitron', 'sans-serif'],
+            'inter': ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            'card': '24px',
+            'chip': '14px',
+          },
+          boxShadow: {
+            'custom': '0 10px 30px rgba(0,0,0,0.35)',
+            'glow': '0 0 20px rgba(255,184,74,0.5)',
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-bg-primary to-bg-secondary text-text-1 font-inter leading-relaxed pb-safe">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:inset-x-0 focus:top-4 focus:z-50 focus:mx-auto focus:w-fit focus:rounded-lg focus:bg-blue-600 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950">
+    Перейти к основному содержимому
+  </a>
+
+  <header class="sticky top-0 z-40 border-b border-glass-border bg-bg-primary/70 backdrop-blur-12 pt-safe">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <a class="flex items-center gap-3 font-bold text-text-1" href="../index.html">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-accent to-accent-2 shadow-lg"></div>
+        <span>Ломакин Максим</span>
+      </a>
+      <button class="md:hidden flex flex-col gap-1 bg-none border-none cursor-pointer p-2" id="hamburger">
+        <span class="w-6 h-0.5 bg-text-1 transition-all"></span>
+        <span class="w-6 h-0.5 bg-text-1 transition-all"></span>
+        <span class="w-6 h-0.5 bg-text-1 transition-all"></span>
+      </button>
+      <nav class="hidden md:flex gap-4.5 flex-wrap" id="nav">
+        <a href="../index.html" class="text-text-2 px-3 py-2 rounded-lg border border-transparent hover:border-glass-border hover:bg-glass transition-colors">Главная</a>
+        <a href="./projects.html" class="text-accent px-3 py-2 rounded-lg border border-transparent hover:border-glass-border hover:bg-glass transition-colors">Проекты</a>
+        <a href="./diary.html" class="text-text-2 px-3 py-2 rounded-lg border border-transparent hover:border-glass-border hover:bg-glass transition-colors">Дневник</a>
+        <a href="./contacts.html" class="text-text-2 px-3 py-2 rounded-lg border border-transparent hover:border-glass-border hover:bg-glass transition-colors">Контакты</a>
+      </nav>
+      <button id="theme-toggle" aria-pressed="true" class="p-2 rounded-lg border border-glass-border bg-glass hover:bg-glass/80 transition-colors" aria-label="Переключить тему">
+        <span id="theme-toggle-icon">🌙</span>
+      </button>
+    </div>
+    <nav id="mobile-nav" class="hidden border-t border-glass-border bg-bg-primary px-4 pb-4 pt-2 text-sm font-medium text-text-2 md:hidden">
+      <a href="../index.html" class="block rounded-lg px-3 py-2 hover:border-glass-border hover:bg-glass transition-colors">Главная</a>
+      <a href="./projects.html" class="mt-1 block rounded-lg px-3 py-2 text-accent hover:border-glass-border hover:bg-glass transition-colors">Проекты</a>
+      <a href="./diary.html" class="mt-1 block rounded-lg px-3 py-2 hover:border-glass-border hover:bg-glass transition-colors">Дневник</a>
+      <a href="./contacts.html" class="mt-1 block rounded-lg px-3 py-2 hover:border-glass-border hover:bg-glass transition-colors">Контакты</a>
+    </nav>
+  </header>
+
+  <main id="main" class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+    <section>
+      <h2 class="font-orbitron font-bold text-2xl mb-6">Мои проекты</h2>
+      <div class="filter-row flex gap-3 flex-wrap mb-6">
+        <span class="chip active px-3 py-2 rounded-chip border border-glass-border bg-accent text-gray-900 cursor-pointer hover:bg-accent-2 transition-colors" data-filter="all">Все</span>
+        <span class="chip px-3 py-2 rounded-chip border border-glass-border bg-glass text-text-1 cursor-pointer hover:bg-glass/80 transition-colors" data-filter="html">HTML</span>
+        <span class="chip px-3 py-2 rounded-chip border border-glass-border bg-glass text-text-1 cursor-pointer hover:bg-glass/80 transition-colors" data-filter="js">JS</span>
+        <span class="chip px-3 py-2 rounded-chip border border-glass-border bg-glass text-text-1 cursor-pointer hover:bg-glass/80 transition-colors" data-filter="react">React</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article class="project rounded-card overflow-hidden border border-glass-border bg-glass shadow-custom hover:shadow-glow hover:-translate-y-1 transition-all duration-200 cursor-pointer" data-cat="html" data-title="Личный сайт" data-desc="Одностраничный сайт-визитка. Адаптивная сетка, семантическая разметка, шрифты и тени." data-img="https://images.unsplash.com/photo-1520975682031-ae4f1083c6be?q=80&w=1200&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1520975682031-ae4f1083c6be?q=80&w=400&auto=format&fit=crop" alt="Личный сайт" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <strong class="block text-lg font-semibold mb-2">Личный сайт</strong>
+            <div class="text-text-3">HTML, CSS</div>
+          </div>
+        </article>
+
+        <article class="project rounded-card overflow-hidden border border-glass-border bg-glass shadow-custom hover:shadow-glow hover:-translate-y-1 transition-all duration-200 cursor-pointer" data-cat="js" data-title="Todo‑приложение" data-desc="Приложение задач со списком дел: добавление, отметка выполненных, фильтры." data-img="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=400&auto=format&fit=crop" alt="Todo" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <strong class="block text-lg font-semibold mb-2">Todo‑приложение</strong>
+            <div class="text-text-3">JavaScript</div>
+          </div>
+        </article>
+
+        <article class="project rounded-card overflow-hidden border border-glass-border bg-glass shadow-custom hover:shadow-glow hover:-translate-y-1 transition-all duration-200 cursor-pointer" data-cat="react" data-title="Интернет‑магазин" data-desc="Каталог, карточка товара, корзина, фильтры и пагинация. Макет на React." data-img="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=400&auto=format&fit=crop" alt="Shop" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <strong class="block text-lg font-semibold mb-2">Интернет‑магазин</strong>
+            <div class="text-text-3">React</div>
+          </div>
+        </article>
+
+        <article class="project rounded-card overflow-hidden border border-glass-border bg-glass shadow-custom hover:shadow-glow hover:-translate-y-1 transition-all duration-200 cursor-pointer" data-cat="html js" data-title="Формы и валидация" data-desc="Набор форм с кастомной валидацией и интерактивными подсказками." data-img="https://images.unsplash.com/photo-1520975682031-ae4f1083c6be?q=80&w=1200&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=400&auto=format&fit=crop" alt="Forms" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <strong class="block text-lg font-semibold mb-2">Формы и валидация</strong>
+            <div class="text-text-3">HTML, JS</div>
+          </div>
+        </article>
+
+        <article class="project rounded-card overflow-hidden border border-glass-border bg-glass shadow-custom hover:shadow-glow hover:-translate-y-1 transition-all duration-200 cursor-pointer" data-cat="react" data-title="Портфолио на Bootstrap" data-desc="Компоненты Bootstrap, сетка, модальные окна и карусели." data-img="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=400&auto=format&fit=crop" alt="Bootstrap" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <strong class="block text-lg font-semibold mb-2">Портфолио на Bootstrap</strong>
+            <div class="text-text-3">Bootstrap</div>
+          </div>
+        </article>
+
+        <article class="project rounded-card overflow-hidden border border-glass-border bg-glass shadow-custom hover:shadow-glow hover:-translate-y-1 transition-all duration-200 cursor-pointer" data-cat="js" data-title="Галерея изображений" data-desc="Галерея с ленивой загрузкой и просмотром в модальном окне." data-img="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=400&auto=format&fit=crop" alt="Gallery" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <strong class="block text-lg font-semibold mb-2">Галерея изображений</strong>
+            <div class="text-text-3">JavaScript</div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal fixed inset-0 bg-black/50 hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-card max-w-lg w-full rounded-card border border-glass-border bg-bg-secondary shadow-custom overflow-hidden">
+      <img id="modal-img" alt="preview" class="w-full h-48 object-cover">
+      <div class="p-4">
+        <h3 id="modal-title" class="text-lg font-semibold mb-2">Заголовок проекта</h3>
+        <p id="modal-desc" class="text-text-3 mb-4">Описание…</p>
+        <div class="flex gap-3 flex-wrap">
+          <a class="btn inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-glass-border bg-glass text-text-1 hover:bg-glass/80 transition-colors" href="#" target="_blank" rel="noreferrer">Live</a>
+          <a class="btn inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-glass-border bg-glass text-text-1 hover:bg-glass/80 transition-colors" href="#" target="_blank" rel="noreferrer">GitHub</a>
+          <button class="btn close-modal inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-glass-border bg-glass text-text-1 hover:bg-glass/80 transition-colors" type="button">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="border-t border-glass-border bg-bg-primary/70 py-6 text-sm text-text-3 text-center">
+    © 2025 Ломакин Максим. Страница проектов курса "Фронтенд и Бэкенд разработка".
+  </footer>
+
+  <div id="sr-toast" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

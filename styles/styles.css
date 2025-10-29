@@ -1,0 +1,131 @@
+:root{
+  --bg: #0f1222;
+  --bg-2: #141937;
+  --surface: rgba(255,255,255,0.04);
+  --glass: rgba(255,255,255,0.08);
+  --glass-border: rgba(255,255,255,0.18);
+  --accent: #FFB84A;
+  --accent-2: #FFC566;
+  --text-1: rgba(255,255,255,0.98);
+  --text-2: rgba(255,255,255,0.82);
+  --text-3: rgba(255,255,255,0.60);
+  --radius-card: 24px;
+  --radius-chip: 14px;
+  --shadow: 0 10px 30px rgba(0,0,0,0.35);
+  --glow: 0 0 20px rgba(255,184,74,0.5);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:linear-gradient(180deg,var(--bg),var(--bg-2));color:var(--text-1);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5}
+a{color:var(--accent);text-decoration:none;transition: color 0.3s ease;}
+a:hover{color: var(--accent-2);}
+img{max-width:100%;display:block}
+body{padding-bottom: env(safe-area-inset-bottom)}
+
+@keyframes progress {
+  from { width: 0%; }
+  to { width: var(--width); }
+}
+
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+.container{padding-left: calc(20px + env(safe-area-inset-left));padding-right: calc(20px + env(safe-area-inset-right))}
+.header{position:sticky;top:0;background:rgba(15,18,34,0.7);backdrop-filter: blur(12px);border-bottom:1px solid var(--glass-border);z-index:10;padding-top: env(safe-area-inset-top)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700}
+.brand-logo{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 8px 20px rgba(255,184,74,0.35)}
+.nav{display:flex;gap:18px;flex-wrap:wrap}
+.nav a{color:var(--text-2);padding:8px 12px;border-radius:10px;border:1px solid transparent}
+.nav a:hover{border-color:var(--glass-border);background:var(--glass)}
+
+.hero{display:grid;grid-template-columns:1fr;gap:22px;align-items:center;padding:32px 0}
+
+.hero-photo{width:clamp(120px,35vw,160px);height:clamp(120px,35vw,160px);border-radius:50%;overflow:hidden;border:1px solid var(--glass-border);box-shadow:var(--shadow);transition: transform 0.3s ease;margin:0 auto}
+.hero-photo img{width:100%;height:100%;object-fit:cover}
+.hero-photo:hover{transform: scale(1.05);}
+.hero-cta{display:flex;flex-direction:column;gap:14px}
+h1{font-family:Orbitron,Inter,sans-serif;font-weight:800;margin:0 0 6px;font-size:clamp(22px,5vw,36px)}
+h2{font-family:Orbitron,Inter,sans-serif;font-size:clamp(18px,3.5vw,24px)}
+p{font-size:clamp(14px,2.5vw,18px);margin:0}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;border:1px solid var(--glass-border);background:linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));color:var(--text-1);transition: all 0.3s ease;}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#2b1f05;font-weight:700;border-color:transparent}
+.btn:hover{filter:brightness(1.05);transform: translateY(-2px);box-shadow: var(--glow);} 
+
+button:focus-visible, a:focus-visible, .chip:focus-visible, .btn:focus-visible, .hamburger:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:12px}
+
+.section{padding:18px 0 28px}
+.section h2{font-family:Orbitron,Inter,sans-serif;margin:0 0 14px}
+
+.skills{display:grid;gap:12px}
+.skill{display:grid;gap:6px}
+.skill .bar{height:10px;border-radius:999px;background:rgba(255,255,255,0.08);overflow:hidden;border:1px solid var(--glass-border)}
+.skill .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:16px}
+.card{border-radius:var(--radius-card);overflow:hidden;border:1px solid var(--glass-border);background:var(--glass);box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:350px;transition: transform 0.3s ease, box-shadow 0.3s ease;}
+.card:hover{transform: translateY(-5px);box-shadow: 0 20px 40px rgba(0,0,0,0.5);} 
+.card-body{padding:14px;display:flex;flex-direction:column;gap:8px}
+
+.card picture, .card img{display:block}
+.card img{width:100%;height:auto;aspect-ratio: 3 / 2;object-fit:cover}
+.footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--glass-border);color:var(--text-3);text-align:center}
+
+.filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.chip{padding:8px 12px;border-radius:var(--radius-chip);border:1px solid var(--glass-border);background:var(--glass);color:var(--text-2);cursor:pointer}
+.chip.active,.chip:hover{background:rgba(255,184,74,0.18);color:var(--text-1);border-color:rgba(255,184,74,0.45)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:16px}
+.grid .project{border-radius:16px;overflow:hidden;border:1px solid var(--glass-border);background:var(--glass);cursor:pointer}
+.grid .project .p-body{padding:12px}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}
+.modal-card{max-width:800px;width:100%;background:#12162c;border:1px solid var(--glass-border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+
+.timeline{border-left:2px dashed rgba(255,255,255,0.2);padding-left:14px;display:grid;gap:10px}
+.timeline .item{position:relative}
+.timeline .item::before{content:"";position:absolute;left:-9px;top:6px;width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+
+.progress{display:grid;gap:10px}
+.progress .row{display:grid;grid-template-columns:160px 1fr;align-items:center;gap:12px}
+.progress .bar{height:10px;border-radius:999px;background:rgba(255,255,255,0.08);overflow:hidden;border:1px solid var(--glass-border)}
+.progress .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+
+.form{display:grid;gap:12px;max-width:640px}
+.input, textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.04);color:var(--text-1)}
+textarea{min-height:140px;resize:vertical}
+.form small{color:var(--text-3)}
+
+.hamburger{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:8px}
+.hamburger span{width:24px;height:2px;background:var(--text-1);transition:0.3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(7px,-6px)}
+/* Mobile nav at <=640px */
+@media (max-width: 640px){
+  .hamburger{display:flex}
+  .nav{position:fixed;top:70px;left:-100%;width:100%;height:calc(100vh - 70px);background:var(--bg);flex-direction:column;gap:20px;padding:20px;transition:left 0.3s ease;z-index:9}
+  .nav.open{left:0}
+  .nav a{padding:12px;border-radius:10px;text-align:center}
+}
+/* Desktop layout >=1024px: 2 columns hero and larger image */
+@media (min-width: 1024px){
+  .hero{grid-template-columns:1fr 1fr}
+  .hero-photo{width:clamp(320px,36vw,400px);height:auto;border-radius:16px;aspect-ratio:3 / 2;margin:0}
+}
+
+/* New geometric shapes for project photos in mobile version */
+@media (max-width: 560px){
+  .cards, .grid{grid-template-columns:1fr}
+  .hero-photo img{border-radius:50%}
+  .grid .project:nth-child(1) img{clip-path:circle(50%)}
+  .grid .project:nth-child(2) img{clip-path:polygon(50% 0%, 0% 100%, 100% 100%)}
+  .grid .project:nth-child(3) img{clip-path:polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)}
+  .grid .project:nth-child(4) img{clip-path:ellipse(50% 30% at 50% 50%)}
+  .grid .project:nth-child(5) img{clip-path:polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)}
+  .grid .project:nth-child(6) img{clip-path:polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)}
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{animation: none !important; transition: none !important; scroll-behavior: auto !important}
+}

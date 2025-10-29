@@ -1,0 +1,16 @@
+{
+  "name": "practic17",
+  "version": "1.0.0",
+  "description": "Учебный проект в рамках дисциплины «Фронтенд и Бэкенд разработка» (ИПТИП, Астафьев Р. У.). Цель — создать доступную страницу `pages/contacts.html`, оформить документацию и подготовить инфраструктуру для Lighthouse-аудита и проверки доступности.",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0"
+  }
+}

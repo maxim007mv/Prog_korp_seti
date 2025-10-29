@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Портфолио — Учебный дневник</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'bg-primary': '#0f1222',
+            'bg-secondary': '#141937',
+            'surface': 'rgba(255,255,255,0.04)',
+            'glass': 'rgba(255,255,255,0.08)',
+            'glass-border': 'rgba(255,255,255,0.18)',
+            'accent': '#FFB84A',
+            'accent-2': '#FFC566',
+            'text-1': 'rgba(255,255,255,0.98)',
+            'text-2': 'rgba(255,255,255,0.82)',
+            'text-3': 'rgba(255,255,255,0.60)',
+          },
+          fontFamily: {
+            'orbitron': ['Orbitron', 'sans-serif'],
+            'inter': ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            'card': '24px',
+            'chip': '14px',
+          },
+          boxShadow: {
+            'custom': '0 10px 30px rgba(0,0,0,0.35)',
+            'glow': '0 0 20px rgba(255,184,74,0.5)',
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-gradient-to-b from-bg-primary to-bg-secondary text-text-1 font-inter leading-relaxed pb-safe">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:inset-x-0 focus:top-4 focus:z-50 focus:mx-auto focus:w-fit focus:rounded-lg focus:bg-blue-600 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950">
+    Перейти к основному содержимому
+  </a>
+
+  <header class="sticky top-0 z-40 border-b border-glass-border bg-bg-primary/70 backdrop-blur-12 pt-safe">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <a class="flex items-center gap-3 font-bold text-text-1" href="../index.html">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-accent to-accent-2 shadow-lg"></div>
+        <span>Ломакин Максим</span>
+      </a>
+      <button class="md:hidden flex flex-col gap-1 bg-none border-none cursor-pointer p-2" id="hamburger">
+        <span class="w-6 h-0.5 bg-text-1 transition-all"></span>
+        <span class="w-6 h-0.5 bg-text-1 transition-all"></span>
+        <span class="w-6 h-0.5 bg-text-1 transition-all"></span>
+      </button>
+      <nav class="hidden md:flex gap-4.5 flex-wrap" id="nav">
+        <a href="../index.html" class="text-text-2 px-3 py-2 rounded-lg border border-transparent hover:border-glass-border hover:bg-glass transition-colors">Главная</a>
+        <a href="./projects.html" class="text-text-2 px-3 py-2 rounded-lg border border-transparent hover:border-glass-border hover:bg-glass transition-colors">Проекты</a>
+        <a href="./diary.html" class="text-accent px-3 py-2 rounded-lg border border-transparent hover:border-glass-border hover:bg-glass transition-colors">Дневник</a>
+        <a href="./contacts.html" class="text-text-2 px-3 py-2 rounded-lg border border-transparent hover:border-glass-border hover:bg-glass transition-colors">Контакты</a>
+      </nav>
+      <button id="theme-toggle" aria-pressed="true" class="p-2 rounded-lg border border-glass-border bg-glass hover:bg-glass/80 transition-colors" aria-label="Переключить тему">
+        <span id="theme-toggle-icon">🌙</span>
+      </button>
+    </div>
+    <nav id="mobile-nav" class="hidden border-t border-glass-border bg-bg-primary px-4 pb-4 pt-2 text-sm font-medium text-text-2 md:hidden">
+      <a href="../index.html" class="block rounded-lg px-3 py-2 hover:border-glass-border hover:bg-glass transition-colors">Главная</a>
+      <a href="./projects.html" class="mt-1 block rounded-lg px-3 py-2 hover:border-glass-border hover:bg-glass transition-colors">Проекты</a>
+      <a href="./diary.html" class="mt-1 block rounded-lg px-3 py-2 text-accent hover:border-glass-border hover:bg-glass transition-colors">Дневник</a>
+      <a href="./contacts.html" class="mt-1 block rounded-lg px-3 py-2 hover:border-glass-border hover:bg-glass transition-colors">Контакты</a>
+    </nav>
+  </header>
+
+  <main id="main" class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+    <section class="mb-12">
+      <h2 class="font-orbitron font-bold text-2xl mb-6">Мой учебный прогресс</h2>
+      <div id="timeline" class="timeline relative border-l-2 border-glass-border pl-4 space-y-4">
+        <div class="item relative">
+          <div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-gradient-to-br from-accent to-accent-2"></div>
+          <div class="font-semibold">15 дек — Верстка макета сайта ✓</div>
+        </div>
+        <div class="item relative">
+          <div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-gradient-to-br from-accent to-accent-2"></div>
+          <div class="font-semibold">10 дек — JavaScript основы ✓</div>
+        </div>
+        <div class="item relative">
+          <div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-gradient-to-br from-accent to-accent-2"></div>
+          <div class="font-semibold">05 дек — Работа с формами — in progress</div>
+        </div>
+        <div class="item relative">
+          <div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-gradient-to-br from-accent to-accent-2"></div>
+          <div class="font-semibold">01 дек — Адаптивный дизайн — in progress</div>
+        </div>
+      </div>
+      <div class="mt-4">
+        <button id="add-entry" class="btn inline-flex items-center gap-2 px-4 py-3 rounded-lg border border-glass-border bg-glass text-text-1 hover:bg-glass/80 transition-colors" type="button">Добавить запись</button>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="font-orbitron font-bold text-2xl mb-6">Текущие курсы</h2>
+      <div class="progress space-y-4">
+        <div class="flex items-center gap-4">
+          <div class="w-32 text-text-1">Веб‑разработка</div>
+          <div class="flex-1 h-3 rounded-full bg-glass overflow-hidden border border-glass-border">
+            <span class="block h-full bg-gradient-to-r from-accent to-accent-2 transition-all duration-1000" style="width:90%"></span>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="w-32 text-text-1">JavaScript</div>
+          <div class="flex-1 h-3 rounded-full bg-glass overflow-hidden border border-glass-border">
+            <span class="block h-full bg-gradient-to-r from-accent to-accent-2 transition-all duration-1000" style="width:70%"></span>
+          </div>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="w-32 text-text-1">React</div>
+          <div class="flex-1 h-3 rounded-full bg-glass overflow-hidden border border-glass-border">
+            <span class="block h-full bg-gradient-to-r from-accent to-accent-2 transition-all duration-1000" style="width:50%"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-glass-border bg-bg-primary/70 py-6 text-sm text-text-3 text-center">
+    © 2025 Ломакин Максим. Учебный дневник курса "Фронтенд и Бэкенд разработка".
+  </footer>
+
+  <div id="sr-toast" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

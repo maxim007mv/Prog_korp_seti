@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Портфолио — Главная</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'bg-primary': '#0f1222',
+            'bg-secondary': '#141937',
+            'surface': 'rgba(255,255,255,0.04)',
+            'glass': 'rgba(255,255,255,0.08)',
+            'glass-border': 'rgba(255,255,255,0.18)',
+            'accent': '#FFB84A',
+            'accent-2': '#FFC566',
+            'text-1': 'rgba(255,255,255,0.98)',
+            'text-2': 'rgba(255,255,255,0.82)',
+            'text-3': 'rgba(255,255,255,0.60)',
+          },
+          fontFamily: {
+            'orbitron': ['Orbitron', 'sans-serif'],
+            'inter': ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            'card': '24px',
+            'chip': '14px',
+          },
+          boxShadow: {
+            'custom': '0 10px 30px rgba(0,0,0,0.35)',
+            'glow': '0 0 20px rgba(255,184,74,0.5)',
+          },
+        },
+      },
+    }
+  </script>
+
+  <meta name="description" content="Портфолио студента: навыки HTML/CSS/JS/React, лучшие учебные проекты и контакты." />
+</head>
+<body class="bg-gradient-to-b from-bg-primary to-bg-secondary text-text-1 font-inter leading-relaxed pb-safe">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:inset-x-0 focus:top-4 focus:z-50 focus:mx-auto focus:w-fit focus:rounded-lg focus:bg-blue-600 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-950">
+    Перейти к основному содержимому
+  </a>
+
+  <header class="sticky top-0 z-40 border-b border-glass-border bg-bg-primary/70 backdrop-blur pt-safe">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+      <a class="flex items-center gap-3 font-bold text-text-1" href="./index.html" aria-label="На главную — Максим Ломакин">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-accent to-accent-2 shadow-lg" aria-hidden="true"></div>
+        <span>Максим Ломакин</span>
+      </a>
+
+      <button class="md:hidden flex flex-col gap-1 p-2" id="hamburger" aria-label="Открыть меню" aria-controls="nav" aria-expanded="false">
+        <span class="w-6 h-0.5 bg-text-1 transition-all"></span>
+        <span class="w-6 h-0.5 bg-text-1 transition-all"></span>
+        <span class="w-6 h-0.5 bg-text-1 transition-all"></span>
+      </button>
+
+      <nav class="hidden md:flex gap-4.5 flex-wrap" id="nav" role="navigation" aria-label="Главное меню">
+        <a href="./index.html" aria-current="page" class="text-accent px-3 py-2 rounded-lg border border-transparent hover:border-glass-border hover:bg-glass transition-colors">Главная</a>
+        <a href="./pages/projects.html" class="text-text-2 px-3 py-2 rounded-lg border border-transparent hover:border-glass-border hover:bg-glass transition-colors">Проекты</a>
+        <a href="./pages/diary.html" class="text-text-2 px-3 py-2 rounded-lg border border-transparent hover:border-glass-border hover:bg-glass transition-colors">Дневник</a>
+        <a href="./pages/contacts.html" class="text-text-2 px-3 py-2 rounded-lg border border-transparent hover:border-glass-border hover:bg-glass transition-colors">Контакты</a>
+      </nav>
+
+      <button id="theme-toggle" aria-pressed="true" class="p-2 rounded-lg border border-glass-border bg-glass hover:bg-glass/80 transition-colors" aria-label="Переключить тему">
+        <span id="theme-toggle-icon">🌙</span>
+      </button>
+    </div>
+
+    <nav id="mobile-nav" class="hidden border-t border-glass-border bg-bg-primary px-4 pb-4 pt-2 text-sm font-medium text-text-2 md:hidden" aria-label="Мобильное меню">
+      <a href="./index.html" aria-current="page" class="block rounded-lg px-3 py-2 text-accent hover:border-glass-border hover:bg-glass transition-colors">Главная</a>
+      <a href="./pages/projects.html" class="mt-1 block rounded-lg px-3 py-2 hover:border-glass-border hover:bg-glass transition-colors">Проекты</a>
+      <a href="./pages/diary.html" class="mt-1 block rounded-lg px-3 py-2 hover:border-glass-border hover:bg-glass transition-colors">Дневник</a>
+      <a href="./pages/contacts.html" class="mt-1 block rounded-lg px-3 py-2 hover:border-glass-border hover:bg-glass transition-colors">Контакты</a>
+    </nav>
+  </header>
+
+  <main id="main" class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8" role="main">
+    <section class="hero grid grid-cols-1 gap-6 items-center md:grid-cols-2 rounded-3xl border border-glass-border bg-glass p-8 shadow-custom" aria-labelledby="hero-title">
+      <div class="hero-photo w-full max-w-sm mx-auto md:mx-0">
+        <img
+          src="https://images.steamusercontent.com/ugc/2014851770233865449/3E5AC49C2F586FE6059CDB0967E8DE3F6F31017A/?imw=1200&imh=675&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true"
+          alt="Фотография — студент за компьютером"
+          loading="eager"
+          decoding="async"
+          class="w-full h-auto rounded-sm md:rounded-full border border-glass-border shadow-custom transition-transform hover:scale-105"
+        />
+      </div>
+      <div class="hero-cta space-y-4">
+        <h1 id="hero-title" class="font-orbitron font-bold text-3xl md:text-4xl leading-tight">Привет! Я студент группы ЭФБО-13-24</h1>
+        <p class="text-base md:text-lg text-text-2">Увлекаюсь веб-разработкой, верстаю адаптивные интерфейсы, изучаю JS/React и бэкенд. Ниже — мои навыки и лучшие учебные проекты.</p>
+        <div>
+          <a class="btn primary inline-flex items-center gap-2.5 px-4 py-3 rounded-lg border border-transparent bg-gradient-to-br from-accent to-accent-2 text-gray-900 font-bold
+                     hover:brightness-105 hover:-translate-y-0.5 hover:shadow-glow transition-all duration-200
+                     focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-accent"
+             id="download-btn" href="./assets/resume.pdf" download>Скачать резюме</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-12 rounded-3xl border border-glass-border bg-glass p-8 shadow-custom" aria-labelledby="skills-title">
+      <h2 id="skills-title" class="font-orbitron font-bold text-2xl mb-6">Мои навыки</h2>
+      <div class="skills space-y-4" role="list">
+        <div class="skill" role="listitem" aria-label="HTML/CSS — 90%">
+          <div class="flex justify-between items-center mb-2">
+            <span>HTML/CSS — 90%</span>
+          </div>
+          <div class="bar h-3 rounded-full bg-glass overflow-hidden border border-glass-border">
+            <span class="block h-full bg-gradient-to-r from-accent to-accent-2 transition-all duration-1000" style="width:90%"></span>
+          </div>
+        </div>
+        <div class="skill" role="listitem" aria-label="JavaScript — 80%">
+          <div class="flex justify-between items-center mb-2">
+            <span>JavaScript — 80%</span>
+          </div>
+          <div class="bar h-3 rounded-full bg-glass overflow-hidden border border-glass-border">
+            <span class="block h-full bg-gradient-to-r from-accent to-accent-2 transition-all duration-1000" style="width:80%"></span>
+          </div>
+        </div>
+        <div class="skill" role="listitem" aria-label="Bootstrap — 85%">
+          <div class="flex justify-between items-center mb-2">
+            <span>Bootstrap — 85%</span>
+          </div>
+          <div class="bar h-3 rounded-full bg-glass overflow-hidden border border-glass-border">
+            <span class="block h-full bg-gradient-to-r from-accent to-accent-2 transition-all duration-1000" style="width:85%"></span>
+          </div>
+        </div>
+        <div class="skill" role="listitem" aria-label="React — 60%">
+          <div class="flex justify-between items-center mb-2">
+            <span>React — 60%</span>
+          </div>
+          <div class="bar h-3 rounded-full bg-glass overflow-hidden border border-glass-border">
+            <span class="block h-full bg-gradient-to-r from-accent to-accent-2 transition-all duration-1000" style="width:60%"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-12 rounded-3xl border border-glass-border bg-glass p-8 shadow-custom" aria-labelledby="projects-title">
+      <h2 id="projects-title" class="font-orbitron font-bold text-2xl mb-6">Лучшие проекты</h2>
+      <div class="cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article class="card project rounded-card overflow-hidden border border-glass-border bg-glass shadow-custom hover:shadow-glow hover:-translate-y-1 transition-all duration-200 cursor-pointer"
+                 data-title="Личный сайт"
+                 data-desc="Описание личного сайта на HTML и CSS."
+                 data-img="https://images.unsplash.com/photo-1520975682031-ae4f1083c6be?q=80&w=1200&auto=format&fit=crop">
+          <img src="https://wallpapers.com/images/hd/close-up-beaver-face-emurvrcvbt6z5enq.jpg"
+               alt="Превью проекта: Личный сайт"
+               loading="lazy"
+               decoding="async"
+               class="w-full h-48 object-cover" />
+          <div class="p-4">
+            <strong class="block text-lg font-semibold mb-2">Личный сайт</strong>
+            <div class="text-text-3 mb-4">HTML, CSS</div>
+            <a class="btn inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-glass-border bg-glass text-text-1 hover:bg-glass/80 transition-colors" href="./pages/projects.html">Подробнее</a>
+          </div>
+        </article>
+
+        <article class="card project rounded-card overflow-hidden border border-glass-border bg-glass shadow-custom hover:shadow-glow hover:-translate-y-1 transition-all duration-200 cursor-pointer"
+                 data-title="Todo-приложение"
+                 data-desc="Простое приложение для управления задачами на JavaScript."
+                 data-img="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop">
+          <img src="https://avatars.mds.yandex.net/i?id=b95fa7012e5935cee83ef745889ae09f1b65ee39bc265eed2defe71b_l-9182408-images-thumbs&n=13"
+               alt="Превью проекта: Todo-приложение"
+               loading="lazy"
+               decoding="async"
+               class="w-full h-48 object-cover" />
+          <div class="p-4">
+            <strong class="block text-lg font-semibold mb-2">Todo-приложение</strong>
+            <div class="text-text-3 mb-4">JavaScript</div>
+            <a class="btn inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-glass-border bg-glass text-text-1 hover:bg-glass/80 transition-colors" href="./pages/projects.html">Подробнее</a>
+          </div>
+        </article>
+
+        <article class="card project rounded-card overflow-hidden border border-glass-border bg-glass shadow-custom hover:shadow-glow hover:-translate-y-1 transition-all duration-200 cursor-pointer"
+                 data-title="Интернет-магазин"
+                 data-desc="Онлайн-магазин на React с корзиной и оплатой."
+                 data-img="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop">
+          <img src="https://avatars.mds.yandex.net/i?id=448bdf8f1b65ee39bc265eed2defe71b_l-5179350-images-thumbs&n=13"
+               alt="Превью проекта: Интернет-магазин"
+               loading="lazy"
+               decoding="async"
+               class="w-full h-48 object-cover" />
+          <div class="p-4">
+            <strong class="block text-lg font-semibold mb-2">Интернет-магазин</strong>
+            <div class="text-text-3 mb-4">React</div>
+            <a class="btn inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-glass-border bg-glass text-text-1 hover:bg-glass/80 transition-colors" href="./pages/projects.html">Подробнее</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal fixed inset-0 bg-black/50 hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-card max-w-lg w-full rounded-card border border-glass-border bg-bg-secondary shadow-custom overflow-hidden">
+      <img id="modal-img" src="" alt="Изображение проекта" class="w-full h-48 object-cover" />
+      <div class="p-4">
+        <h3 id="modal-title" class="text-lg font-semibold mb-2"></h3>
+        <p id="modal-desc" class="text-text-3 mb-4"></p>
+        <button class="btn close-modal inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-glass-border bg-glass text-text-1 hover:bg-glass/80 transition-colors" type="button" aria-label="Закрыть модальное окно">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+    <footer class="border-t border-glass-border bg-bg-primary/70 py-6 text-sm text-text-3 text-center">
+    © 2025 Ломакин Максим. Главная страница курса "Фронтенд и Бэкенд разработка".
+  </footer>
+
+  <div id="sr-toast" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="./scripts/main.js" defer></script>
+</body>
+</html>
