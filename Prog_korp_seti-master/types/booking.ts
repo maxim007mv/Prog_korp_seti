@@ -9,11 +9,13 @@ export type BookingStatus = 'Active' | 'Cancelled' | 'Completed';
 export interface Booking {
   id: number;
   clientName: string;
+  clientPhone?: string; // Полный номер для админа
   phoneMasked: string; // Маскированный телефон для безопасности
   phoneLastFour: string; // Последние 4 цифры для поиска
   start: string; // ISO 8601
   end: string; // ISO 8601
   comment?: string;
+  guestCount?: number; // Количество гостей
   tableId: number;
   table?: {
     id: number;
@@ -22,6 +24,7 @@ export interface Booking {
   };
   status: BookingStatus;
   createdAt: string;
+  updatedAt?: string;
 }
 
 /**

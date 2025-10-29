@@ -622,7 +622,7 @@ public class BookingController : ControllerBase
     }
 
     /// <summary>
-    /// Отменить бронирование
+    /// Отменить бронирование (физическое удаление из БД)
     /// </summary>
     /// <param name="id">ID бронирования</param>
     /// <returns>Результат операции</returns>
@@ -638,13 +638,11 @@ public class BookingController : ControllerBase
             return NotFound(new { error = "Бронирование не найдено", bookingId = id });
         }
 
-        // Мягкое удаление - меняем статус
-        booking.Status = "отменено";
-        booking.UpdatedAt = DateTime.UtcNow;
-
+        // Физическое удаление из базы данных
+        _context.Bookings.Remove(booking);
         await _context.SaveChangesAsync();
 
-        _logger.LogInformation("Отменено бронирование #{BookingId}", id);
+        _logger.LogInformation("Удалено бронирование #{BookingId} для клиента {ClientName}", id, booking.ClientName);
 
         return NoContent();
     }

@@ -1,17 +1,31 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Calendar, Search, Filter } from 'lucide-react';
 import { GlassCard, Input, Badge } from '@/components/ui';
-import { useBookings } from '@/lib/hooks';
+import { useBookings, useCancelBooking } from '@/lib/hooks';
 import { formatDate } from '@/lib/utils';
-import type { BookingStatus } from '@/types';
+import type { BookingStatus, Booking } from '@/types';
+
+// Динамический импорт модальных окон
+const BookingDetailsModal = dynamic(() => import('./components/BookingDetailsModal'), {
+  ssr: false,
+  loading: () => <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-400"></div></div>
+});
+
+const CancelConfirmModal = dynamic(() => import('./components/CancelConfirmModal'), {
+  ssr: false
+});
 
 export default function AdminBookingsPage() {
   const [statusFilter, setStatusFilter] = useState<BookingStatus | ''>('Active');
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
+  const [bookingToCancel, setBookingToCancel] = useState<{id: number, name: string} | null>(null);
 
   const { data: bookings, isLoading, error } = useBookings(statusFilter || undefined);
+  const cancelBooking = useCancelBooking();
 
   if (isLoading) {
     return (
@@ -45,6 +59,19 @@ export default function AdminBookingsPage() {
       case 'Cancelled': return 'error';
       case 'Completed': return 'success';
       default: return 'default';
+    }
+  };
+
+  // Обработчик отмены бронирования
+  const handleCancelBooking = async () => {
+    if (!bookingToCancel) return;
+
+    try {
+      await cancelBooking.mutateAsync(bookingToCancel.id);
+      setBookingToCancel(null);
+    } catch (error) {
+      console.error('Ошибка отмены бронирования:', error);
+      alert('Не удалось отменить бронирование. Попробуйте еще раз.');
     }
   };
 
@@ -115,11 +142,18 @@ export default function AdminBookingsPage() {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <button className="px-3 py-2 rounded-xl text-sm bg-white/10 border border-white/20 text-white/80 hover:bg-white/20 transition-colors">
+                  <button 
+                    onClick={() => setSelectedBooking(booking)}
+                    className="px-3 py-2 rounded-xl text-sm bg-white/10 border border-white/20 text-white/80 hover:bg-white/20 transition-colors"
+                  >
                     Детали
                   </button>
                   {booking.status === 'Active' && (
-                    <button className="px-3 py-2 rounded-xl text-sm bg-red-400/20 border border-red-400/50 text-red-300 hover:bg-red-400/30 transition-colors">
+                    <button 
+                      onClick={() => setBookingToCancel({id: booking.id, name: booking.clientName})}
+                      disabled={cancelBooking.isPending}
+                      className="px-3 py-2 rounded-xl text-sm bg-red-400/20 border border-red-400/50 text-red-300 hover:bg-red-400/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
                       Отменить
                     </button>
                   )}
@@ -128,6 +162,24 @@ export default function AdminBookingsPage() {
             </GlassCard>
           ))}
         </div>
+      )}
+
+      {/* Модальное окно деталей */}
+      {selectedBooking && (
+        <BookingDetailsModal
+          booking={selectedBooking}
+          onClose={() => setSelectedBooking(null)}
+        />
+      )}
+
+      {/* Модальное окно подтверждения отмены */}
+      {bookingToCancel && (
+        <CancelConfirmModal
+          bookingId={bookingToCancel.id}
+          clientName={bookingToCancel.name}
+          onConfirm={handleCancelBooking}
+          onCancel={() => setBookingToCancel(null)}
+        />
       )}
     </div>
   );
