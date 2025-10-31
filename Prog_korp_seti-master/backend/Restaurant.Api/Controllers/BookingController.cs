@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Restaurant.Api.Models;
 using Restaurant.Api.Utilities;
+using Restaurant.Domain.Entities;
 using Restaurant.Infrastructure.Persistence;
 
 namespace Restaurant.Api.Controllers;
@@ -632,25 +633,66 @@ public class BookingController : ControllerBase
     /// </summary>
     /// <param name="id">ID бронирования</param>
     /// <returns>Результат операции</returns>
+    /// <summary>
+    /// Удаление (отмена) бронирования с удалением связанных заказов и логированием
+    /// </summary>
     [HttpDelete("{id}")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> CancelBooking(int id)
+    public async Task<IActionResult> CancelBooking(int id, [FromQuery] int? adminId = null, [FromQuery] string? comment = null)
     {
-        var booking = await _context.Bookings.FindAsync(id);
-
-        if (booking == null)
+        try
         {
-            return NotFound(new { error = "Бронирование не найдено", bookingId = id });
+            // Простое удаление booking
+            var booking = await _context.Bookings.FindAsync(id);
+
+            if (booking == null)
+            {
+                return NotFound(new { error = "Бронирование не найдено", bookingId = id });
+            }
+
+            // Удаляем связанные orders вручную (потому что FK настроен как SET NULL, а не CASCADE)
+            var orders = await _context.Orders.Where(o => o.BookingId == id).ToListAsync();
+            
+            _logger.LogInformation("Найдено {Count} заказов для бронирования {BookingId}", orders.Count, id);
+            
+            if (orders.Any())
+            {
+                // Удаляем order_items для каждого заказа
+                foreach (var order in orders)
+                {
+                    var items = await _context.OrderItems.Where(oi => oi.OrderId == order.Id).ToListAsync();
+                    _context.OrderItems.RemoveRange(items);
+                }
+                
+                _context.Orders.RemoveRange(orders);
+            }
+
+            _context.Bookings.Remove(booking);
+            await _context.SaveChangesAsync();
+
+            _logger.LogWarning(
+                "Удалено бронирование ID: {BookingId}, Клиент: {ClientName}, Удалено заказов: {OrdersCount}",
+                id, booking.ClientName, orders.Count);
+
+            return Ok(new
+            {
+                message = $"Бронирование отменено. Удалено заказов: {orders.Count}",
+                deletedBookingId = id,
+                deletedOrdersCount = orders.Count
+            });
         }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Ошибка при удалении бронирования ID: {BookingId}", id);
 
-        // Физическое удаление из базы данных
-        _context.Bookings.Remove(booking);
-        await _context.SaveChangesAsync();
-
-        _logger.LogInformation("Удалено бронирование #{BookingId} для клиента {ClientName}", id, booking.ClientName);
-
-        return NoContent();
+            return StatusCode(500, new
+            {
+                error = "Ошибка при удалении бронирования",
+                message = ex.Message,
+                details = ex.InnerException?.Message
+            });
+        }
     }
 
     /// <summary>

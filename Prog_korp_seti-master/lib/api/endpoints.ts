@@ -2,6 +2,7 @@ import { apiClient } from './client';
 import type {
   MenuData,
   Dish,
+  DishCategory,
   DishInput,
   Table,
   TableInput,
@@ -36,7 +37,35 @@ import type {
  */
 export const menuApi = {
   // Получить все меню
-  getMenu: () => apiClient.get<MenuData>('/menu'),
+  getMenu: async (): Promise<MenuData> => {
+    try {
+      const res = await apiClient.get<any>('/menu');
+      
+      // API может вернуть массив напрямую или объект {categories, dishes}
+      let dishes: Dish[] = [];
+      let categories: DishCategory[] = [];
+      
+      if (Array.isArray(res)) {
+        // Если пришёл массив - это блюда
+        dishes = res;
+        // Извлекаем уникальные категории из блюд (с фильтрацией валидных)
+        const uniqueCategories = [...new Set(dishes.map(d => d.category).filter(Boolean))];
+        categories = uniqueCategories as DishCategory[];
+      } else {
+        // Если объект - берём поля (поддержка PascalCase и camelCase)
+        dishes = res?.dishes ?? res?.Dishes ?? [];
+        const cats = res?.categories ?? res?.Categories ?? [];
+        categories = Array.isArray(cats) ? cats as DishCategory[] : [];
+      }
+      
+      return { categories, dishes };
+    } catch (err) {
+      // Не ломаем приложение — возвращаем пустое меню и логируем ошибку
+      // eslint-disable-next-line no-console
+      console.error('menuApi.getMenu error', err);
+      return { categories: [], dishes: [] };
+    }
+  },
 
   // Получить блюдо по ID
   getDish: (id: number) => apiClient.get<Dish>(`/menu/${id}`),
@@ -108,11 +137,11 @@ export const bookingsApi = {
 
   // Поиск бронирований (имя + 4 цифры телефона)
   searchBookings: async (params: BookingSearchParams) => {
-    const bookings = await apiClient.get<any[]>('/bookings/search', {
+    const response = await apiClient.get<{count: number, bookings: any[]}>('/bookings/search', {
       name: params.name,
       phone: params.phoneSuffix, // Backend ожидает 'phone', а не 'phoneSuffix'
     });
-    return bookings.map(transformBookingResponse);
+    return response.bookings.map(transformBookingResponse);
   },
 
   // Получить бронирование по ID

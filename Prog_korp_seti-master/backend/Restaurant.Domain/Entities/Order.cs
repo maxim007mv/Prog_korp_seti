@@ -6,6 +6,7 @@ public class Order
     public int TableId { get; set; }
     public int? WaiterId { get; set; }
     public int? BookingId { get; set; }
+    public int? ClientId { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime? EndTime { get; set; }
     public string? Comment { get; set; }
@@ -20,6 +21,7 @@ public class Order
     public Table? Table { get; set; }
     public Waiter? Waiter { get; set; }
     public Booking? Booking { get; set; }
+    public Client? Client { get; set; }
     public ICollection<OrderItem>? Items { get; set; }
 }
 

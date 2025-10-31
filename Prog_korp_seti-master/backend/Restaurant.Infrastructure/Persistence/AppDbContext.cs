@@ -17,6 +17,7 @@ public class AppDbContext : DbContext
     public DbSet<Dish> Dishes => Set<Dish>();
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
+    public DbSet<AdminLog> AdminLogs => Set<AdminLog>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -75,6 +76,9 @@ public class AppDbContext : DbContext
             e.Property(x => x.RegistrationDate).HasColumnName("registration_date").HasDefaultValueSql("CURRENT_TIMESTAMP");
             
             e.HasOne(x => x.User).WithOne(u => u.Client).HasForeignKey<Client>(x => x.UserId).OnDelete(DeleteBehavior.SetNull);
+            // Каскадное удаление: удаление клиента удаляет все его заказы
+            e.HasMany(x => x.Orders).WithOne(o => o.Client).HasForeignKey(o => o.ClientId).OnDelete(DeleteBehavior.Cascade);
+            
             e.HasIndex(x => x.Phone).HasDatabaseName("idx_clients_phone");
             e.HasIndex(x => x.Email).HasDatabaseName("idx_clients_email");
             e.HasIndex(x => x.UserId).IsUnique().HasDatabaseName("idx_clients_user");
@@ -123,6 +127,13 @@ public class AppDbContext : DbContext
             e.HasIndex(x => x.ClientName).HasDatabaseName("idx_bookings_name");
             e.HasIndex(x => new { x.StartTime, x.EndTime }).HasDatabaseName("idx_bookings_time_range");
             e.HasIndex(x => x.Status).HasDatabaseName("idx_bookings_status");
+            // Композитный индекс для поиска активных броней по столу и времени (конфликты)
+            e.HasIndex(x => new { x.TableId, x.Status, x.StartTime, x.EndTime })
+                .HasDatabaseName("idx_bookings_table_status_time")
+                .HasFilter("status = 'активно'"); // Partial index для активных броней
+            // Композитный индекс для поиска по имени и телефону (страница поиска)
+            e.HasIndex(x => new { x.ClientName, x.ClientPhone, x.Status })
+                .HasDatabaseName("idx_bookings_search");
         });
 
         // DishCategories
@@ -178,6 +189,10 @@ public class AppDbContext : DbContext
             e.HasIndex(x => x.IsAvailable).HasDatabaseName("idx_dishes_available");
             e.HasIndex(x => x.IsDeleted).HasDatabaseName("idx_dishes_deleted");
             e.HasIndex(x => x.Price).HasDatabaseName("idx_dishes_price");
+            // Композитный индекс для получения доступного меню (самый частый запрос)
+            e.HasIndex(x => new { x.IsAvailable, x.IsDeleted, x.CategoryId })
+                .HasDatabaseName("idx_dishes_menu")
+                .HasFilter("is_available = true AND is_deleted = false"); // Partial index
         });
 
         // Orders
@@ -189,6 +204,7 @@ public class AppDbContext : DbContext
             e.Property(x => x.TableId).HasColumnName("table_id");
             e.Property(x => x.WaiterId).HasColumnName("waiter_id");
             e.Property(x => x.BookingId).HasColumnName("booking_id");
+            e.Property(x => x.ClientId).HasColumnName("client_id");
             e.Property(x => x.StartTime).HasColumnName("start_time").HasDefaultValueSql("CURRENT_TIMESTAMP");
             e.Property(x => x.EndTime).HasColumnName("end_time");
             e.Property(x => x.Comment).HasColumnName("comment");
@@ -202,14 +218,24 @@ public class AppDbContext : DbContext
             e.HasOne(x => x.Table).WithMany(t => t.Orders).HasForeignKey(x => x.TableId).OnDelete(DeleteBehavior.Restrict);
             e.HasOne(x => x.Waiter).WithMany(w => w.Orders).HasForeignKey(x => x.WaiterId).OnDelete(DeleteBehavior.Restrict);
             e.HasOne(x => x.Booking).WithMany(b => b.Orders).HasForeignKey(x => x.BookingId).OnDelete(DeleteBehavior.SetNull);
+            // Связь с клиентом (каскадное удаление настроено со стороны Client)
+            e.HasOne(x => x.Client).WithMany(c => c.Orders).HasForeignKey(x => x.ClientId).OnDelete(DeleteBehavior.Cascade);
             
             e.HasIndex(x => x.TableId).HasDatabaseName("idx_orders_table");
             e.HasIndex(x => x.WaiterId).HasDatabaseName("idx_orders_waiter");
             e.HasIndex(x => x.BookingId).HasDatabaseName("idx_orders_booking");
+            e.HasIndex(x => x.ClientId).HasDatabaseName("idx_orders_client");
             e.HasIndex(x => x.Status).HasDatabaseName("idx_orders_status");
             e.HasIndex(x => x.StartTime).HasDatabaseName("idx_orders_start_time");
             e.HasIndex(x => x.EndTime).HasDatabaseName("idx_orders_end_time");
             e.HasIndex(x => x.ShiftDate).HasDatabaseName("idx_orders_shift_date");
+            // Композитный индекс для отчетов по официантам
+            e.HasIndex(x => new { x.WaiterId, x.Status, x.ShiftDate })
+                .HasDatabaseName("idx_orders_waiter_status_date");
+            // Композитный индекс для аналитики (закрытые заказы за период)
+            e.HasIndex(x => new { x.Status, x.EndTime })
+                .HasDatabaseName("idx_orders_analytics")
+                .HasFilter("status = 'завершен'"); // Только завершенные заказы
         });
 
         // OrderItems
@@ -231,6 +257,33 @@ public class AppDbContext : DbContext
             e.HasIndex(x => x.OrderId).HasDatabaseName("idx_order_items_order");
             e.HasIndex(x => x.DishId).HasDatabaseName("idx_order_items_dish");
             e.HasIndex(x => x.Status).HasDatabaseName("idx_order_items_status");
+        });
+
+        // AdminLogs
+        modelBuilder.Entity<AdminLog>(e =>
+        {
+            e.ToTable("admin_logs");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Id).HasColumnName("log_id");
+            e.Property(x => x.AdminId).HasColumnName("admin_id");
+            e.Property(x => x.AdminUsername).HasColumnName("admin_username").HasMaxLength(100).IsRequired();
+            e.Property(x => x.Action).HasColumnName("action").HasMaxLength(20).IsRequired(); // CREATE, UPDATE, DELETE
+            e.Property(x => x.EntityType).HasColumnName("entity_type").HasMaxLength(50).IsRequired(); // Order, Booking, Client
+            e.Property(x => x.EntityId).HasColumnName("entity_id");
+            e.Property(x => x.EntityData).HasColumnName("entity_data").HasColumnType("jsonb"); // PostgreSQL JSON
+            e.Property(x => x.Comment).HasColumnName("comment");
+            e.Property(x => x.Timestamp).HasColumnName("timestamp").HasDefaultValueSql("CURRENT_TIMESTAMP");
+            
+            e.HasOne(x => x.Admin).WithMany().HasForeignKey(x => x.AdminId).OnDelete(DeleteBehavior.SetNull);
+            
+            e.HasIndex(x => x.AdminId).HasDatabaseName("idx_admin_logs_admin");
+            e.HasIndex(x => x.Action).HasDatabaseName("idx_admin_logs_action");
+            e.HasIndex(x => x.EntityType).HasDatabaseName("idx_admin_logs_entity_type");
+            e.HasIndex(x => x.EntityId).HasDatabaseName("idx_admin_logs_entity_id");
+            e.HasIndex(x => x.Timestamp).HasDatabaseName("idx_admin_logs_timestamp");
+            // Композитный индекс для фильтрации по типу и действию
+            e.HasIndex(x => new { x.EntityType, x.Action, x.Timestamp })
+                .HasDatabaseName("idx_admin_logs_type_action_time");
         });
     }
 }

@@ -11,21 +11,66 @@ using Restaurant.Application.Interfaces;
 using Restaurant.Infrastructure.UnitOfWork;
 using Restaurant.Api.Middleware;
 using Restaurant.Api.Hubs;
+using Hangfire;
+using Hangfire.PostgreSql;
+using Hangfire.Dashboard;
+using Restaurant.Api.BackgroundJobs;
+using Asp.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Serilog
+// Serilog with Enrichers
 builder.Host.UseSerilog((context, services, configuration) =>
 {
     configuration
         .ReadFrom.Configuration(context.Configuration)
         .ReadFrom.Services(services)
         .Enrich.FromLogContext()
-        .WriteTo.Console();
+        .Enrich.WithMachineName()
+        .Enrich.WithEnvironmentName()
+        .Enrich.WithThreadId()
+        .Enrich.WithProperty("Application", "RestaurantAPI")
+        .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} {Properties:j}{NewLine}{Exception}");
 });
 
 // Services
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Fix circular reference errors in EF Core navigation properties
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+    });
+
+// Response Compression (Gzip + Brotli)
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<Microsoft.AspNetCore.ResponseCompression.BrotliCompressionProvider>();
+    options.Providers.Add<Microsoft.AspNetCore.ResponseCompression.GzipCompressionProvider>();
+});
+
+builder.Services.Configure<Microsoft.AspNetCore.ResponseCompression.BrotliCompressionProviderOptions>(options =>
+{
+    options.Level = System.IO.Compression.CompressionLevel.Fastest;
+});
+
+builder.Services.Configure<Microsoft.AspNetCore.ResponseCompression.GzipCompressionProviderOptions>(options =>
+{
+    options.Level = System.IO.Compression.CompressionLevel.SmallestSize;
+});
+
+// API Versioning
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = ApiVersionReader.Combine(
+        new UrlSegmentApiVersionReader(),
+        new HeaderApiVersionReader("X-Api-Version")
+    );
+}).AddMvc();
 
 // SignalR
 builder.Services.AddSignalR();
@@ -33,12 +78,13 @@ builder.Services.AddSignalR();
 // CORS: разрешаем фронтенду обращаться к API (адаптировать origin по среде)
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
         policy.WithOrigins("http://localhost:3000", "http://localhost:3001", "http://localhost:3002")
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials();
+              .AllowCredentials()
+              .WithExposedHeaders("X-Correlation-ID", "Content-Type", "Authorization");
     });
 });
 builder.Services.AddEndpointsApiExplorer();
@@ -70,6 +116,9 @@ builder.Services.AddProblemDetails();
 // AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+// MediatR
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Restaurant.Application.AssemblyReference).Assembly));
+
 // FluentValidation
 builder.Services.AddFluentValidationAutoValidation();
 
@@ -79,8 +128,37 @@ builder.Services.AddInfrastructure(builder.Configuration);
 // Unit of Work
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+// Repositories
+builder.Services.AddScoped<Restaurant.Application.Interfaces.IBookingRepository, Restaurant.Infrastructure.Repositories.BookingRepository>();
+builder.Services.AddScoped<Restaurant.Application.Interfaces.IDishRepository, Restaurant.Infrastructure.Repositories.DishRepository>();
+builder.Services.AddScoped<Restaurant.Application.Interfaces.IOrderRepository, Restaurant.Infrastructure.Repositories.OrderRepository>();
+builder.Services.AddScoped<Restaurant.Application.Interfaces.ITableRepository, Restaurant.Infrastructure.Repositories.TableRepository>();
+builder.Services.AddScoped<Restaurant.Application.Interfaces.IUserRepository, Restaurant.Infrastructure.Repositories.UserRepository>();
+
 // Health Checks
 builder.Services.AddHealthChecks();
+
+// Memory Cache для производительности
+builder.Services.AddMemoryCache();
+builder.Services.AddDistributedMemoryCache();
+
+// Cache Service
+builder.Services.AddScoped<Restaurant.Api.Services.ICacheService, Restaurant.Api.Services.CacheService>();
+
+// Hangfire Background Jobs
+builder.Services.AddHangfire(config =>
+{
+    config.UsePostgreSqlStorage(options =>
+    {
+        options.UseNpgsqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
+    });
+});
+builder.Services.AddHangfireServer();
+
+// Background Jobs
+builder.Services.AddScoped<CleanupExpiredBookingsJob>();
+builder.Services.AddScoped<DailyReportsJob>();
+builder.Services.AddScoped<CacheWarmupJob>();
 
 // Rate Limiting
 builder.Services.AddRateLimiter(options =>
@@ -138,21 +216,58 @@ builder.Services.AddAuthorization(options =>
 
 var app = builder.Build();
 
-app.UseSerilogRequestLogging();
+// Correlation ID (должен быть первым для трекинга всех запросов)
+app.UseCorrelationId();
 
-// Exception handling middleware (должен быть первым)
-app.UseExceptionHandlingMiddleware();
+// CORS должен быть очень рано в pipeline, до UseRouting
+app.UseCors("AllowFrontend");
 
-app.UseCors();
+// Response Compression
+app.UseResponseCompression();
+
+app.UseSerilogRequestLogging(options =>
+{
+    options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+    {
+        diagnosticContext.Set("ClientIP", httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown");
+        diagnosticContext.Set("UserAgent", httpContext.Request.Headers["User-Agent"].ToString());
+        diagnosticContext.Set("Protocol", httpContext.Request.Protocol);
+    };
+});
+
+// Глобальная обработка исключений
+app.UseGlobalExceptionHandler();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    
+    // Hangfire Dashboard (только в Development)
+    app.UseHangfireDashboard("/hangfire", new DashboardOptions
+    {
+        Authorization = new[] { new AllowAllAuthorizationFilter() } // No auth in dev
+    });
 }
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Schedule recurring jobs
+RecurringJob.AddOrUpdate<CleanupExpiredBookingsJob>(
+    "cleanup-expired-bookings",
+    job => job.ExecuteAsync(),
+    Cron.Hourly); // Every hour
+
+RecurringJob.AddOrUpdate<DailyReportsJob>(
+    "daily-reports",
+    job => job.ExecuteAsync(),
+    Cron.Daily(2)); // Every day at 2 AM
+
+RecurringJob.AddOrUpdate<CacheWarmupJob>(
+    "cache-warmup",
+    job => job.ExecuteAsync(),
+    "*/15 * * * *"); // Every 15 minutes
 
 // Rate Limiter
 app.UseRateLimiter();

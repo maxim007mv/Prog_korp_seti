@@ -15,4 +15,5 @@ public class Client
     // Navigation properties
     public User? User { get; set; }
     public ICollection<Booking>? Bookings { get; set; }
+    public ICollection<Order>? Orders { get; set; }
 }

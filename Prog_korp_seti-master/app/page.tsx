@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 // Динамический импорт тяжелого компонента Tilt для улучшения производительности
-const Tilt = dynamic(() => import('./components/Tilt').then(mod => mod.Tilt), {
+const Tilt = dynamic(() => import('@/app/components/Tilt').then(mod => mod.Tilt), {
   ssr: false,
   loading: () => <div className="animate-pulse bg-white/5 rounded-[28px]" />
 });

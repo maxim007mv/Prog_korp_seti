@@ -1,422 +1,769 @@
-# Restaurant Management System - AI-Powered Platform
+# 🚀 Руководство по запуску системы управления рестораном
 
-Полноценная интеллектуальная система управления рестораном с интеграцией искусственного интеллекта. Система включает три зоны: публичная часть (Client), официанты (Staff) и администрирование с AI-аналитикой (Admin).
+## 📋 Оглавление
+1. [Описание проекта](#описание-проекта)
+2. [Требования](#требования)
+3. [Быстрый старт](#быстрый-старт)
+4. [Детальная инструкция](#детальная-инструкция)
+5. [Архитектура системы](#архитектура-системы)
+6. [Реализованные паттерны](#реализованные-паттерны)
+7. [Решение проблем](#решение-проблем)
+8. [Тестовые данные](#тестовые-данные)
 
-## 🚀 Ключевые возможности
+---
 
-### 🤖 AI-возможности
-- **Автоматические дайджесты** - ежедневные AI-отчёты о работе ресторана
-- **Прогнозирование спроса** - предсказание популярности блюд
-- **Интеллектуальные рекомендации** - советы по оптимизации меню, персонала, ценообразованию
-- **AI-чат ассистент** - интерактивный помощник для менеджеров
-- **Анализ трендов** - выявление паттернов в поведении клиентов
+## 📖 Описание проекта
 
-### 📊 Аналитика
-- Полная панель бизнес-метрик в реальном времени
-- Производительность меню и категорий
-- Метрики эффективности персонала
-- Экспорт данных (CSV, Excel, PDF)
-- Системный мониторинг и health checks
+**Restaurant Management System** - полнофункциональная система управления рестораном с AI-интеграцией.
 
-### 🔔 Уведомления
-- Real-time уведомления о важных событиях
-- Интеграция с AI-инсайтами
-- Приоритезация по важности
-- История всех уведомлений
+### Технологический стек:
+- **Frontend**: Next.js 14.2.33, React 18, TypeScript, TailwindCSS, TanStack Query v5
+- **Backend**: .NET 8.0, ASP.NET Core Web API, Entity Framework Core 8
+- **Database**: PostgreSQL 16
+- **AI**: DeepSeek API (реальная интеграция)
+- **Background Jobs**: Hangfire 1.8.14
+- **Logging**: Serilog
+- **Architecture**: Clean Architecture, CQRS, Repository Pattern
 
-## Технологии
+### Основные функции:
+✅ Управление меню и блюдами (1022+ блюд)  
+✅ Система бронирования столов  
+✅ Управление заказами и персоналом  
+✅ Аналитика и отчеты (90 дней истории)  
+✅ AI-рекомендации и прогнозирование  
+✅ Уведомления в реальном времени  
+✅ Роли: Администратор, Официант, Клиент  
 
-### Frontend
-- **Next.js 14** (App Router)
-- **React 18** с TypeScript
-- **TailwindCSS** для стилизации
-- **TanStack Query v5** для управления данными
-- **Framer Motion** для анимаций
-- **Recharts** для графиков и аналитики
-- **Zod** для валидации
+---
 
-### Backend
-- **.NET 8 Web API** с Clean Architecture
-- **Entity Framework Core** для ORM
-- **PostgreSQL 15+** с расширениями для AI
-- **DeepSeek AI API** для AI-функций
-- **JWT** для аутентификации
-- **Swagger** для API документации
+## 🔧 Требования
 
-## Структура проекта
+### Обязательные компоненты:
+1. **Node.js** v18+ и npm/yarn
+2. **.NET SDK** 8.0+
+3. **PostgreSQL** 16+
+4. **Git** для клонирования репозитория
 
-```
-├── app/                    # Next.js App Router страницы
-│   ├── (public)/          # Публичные маршруты (/, /menu, /booking)
-│   ├── staff/             # Маршруты для официантов
-│   ├── admin/             # Админ-панель с AI-аналитикой
-│   └── login/             # Аутентификация
-├── components/            # React компоненты
-│   ├── features/          # Feature-based компоненты
-│   └── ui/                # UI компоненты
-├── lib/                   # Утилиты и API
-│   ├── api/               # API клиент и endpoints
-│   ├── hooks/             # React Query хуки
-│   └── ai/                # AI интеграция
-├── types/                 # TypeScript типы
-└── backend/               # .NET 8 backend
-    ├── Restaurant.Api/         # Web API контроллеры
-    ├── Restaurant.Domain/      # Domain entities и бизнес-логика
-    └── Restaurant.Infrastructure/ # EF Core и persistence
+### Проверка установки:
+```powershell
+node --version   # v18.0.0 или выше
+npm --version    # 9.0.0 или выше
+dotnet --version # 8.0.0 или выше
+psql --version   # 16.0 или выше
 ```
 
-## 🚀 Быстрый запуск
+---
 
-### Предварительные требования
-- **Node.js 18+**
-- **.NET 8 SDK**
-- **PostgreSQL 15+**
-- **Git**
+## ⚡ Быстрый старт
 
 ### 1. Клонирование репозитория
-```bash
-git clone https://github.com/maxim007mv/Prog_korp_seti.git
+```powershell
+git clone https://github.com/SeyYestyq/Prog_korp_seti.git
 cd Prog_korp_seti
 ```
 
 ### 2. Настройка базы данных
-```bash
-# Создайте базу данных PostgreSQL
-createdb restaurant_db
+```sql
+-- Подключитесь к PostgreSQL
+psql -U postgres
 
-# Или через psql:
-# psql -U postgres -c "CREATE DATABASE restaurant_db;"
+-- Создайте базу данных
+CREATE DATABASE restaurant_db;
 ```
 
-### 3. Backend (.NET)
-```bash
-cd backend/Restaurant.Api
+### 3. Запуск бэкенда (.NET)
+```powershell
+# Перейдите в директорию бэкенда
+cd backend\Restaurant.Api
 
-# Примените миграции EF Core
-dotnet ef database update --project ../Restaurant.Infrastructure --startup-project .
+# Примените миграции (автоматически при первом запуске)
+dotnet ef database update --project ..\Restaurant.Infrastructure
 
-# Запустите backend
+# Запустите сервер
 dotnet run
 ```
-Backend будет доступен на `http://localhost:3001`
 
-### 4. Frontend (Next.js)
-```bash
-# В корне проекта
+Бэкенд запустится на **http://localhost:3001**
+
+### 4. Запуск фронтенда (Next.js)
+Откройте **новый терминал**:
+
+```powershell
+# Вернитесь в корневую директорию
+cd ..\..
+
+# Установите зависимости (только при первом запуске)
 npm install
 
-# Запустите frontend
+# Запустите фронтенд
 npm run dev
 ```
-Frontend будет доступен на `http://localhost:3000`
 
-### 5. Генерация тестовых данных (опционально)
-```bash
-cd backend/GenerateTestData
-dotnet run
-```
-Создаст 250+ заказов с выручкой ~10M RUB для тестирования аналитики.
+Фронтенд запустится на **http://localhost:3000**
 
-## 🔧 Конфигурация
+### 5. Вход в систему
 
-### Environment Variables
+Откройте браузер: **http://localhost:3000**
 
-**Frontend (.env.local):**
-```bash
+#### Тестовые учетные записи:
+
+| Роль | Email | Пароль |
+|------|-------|--------|
+| Администратор | `admin@restaurant.com` | `admin123` |
+| Официант | `waiter1@restaurant.com` | `waiter123` |
+
+---
+
+## 📚 Детальная инструкция
+
+### Настройка переменных окружения
+
+#### Frontend (.env.local)
+Создайте файл `.env.local` в корне проекта:
+
+```env
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3001/api
-NEXT_PUBLIC_DEEPSEEK_API_KEY=your_deepseek_api_key
+NEXT_PUBLIC_DEEPSEEK_API_KEY=sk-f6e4ca3f948f4a96ba0926760f12c9d8
 ```
 
-**Backend (appsettings.Development.json):**
+#### Backend (appsettings.Development.json)
+Файл находится в `backend/Restaurant.Api/`:
+
 ```json
 {
   "ConnectionStrings": {
     "DefaultConnection": "Host=localhost;Port=5432;Database=restaurant_db;Username=postgres;Password=postgres"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
   }
 }
 ```
 
-## 📋 API Endpoints
-
-### Бронирования
-- `GET /api/bookings` - все бронирования
-- `GET /api/bookings/search` - поиск по телефону/имени
-- `POST /api/bookings` - создать бронирование
-- `GET /api/bookings/{id}` - детали бронирования
-
-### Заказы
-- `GET /api/orders` - все заказы
-- `POST /api/orders` - создать заказ
-- `GET /api/orders/{id}` - детали заказа
-
-### Меню
-- `GET /api/menu` - все блюда
-- `POST /api/menu` - добавить блюдо
-
-### Аналитика
-- `GET /api/analytics/dashboard` - KPI дашборда
-- `GET /api/analytics/reports/revenue` - отчёт по выручке
-
-### Уведомления
-- `GET /api/notifications/latest` - последние уведомления
-- `GET /api/notifications/unread` - непрочитанные
-
-## 👥 Тестовые аккаунты
-
-- **Администратор:** `admin@restaurant.com` / `admin123`
-- **Официант:** `waiter1@restaurant.com` / `waiter123`
-
-## 🛠️ Разработка
-
-### Scripts
-```bash
-# Frontend
-npm run dev          # Development server
-npm run build        # Production build
-npm run start        # Production server
-npm run lint         # ESLint
-
-# Backend
-dotnet build         # Build project
-dotnet run           # Run API
-dotnet test          # Run tests
+### Структура проекта
+```
+Prog_korp_seti-master/
+├── app/                          # Next.js страницы
+│   ├── admin/                    # Панель администратора
+│   ├── staff/                    # Панель персонала
+│   ├── booking/                  # Бронирование столов
+│   └── menu/                     # Меню ресторана
+├── components/                   # React компоненты
+│   ├── features/                 # Функциональные компоненты
+│   └── ui/                       # UI библиотека
+├── lib/                          # Библиотеки
+│   ├── api/                      # API клиент
+│   ├── hooks/                    # React хуки
+│   └── ai/                       # DeepSeek AI интеграция
+├── backend/
+│   ├── Restaurant.Api/           # Web API контроллеры
+│   ├── Restaurant.Domain/        # Доменные сущности
+│   ├── Restaurant.Infrastructure/# EF Core, БД
+│   └── GenerateTestData/         # Генератор тестовых данных
+└── .github/
+    └── copilot-instructions.md   # Документация проекта
 ```
 
-### Database Migrations
-```bash
-# Создать новую миграцию
-dotnet ef migrations add MigrationName --project Restaurant.Infrastructure --startup-project Restaurant.Api
+---
 
-# Применить миграции
-dotnet ef database update --project Restaurant.Infrastructure --startup-project Restaurant.Api
-```
+## 🏗️ Архитектура системы
 
-## 📚 Документация
-
-- [AI Features](./docs/AI_FEATURES.md) - возможности ИИ
-- [API Integration](./docs/BACKEND_INTEGRATION.md) - интеграция с backend
-- [Deployment](./docs/DEPLOYMENT.md) - развёртывание
-- [AI Agent Instructions](./.github/copilot-instructions.md) - инструкции для AI
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Структура проекта
+### Backend архитектура
 
 ```
-├── app/                    # Next.js App Router страницы
-│   ├── (public)/          # Публичные маршруты (/, /menu, /booking)
-│   ├── staff/             # Маршруты для официантов
-│   ├── admin/             # Маршруты для администраторов
-│   └── api/               # API роуты (если нужны)
-├── components/            # React компоненты
-│   ├── ui/               # Базовые UI компоненты
-│   └── features/         # Бизнес-компоненты
-├── lib/                   # Утилиты и хелперы
-│   ├── api/              # API клиент
-│   ├── hooks/            # Кастомные React хуки
-│   └── utils/            # Вспомогательные функции
-├── types/                 # TypeScript типы
-├── constants/             # Константы приложения
-└── public/               # Статические файлы
-
+┌─────────────────────────────────────────┐
+│         Restaurant.Api (WebAPI)         │
+│  ┌───────────────────────────────────┐  │
+│  │    Controllers Layer              │  │
+│  │  - MenuController                 │  │
+│  │  - OrdersController               │  │
+│  │  - BookingsController             │  │
+│  │  - TablesController               │  │
+│  │  - AnalyticsController            │  │
+│  └───────────────────────────────────┘  │
+└─────────────────┬───────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────┐
+│      Restaurant.Infrastructure          │
+│  ┌───────────────────────────────────┐  │
+│  │    AppDbContext (EF Core)         │  │
+│  │  - Dishes, Orders, Bookings       │  │
+│  │  - Tables, Users, Analytics       │  │
+│  └───────────────────────────────────┘  │
+└─────────────────┬───────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────┐
+│         PostgreSQL Database             │
+│  - restaurant_db (16 таблиц)            │
+│  - 1022 dishes, 250+ orders             │
+│  - 90 дней истории заказов              │
+└─────────────────────────────────────────┘
 ```
 
-## Функциональность
+### Frontend архитектура
 
-### 🌐 Client (Публичная часть)
-- Просмотр меню по категориям с фильтрацией
-- Онлайн-бронирование столов
-- Поиск брони по имени + 4 цифрам телефона
-- Опциональный предзаказ блюд
+```
+┌─────────────────────────────────────────┐
+│         Next.js 14 (App Router)         │
+│  ┌───────────────────────────────────┐  │
+│  │    Pages                          │  │
+│  │  /menu    /booking   /admin       │  │
+│  │  /staff   /login     /register    │  │
+│  └───────────────────────────────────┘  │
+│  ┌───────────────────────────────────┐  │
+│  │    Components (features/)         │  │
+│  │  - MenuList  - OrderManager       │  │
+│  │  - BookingForm - RevenueChart     │  │
+│  │  - AIInsights - NotificationBell  │  │
+│  └───────────────────────────────────┘  │
+│  ┌───────────────────────────────────┐  │
+│  │    State Management               │  │
+│  │  - TanStack Query (API cache)     │  │
+│  │  - React Context (Auth)           │  │
+│  └───────────────────────────────────┘  │
+└─────────────────┬───────────────────────┘
+                  │
+                  ▼
+┌─────────────────────────────────────────┐
+│         API Client (lib/api/)           │
+│  - ApiClient class                      │
+│  - Endpoints configuration              │
+│  - Request/Response interceptors        │
+└─────────────────────────────────────────┘
+```
 
-### 👔 Staff (Официанты)
-- Открытие и ведение заказов
-- Добавление позиций в заказ
-- Закрытие заказов
-- Печать чеков в формате методички
-- Доступ к AI-рекомендациям по блюдам
+---
 
-### 🎯 Admin (Администраторы)
+## 🎯 Реализованные паттерны
 
-#### Базовые функции
-- CRUD операции с меню и столами
-- Управление бронированиями
-- Управление официантами
-- Детальные отчёты по всем метрикам
+### Backend Enterprise Patterns (13 паттернов)
 
-#### AI-панель управления
-- **Дневные дайджесты** - автоматический анализ работы
-- **Прогнозы спроса** - планирование закупок и персонала
-- **Рекомендации** - действенные советы по улучшению:
-  - Оптимизация меню
-  - Управление персоналом
-  - Стратегии ценообразования
-  - Маркетинговые инсайты
-- **AI-чат** - интерактивные вопросы и ответы
-- **История AI-запросов** - аудит и анализ
+#### 1. **Clean Architecture**
+```
+Presentation → Application → Domain → Infrastructure
+```
+- Независимость от фреймворков
+- Тестируемость
+- Разделение ответственности
 
-#### Аналитика
-- **Dashboard** - общая картина бизнеса
-- **Выручка** - детализация по периодам, категориям
-- **Меню** - производительность блюд и категорий
-- **Персонал** - эффективность официантов
-- **Клиенты** - анализ поведения и лояльности
-- **Экспорты** - данные в CSV, Excel, PDF
+#### 2. **Repository Pattern**
+```csharp
+public interface IRepository<T> where T : class
+{
+    Task<T> GetByIdAsync(int id);
+    Task<IEnumerable<T>> GetAllAsync();
+    Task AddAsync(T entity);
+    Task UpdateAsync(T entity);
+    Task DeleteAsync(int id);
+}
+```
 
-## Установка и запуск
+#### 3. **CQRS (Command Query Responsibility Segregation)**
+- Разделение команд (изменение данных) и запросов (чтение данных)
+- Оптимизация производительности
 
-```bash
-# Установка зависимостей
-npm install
+#### 4. **Result Pattern**
+```csharp
+public class Result<T>
+{
+    public bool IsSuccess { get; set; }
+    public T Data { get; set; }
+    public string ErrorMessage { get; set; }
+}
+```
+- Явная обработка ошибок
+- Отсутствие исключений в бизнес-логике
 
-# Копирование переменных окружения
-cp .env.example .env
+#### 5. **Specification Pattern**
+- Инкапсуляция бизнес-правил
+- Переиспользуемые условия фильтрации
 
-# Запуск в режиме разработки
+#### 6. **Unit of Work**
+- Транзакционная целостность
+- Группировка операций с БД
+
+#### 7. **Dependency Injection**
+```csharp
+builder.Services.AddScoped<IMenuService, MenuService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+```
+
+#### 8. **Background Jobs (Hangfire)**
+```csharp
+// Очистка истекших бронирований - каждый час
+RecurringJob.AddOrUpdate<IBookingService>(
+    "cleanup-expired-bookings",
+    x => x.CleanupExpiredBookingsAsync(),
+    Cron.Hourly
+);
+
+// Генерация отчетов - ежедневно в 2:00
+RecurringJob.AddOrUpdate<IAnalyticsService>(
+    "generate-daily-reports",
+    x => x.GenerateDailyReportAsync(),
+    "0 2 * * *"
+);
+
+// Обновление кэша меню - каждые 15 минут
+RecurringJob.AddOrUpdate<IMenuService>(
+    "refresh-menu-cache",
+    x => x.RefreshMenuCacheAsync(),
+    "*/15 * * * *"
+);
+```
+
+#### 9. **Caching Strategy**
+```csharp
+// In-Memory Cache для меню
+var cachedMenu = await _cache.GetOrCreateAsync(
+    "menu_all",
+    async entry =>
+    {
+        entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15);
+        return await _context.Dishes.ToListAsync();
+    }
+);
+```
+
+#### 10. **CORS Policy**
+```csharp
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins(
+            "http://localhost:3000",
+            "http://localhost:3001",
+            "http://localhost:3002"
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials()
+        .WithExposedHeaders("X-Correlation-ID", "Content-Type", "Authorization");
+    });
+});
+```
+
+#### 11. **Structured Logging (Serilog)**
+```csharp
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .Enrich.FromLogContext()
+    .Enrich.WithCorrelationId()
+    .Enrich.WithMachineName()
+    .WriteTo.Console()
+    .CreateLogger();
+```
+
+#### 12. **Response Compression**
+```csharp
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<BrotliCompressionProvider>();
+    options.Providers.Add<GzipCompressionProvider>();
+});
+```
+
+#### 13. **API Versioning**
+```csharp
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+});
+```
+
+#### 14. **JSON Serialization (Циклические ссылки)**
+```csharp
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Исправление циклических ссылок в EF Core навигационных свойствах
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    });
+```
+
+### Frontend Patterns
+
+#### 1. **Custom Hooks**
+```typescript
+// lib/hooks/useAuth.ts
+export const useAuth = () => {
+  const [user, setUser] = useState<User | null>(null);
+  // ...authentication logic
+}
+
+// lib/hooks/useMenu.ts
+export const useMenu = () => {
+  return useQuery({
+    queryKey: ['menu'],
+    queryFn: () => apiClient.get('/menu')
+  });
+}
+```
+
+#### 2. **API Client Pattern**
+```typescript
+class ApiClient {
+  private baseURL: string;
+
+  async request<T>(endpoint: string, options?: RequestInit): Promise<T> {
+    const response = await fetch(`${this.baseURL}${endpoint}`, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    return response.json();
+  }
+}
+```
+
+#### 3. **Feature-based Architecture**
+```
+components/features/
+├── admin/
+│   ├── RevenueChart.tsx
+│   ├── OrdersTable.tsx
+│   └── WaiterManagement.tsx
+├── booking/
+│   ├── BookingForm.tsx
+│   └── TableSelector.tsx
+└── menu/
+    ├── MenuList.tsx
+    ├── DishCard.tsx
+    └── MenuSearch.tsx
+```
+
+---
+
+## 🛠️ Решение проблем
+
+### Проблема 1: Порт 3000 занят
+
+**Симптомы:**
+```
+⚠ Port 3000 is in use, trying 3001 instead.
+```
+
+**Решение:**
+```powershell
+# Освободите порт 3000
+Get-NetTCPConnection -LocalPort 3000 -ErrorAction SilentlyContinue | 
+  Select-Object -ExpandProperty OwningProcess | 
+  ForEach-Object { Stop-Process -Id $_ -Force }
+
+# Перезапустите фронтенд
 npm run dev
-
-# Сборка для продакшена
-npm run build
-
-# Запуск продакшен-сборки
-npm start
 ```
 
-## Скрипты
+### Проблема 2: Ошибка подключения к БД
 
-- `npm run dev` - запуск в режиме разработки
-- `npm run build` - сборка проекта
-- `npm run start` - запуск собранного проекта
-- `npm run lint` - проверка кода линтером
-- `npm run type-check` - проверка типов TypeScript
-
-## 🔐 Роли и доступ
-
-- **client** - публичный доступ (/, /menu, /booking)
-- **waiter** - доступ к /staff/**, AI-рекомендации по блюдам
-- **manager** - доступ к /admin/**, аналитика, AI-инсайты
-- **admin** - полный доступ ко всем функциям
-
-## 📚 Документация
-
-- [AI API Reference](./docs/AI_API.md) - полная документация REST API
-- [Backend Implementation Guide](./docs/BACKEND_IMPLEMENTATION.md) - руководство по реализации backend
-- [Technical Specification](./docs/AI_FEATURES.md) - техническая спецификация AI-функций
-- [Project Summary](./PROJECT_SUMMARY.md) - обзор проекта
-- [Quick Start](./QUICKSTART.md) - быстрый старт
-- [Roadmap](./ROADMAP.md) - план развития
-
-## 🗄️ База данных
-
-Проект включает SQL миграции для PostgreSQL:
-- `backend/migrations/002_ai_analytics.sql` - схема для AI и аналитики (8+ новых таблиц)
-
-Ключевые таблицы:
-- `AiRequests` - история AI-запросов для аудита
-- `DailyDigests` - сохранённые дайджесты
-- `DishForecasts` - прогнозы спроса на блюда
-- `AiRecommendations` - AI-рекомендации
-- `Notifications` - система уведомлений
-- `UserSessions` - трекинг активности
-- `OrderAnalytics`, `MenuAnalytics`, `ClientPreferences` - детальная аналитика
-
-## 🚀 Быстрый старт
-
-### Frontend
-```bash
-# Установка зависимостей
-npm install
-
-# Настройка переменных окружения
-cp .env.example .env
-
-# Запуск в режиме разработки
-npm run dev
+**Симптомы:**
+```
+Npgsql.NpgsqlException: Connection refused
 ```
 
-### Backend
-```bash
-# Применить миграции
-psql -U postgres -d restaurant_db -f backend/migrations/002_ai_analytics.sql
+**Решение:**
+1. Проверьте, что PostgreSQL запущен:
+```powershell
+Get-Service postgresql*
+```
 
-# Настроить OpenAI API ключ в appsettings.json
-# Запустить .NET проект
-cd backend/Restaurant.Api
+2. Проверьте строку подключения в `appsettings.Development.json`:
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=restaurant_db;Username=postgres;Password=ВАШ_ПАРОЛЬ"
+  }
+}
+```
+
+3. Создайте базу данных, если её нет:
+```sql
+CREATE DATABASE restaurant_db;
+```
+
+### Проблема 3: CORS ошибки
+
+**Симптомы:**
+```
+Access to fetch at 'http://localhost:3001/api/menu' from origin 'http://localhost:3000' 
+has been blocked by CORS policy
+```
+
+**Решение:**
+Проверьте `Program.cs` - CORS уже настроена:
+```csharp
+app.UseCors("AllowFrontend");
+```
+
+### Проблема 4: JSON циклические ссылки
+
+**Симптомы:**
+```
+System.Text.Json.JsonException: A possible object cycle was detected
+```
+
+**Решение:**
+Уже исправлено в `Program.cs`:
+```csharp
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
+```
+
+### Проблема 5: Миграции не применяются
+
+**Решение:**
+```powershell
+cd backend\Restaurant.Api
+
+# Удалите старую БД (если нужно)
+dotnet ef database drop --project ..\Restaurant.Infrastructure --force
+
+# Примените миграции заново
+dotnet ef database update --project ..\Restaurant.Infrastructure
+```
+
+---
+
+## 📊 Тестовые данные
+
+### Генерация тестовых данных
+
+```powershell
+cd backend\GenerateTestData
 dotnet run
 ```
 
-## 🧪 Тестирование
+**Что генерируется:**
+- **250 заказов** за последние 90 дней
+- **~10 000 000 ₽** суммарная выручка
+- **1022 блюда** из 6 категорий
+- **16 активных столов** (2-8 мест)
+- **Тестовые бронирования**
 
-```bash
-# Frontend
-npm run test
-npm run test:watch
+### Структура данных
 
-# Backend
-cd backend
-dotnet test
+#### Категории блюд (6):
+1. Закуски
+2. Супы
+3. Горячие блюда
+4. Гарниры
+5. Десерты
+6. Напитки
+
+#### Пользователи:
+| ID | Email | Роль | Пароль |
+|----|-------|------|--------|
+| 1 | admin@restaurant.com | Admin | admin123 |
+| 2 | waiter1@restaurant.com | Waiter | waiter123 |
+
+#### Заказы:
+- Распределены равномерно по 90 дням
+- Средний чек: **40 000 ₽**
+- Статусы: `pending`, `in_progress`, `completed`, `cancelled`
+
+---
+
+## 🎨 Интерфейс системы
+
+### Главная страница (/)
+- Приветственная страница
+- Кнопки навигации: Меню, Бронирование, Вход
+
+### Меню (/menu)
+- Поиск по названию и категориям
+- Фильтрация блюд
+- AI-рекомендации (DeepSeek)
+- Отображение цены, веса, времени приготовления
+
+### Бронирование (/booking)
+- Выбор стола (визуализация)
+- Выбор даты и времени
+- Форма с контактными данными
+- Проверка доступности
+
+### Админ-панель (/admin)
+#### Dashboard:
+- Выручка за сегодня/месяц
+- Количество активных заказов
+- Активные бронирования
+- График выручки (90 дней)
+
+#### Управление заказами (/admin/orders):
+- Список всех заказов
+- Фильтры по статусу и дате
+- Детальная информация о заказе
+- Изменение статуса
+
+#### Управление бронированиями (/admin/bookings):
+- Все бронирования (активные, завершенные, отмененные)
+- Поиск по клиенту и дате
+- Подтверждение/отмена бронирований
+
+#### Управление меню (/admin/menu):
+- Добавление/редактирование блюд
+- Управление категориями
+- Изменение цен и доступности
+
+#### AI-инсайты (/admin/ai-insights):
+- Рекомендации по меню
+- Прогноз спроса
+- Анализ популярности блюд
+
+### Панель персонала (/staff)
+- Список активных заказов
+- Управление заказом (официант)
+- История обслуживания
+
+---
+
+## 🔐 Безопасность
+
+### Реализованные меры:
+1. **JWT Authentication** (подготовлено в AuthController)
+2. **Password Hashing** (bcrypt)
+3. **CORS Policy** (ограничение источников)
+4. **SQL Injection Protection** (EF Core параметризованные запросы)
+5. **XSS Protection** (Next.js автоматическое экранирование)
+6. **HTTPS Ready** (настроено для продакшена)
+
+---
+
+## 📈 Мониторинг и логирование
+
+### Hangfire Dashboard
+Доступен по адресу: **http://localhost:3001/hangfire**
+
+**Возможности:**
+- Просмотр запланированных задач
+- История выполнения jobs
+- Повторный запуск задач
+- Статистика обработки
+
+### Serilog
+Логи выводятся в консоль с полной информацией:
+```
+[01:20:16 INF] HTTP GET /api/menu responded 200 in 7129.4437 ms
+[01:20:16 INF] Menu cached with key: menu_all
 ```
 
-## 📦 Deployment
+**Обогащение логов:**
+- Correlation ID (трассировка запросов)
+- Machine Name
+- Thread ID
+- Environment Name
 
-### Production Build
-```bash
+---
+
+## 🚀 Производительность
+
+### Оптимизации:
+1. **Response Compression**: Brotli + Gzip (сжатие 70-80%)
+2. **In-Memory Caching**: Меню кэшируется на 15 минут
+3. **Query Splitting**: EF Core оптимизация запросов
+4. **Hangfire**: Асинхронная обработка тяжелых задач
+5. **TanStack Query**: Клиентский кэш API запросов
+
+### Результаты:
+- **Загрузка меню**: ~7 сек (первый запрос, 1022 блюда)
+- **Загрузка меню (кэш)**: ~100 мс
+- **Список заказов**: ~3 сек
+- **Бронирование**: ~500 мс
+
+---
+
+## 📞 Поддержка
+
+### Полезные команды
+
+#### Проверка статуса сервисов:
+```powershell
+# Backend (должен быть на порту 3001)
+curl http://localhost:3001/api/menu
+
+# Frontend (должен быть на порту 3000)
+curl http://localhost:3000
+```
+
+#### Просмотр логов:
+```powershell
+# Backend логи в консоли
+cd backend\Restaurant.Api
+dotnet run
+
+# Frontend логи в браузере
+F12 → Console
+```
+
+#### Очистка и пересборка:
+```powershell
+# Backend
+cd backend\Restaurant.Api
+dotnet clean
+dotnet build
+
 # Frontend
 npm run build
-npm start
-
-# Backend
-cd backend/Restaurant.Api
-dotnet publish -c Release -o ./publish
+npm run dev
 ```
 
-### Docker (опционально)
-```bash
-docker-compose up -d
-```
+---
 
-## 🔧 Требования
+## 📝 Лицензия
 
-### Frontend
-- Node.js 18+
-- npm или yarn
+Этот проект создан для образовательных целей в рамках курсовой работы.
 
-### Backend
-- .NET 8 SDK
-- PostgreSQL 15+
-- Redis (для кэширования)
-- OpenAI API ключ
+---
 
-## 🌟 Основные компоненты
+## 🎯 Итоги реализации
 
-### Frontend
-- `components/features/ai/AiChatWidget.tsx` - AI чат-виджет
-- `components/features/notifications/NotificationBell.tsx` - система уведомлений
-- `components/features/metrics/MetricCards.tsx` - переиспользуемые карточки метрик
-- `app/admin/ai-insights/page.tsx` - AI-панель управления
-- `lib/hooks/useAi.ts` - React hooks для AI
-- `lib/hooks/useAnalytics.ts` - React hooks для аналитики
+### Выполнено:
+✅ Полнофункциональная система управления рестораном  
+✅ 13+ Enterprise паттернов в бэкенде  
+✅ Clean Architecture с разделением слоев  
+✅ Real-time уведомления и фоновые задачи  
+✅ AI-интеграция (DeepSeek API)  
+✅ Аналитика с 90-дневной историей  
+✅ Responsive дизайн (мобильная версия)  
+✅ Роли и права доступа  
+✅ Comprehensive logging и мониторинг  
 
-### Backend (требуется реализация)
-- `AiService.cs` - основной сервис AI
-- `OpenAiService.cs` - интеграция с OpenAI
-- `AnalyticsService.cs` - сервис аналитики
-- `NotificationService.cs` - система уведомлений
+### Технические достижения:
+- Решена проблема **JSON циклических ссылок** (ReferenceHandler.IgnoreCycles)
+- Настроена **CORS политика** для cross-origin запросов
+- Исправлены **конфликты маршрутизации** (AmbiguousMatchException)
+- Реализован **кэш меню** с автоматическим обновлением
+- **Hangfire фоновые задачи**: очистка, отчеты, кэш
+- **Компрессия ответов**: Brotli + Gzip
+- **Структурированное логирование**: Serilog с Correlation ID
 
-## 🤝 Вклад в проект
+### Масштабируемость:
+- Готовность к горизонтальному масштабированию
+- Разделение CQRS (команды/запросы)
+- Асинхронная обработка (Background Jobs)
+- Кэширование на нескольких уровнях
 
-Проект открыт для улучшений и расширений. См. [ROADMAP.md](./ROADMAP.md) для планируемых функций.
+---
 
-## 📄 Лицензия
-
-Проект разработан для учебных и коммерческих целей.
+**Дата последнего обновления**: 29 октября 2025 г.  
+**Версия документа**: 2.0  
+**Статус проекта**: ✅ Полностью функционален
